@@ -1,0 +1,539 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Escuela de Derecho — Universidad Metropolitana</title>
+  <meta name="description" content="Escuela de Derecho de la Universidad Metropolitana (UNIMET), Caracas. Plan de estudios en 12 trimestres, competencias, guía del estudiante y orientación para la comunidad unimetana.">
+  <meta name="theme-color" content="#F3EFE7">
+  <meta property="og:title" content="Escuela de Derecho — Universidad Metropolitana">
+  <meta property="og:description" content="Abogados para un mundo globalizado e interrelacionado. Plan de estudios, competencias y guía del estudiante.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="img/og.jpg">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&family=Archivo:wdth,wght@62..125,400..700&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="is-loading">
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <!-- Isotipo UNIMET: tres columnas con el corte diagonal -->
+      <symbol id="iso" viewBox="0 0 250 448">
+        <path d="M0 0H62V214.3L0 236ZM0 269L62 247.3V448H0ZM94 0H156V181.4L94 203.1ZM94 236.1L156 214.4V448H94ZM188 203.2L250 181.5V448H188Z" fill="currentColor"/>
+      </symbol>
+      <!-- Logo de la Escuela: sello rojo con isotipo y UNIMET / Derecho -->
+      <symbol id="logo-derecho" viewBox="0 0 804 804">
+        <circle cx="402" cy="402" r="402" fill="#D40134"/>
+        <use href="#iso" x="62" y="205" width="197" height="353" color="#fff"/>
+        <text x="322" y="432" font-family="Roboto Condensed, Archivo, sans-serif" font-weight="700" font-size="122" fill="#fff" textLength="415" lengthAdjust="spacingAndGlyphs">UNIMET</text>
+        <text x="322" y="563" font-family="Roboto Condensed, Archivo, sans-serif" font-weight="400" font-size="122" fill="#fff" textLength="380" lengthAdjust="spacingAndGlyphs">Derecho</text>
+      </symbol>
+      <!-- Logo institucional Universidad Metropolitana -->
+      <symbol id="logo-unimet" viewBox="0 0 1230 486">
+        <use href="#iso" x="0" y="0" width="250" height="448" color="#FF8200"/>
+        <text x="306" y="290" font-family="Roboto Condensed, Archivo, sans-serif" font-weight="400" font-size="159" fill="currentColor" textLength="757" lengthAdjust="spacingAndGlyphs">Universidad</text>
+        <text x="306" y="444" font-family="Roboto Condensed, Archivo, sans-serif" font-weight="700" font-size="159" fill="currentColor" textLength="919" lengthAdjust="spacingAndGlyphs">Metropolitana</text>
+      </symbol>
+    </defs>
+  </svg>
+
+  <!-- LOADER: el sello -->
+  <div class="loader" aria-hidden="true">
+    <svg class="loader__logo" viewBox="0 0 804 804">
+      <defs><clipPath id="ld-clip"><rect x="300" y="300" width="480" height="300"/></clipPath></defs>
+      <circle class="ld-disc" cx="402" cy="402" r="402"/>
+      <g transform="translate(62 205) scale(.788)" fill="#fff">
+        <path class="lb" d="M0 0H62V214.3L0 236ZM0 269L62 247.3V448H0Z"/>
+        <path class="lb" d="M94 0H156V181.4L94 203.1ZM94 236.1L156 214.4V448H94Z"/>
+        <path class="lb" d="M188 203.2L250 181.5V448H188Z"/>
+      </g>
+      <g clip-path="url(#ld-clip)" fill="#fff" font-family="Roboto Condensed, Archivo, sans-serif" font-size="122">
+        <text class="ld-t" x="322" y="432" font-weight="700" textLength="415" lengthAdjust="spacingAndGlyphs">UNIMET</text>
+        <text class="ld-t" x="322" y="563" font-weight="400" textLength="380" lengthAdjust="spacingAndGlyphs">Derecho</text>
+      </g>
+    </svg>
+    <svg class="loader__unimet" role="img" aria-label="Universidad Metropolitana"><use href="#logo-unimet"/></svg>
+  </div>
+
+  <!-- HEADER -->
+  <header class="header">
+    <a href="#inicio" class="brand" aria-label="Escuela de Derecho UNIMET, ir al inicio">
+      <svg class="brand__logo"><use href="#logo-derecho"/></svg>
+      <span class="brand__word"><b>Escuela de Derecho</b><span>Universidad Metropolitana</span></span>
+    </a>
+    <nav class="header__nav" aria-label="Principal">
+      <a href="#carrera">La carrera</a>
+      <a href="#competencias">Competencias</a>
+      <a href="#plan">Plan de estudios</a>
+      <a href="#guia">Guía</a>
+      <a href="#preguntas">Preguntas</a>
+    </nav>
+    <a href="#contacto" class="header__cta label">Contacto</a>
+    <button class="header__index" aria-expanded="false" aria-controls="indice">
+      <span class="label">Índice</span><i></i><i></i>
+    </button>
+  </header>
+
+  <!-- ÍNDICE (menú) -->
+  <div class="indice" id="indice" aria-hidden="true">
+    <div class="indice__inner">
+      <p class="label indice__kicker">Índice general</p>
+      <ol class="indice__list">
+        <li><a href="#objetivo"><span class="n">Preámbulo</span><span class="t">Objetivo de la carrera</span><span class="dots"></span><span class="p">01</span></a></li>
+        <li><a href="#carrera"><span class="n">Título I</span><span class="t">La carrera</span><span class="dots"></span><span class="p">02</span></a></li>
+        <li><a href="#competencias"><span class="n">Título II</span><span class="t">Competencias</span><span class="dots"></span><span class="p">03</span></a></li>
+        <li><a href="#plan"><span class="n">Título III</span><span class="t">Plan de estudios</span><span class="dots"></span><span class="p">04</span></a></li>
+        <li><a href="#perfil"><span class="n">Título IV</span><span class="t">Perfil y futuro</span><span class="dots"></span><span class="p">05</span></a></li>
+        <li><a href="#guia"><span class="n">Título V</span><span class="t">Guía del estudiante</span><span class="dots"></span><span class="p">06</span></a></li>
+        <li><a href="#comunidad"><span class="n">Título VI</span><span class="t">Más allá del aula</span><span class="dots"></span><span class="p">07</span></a></li>
+        <li><a href="#preguntas"><span class="n">Título VII</span><span class="t">Preguntas frecuentes</span><span class="dots"></span><span class="p">08</span></a></li>
+        <li><a href="#contacto"><span class="n">Disposición final</span><span class="t">Contacto</span><span class="dots"></span><span class="p">09</span></a></li>
+      </ol>
+      <p class="indice__foot label">Escuela de Derecho · Facultad de Estudios Jurídicos y Políticos · Universidad Metropolitana</p>
+    </div>
+  </div>
+
+  <!-- Encabezado corrido (como en los códigos) -->
+  <div class="runhead label" aria-hidden="true">
+    <span class="runhead__sec">§</span><span class="runhead__txt js-runhead">Escuela de Derecho</span>
+    <span class="runhead__bar"><i class="js-progress"></i></span>
+  </div>
+
+  <main>
+
+    <!-- HERO: entrar por las columnas -->
+    <section class="hero" id="inicio" data-head="dark">
+      <div class="hero__stage">
+        <div class="hero__photo"><img src="img/campus-caminata.jpg" alt="Estudiantes caminando junto al letrero UNIMET en el campus de la Universidad Metropolitana" fetchpriority="high"></div>
+        <svg class="hero__cover" aria-hidden="true"><path class="js-cover" fill-rule="evenodd"/></svg>
+
+        <div class="hero__copy">
+          <p class="hero__meta label"><span>Universidad Metropolitana</span><span>Caracas, Venezuela</span></p>
+          <p class="hero__kicker"><em>Escuela de</em></p>
+          <h1 class="hero__title"><span class="js-hero-word">Derecho</span></h1>
+          <div class="hero__slot js-iso-slot" aria-hidden="true"></div>
+          <p class="hero__lede">La formación de un abogado con las capacidades que requiere un profesional moderno, <em>preparado para un mundo globalizado e interrelacionado.</em></p>
+          <p class="hero__scroll label"><span class="hero__scroll-line"></span>Desliza para entrar</p>
+        </div>
+
+        <div class="hero__after">
+          <p class="label">Facultad de Estudios Jurídicos y Políticos</p>
+          <p class="hero__after-title">Abogados para un mundo <em>interrelacionado.</em></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PREÁMBULO -->
+    <section class="preambulo sec" id="objetivo" data-head="dark" data-run="Preámbulo · Objetivo de la carrera">
+      <div class="wrap">
+        <header class="sec__head">
+          <p class="label sec__num">Preámbulo</p>
+          <p class="label sec__name">Objetivo de la carrera</p>
+        </header>
+        <p class="preambulo__text js-words">
+          Formar un abogado emprendedor con alta competencia técnica y ética, cuyo enfoque es <em>prevenir conflictos</em> y ser un <em>agente de cambio,</em> capaz de liderar en el sector económico y contribuir a la restauración del <em>Estado de Derecho.</em><sup>1</sup>
+        </p>
+        <p class="nota"><sup>1</sup> Objetivo de la carrera de Derecho, Universidad Metropolitana.</p>
+      </div>
+    </section>
+
+    <!-- TÍTULO I · LA CARRERA -->
+    <section class="carrera sec" id="carrera" data-head="dark" data-run="Título I · La carrera">
+      <div class="wrap">
+        <header class="sec__head">
+          <p class="label sec__num">Título I</p>
+          <p class="label sec__name">La carrera</p>
+        </header>
+
+        <div class="carrera__grid">
+          <figure class="carrera__fig reveal-img">
+            <img src="img/abogada.jpg" alt="Estudiante de Derecho revisando un documento junto a una balanza" loading="lazy">
+          </figure>
+          <div class="carrera__body">
+            <h2 class="display js-lines">Un abogado que <em>previene</em> antes de litigar.</h2>
+            <p class="body-lg js-fade">La Escuela de Derecho de la Universidad Metropolitana forma juristas capaces de negociar, razonar jurídicamente, argumentar e investigar. Un currículo flexible, grupos reducidos y una mirada internacional que entiende el Derecho como herramienta para emprender, construir instituciones y servir.</p>
+            <a class="link-arrow js-fade" href="#plan">Ver el plan de estudios <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+
+        <dl class="cifras">
+          <div class="cifra">
+            <dt class="cifra__n"><span class="js-count" data-to="12">12</span></dt>
+            <dd><b>Trimestres</b> de formación, de Introducción al Derecho al Análisis Económico del Derecho.</dd>
+          </div>
+          <div class="cifra">
+            <dt class="cifra__n"><span class="js-count" data-to="60">60</span></dt>
+            <dd><b>Asignaturas,</b> cinco de ellas electivas para orientar la carrera hacia tus intereses.</dd>
+          </div>
+          <div class="cifra">
+            <dt class="cifra__n"><span class="js-count" data-to="3">3</span></dt>
+            <dd><b>Planes combinados</b> con Estudios Internacionales y Estudios Liberales.</dd>
+          </div>
+          <div class="cifra">
+            <dt class="cifra__n cifra__n--word">París</dt>
+            <dd><b>Intercambio</b> con el Instituto de Estudios Políticos de Francia, Sciences Po.</dd>
+          </div>
+        </dl>
+
+        <div class="cobrand js-fade">
+          <svg class="cobrand__derecho" role="img" aria-label="UNIMET Derecho"><use href="#logo-derecho"/></svg>
+          <span class="cobrand__rule"></span>
+          <svg class="cobrand__unimet" role="img" aria-label="Universidad Metropolitana"><use href="#logo-unimet"/></svg>
+          <p class="cobrand__txt">Una escuela de la <b>Facultad de Estudios Jurídicos y Políticos</b> de la Universidad Metropolitana.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TÍTULO II · COMPETENCIAS -->
+    <section class="competencias" id="competencias" data-head="light" data-run="Título II · Competencias">
+      <div class="comp__track">
+        <div class="comp__sticky">
+          <div class="comp__intro">
+            <p class="label sec__num">Título II</p>
+            <h2 class="display">Principales <em>competencias.</em></h2>
+            <p class="body">Cuatro artículos que ordenan lo que un abogado unimetano sabe hacer al egresar, y las asignaturas donde se construye cada uno.</p>
+            <p class="comp__hint label"><span class="js-art-n">01</span> / 04</p>
+          </div>
+          <div class="comp__rail">
+            <article class="art">
+              <p class="art__n">Art. 1</p>
+              <h3 class="art__t">Razonamiento y análisis jurídico</h3>
+              <p class="art__p">Leer una norma, desarmar un caso y construir un argumento que resista la réplica. La lógica antes que la memoria.</p>
+              <p class="art__label label">Se forma en</p>
+              <ul class="art__tags"><li>Lógica y Argumentación</li><li>Análisis Jurídico</li><li>Argumentos y Pruebas</li><li>Sistema de Justicia Constitucional</li></ul>
+            </article>
+            <article class="art">
+              <p class="art__n">Art. 2</p>
+              <h3 class="art__t">Competencias emprendedoras y de gestión</h3>
+              <p class="art__p">El abogado como estratega: entiende el negocio, diseña estructuras y gestiona su propia práctica profesional.</p>
+              <p class="art__label label">Se forma en</p>
+              <ul class="art__tags"><li>Competencias para Emprender</li><li>Ideas Emprendedoras</li><li>Gestión Profesional</li><li>Análisis Económico del Derecho</li></ul>
+            </article>
+            <article class="art">
+              <p class="art__n">Art. 3</p>
+              <h3 class="art__t">Competencias internacionales y de idioma</h3>
+              <p class="art__p">Pensar el Derecho más allá de la frontera: tratados, conflictos de leyes, sistemas comparados y un segundo idioma de trabajo.</p>
+              <p class="art__label label">Se forma en</p>
+              <ul class="art__tags"><li>Inglés IV y V</li><li>Derecho Internacional Público y Privado</li><li>Derecho Comparado</li><li>Mundo Global</li></ul>
+            </article>
+            <article class="art">
+              <p class="art__n">Art. 4</p>
+              <h3 class="art__t">Vocación de servicio y ética</h3>
+              <p class="art__p">El Derecho como compromiso con las personas, la democracia y el Estado de Derecho. La ética no es una materia: es el método.</p>
+              <p class="art__label label">Se forma en</p>
+              <ul class="art__tags"><li>Derechos Humanos</li><li>Ética de los Negocios y del Derecho</li><li>Servicio Comunitario</li><li>Venezuela: Identidad y Contexto</li></ul>
+            </article>
+          </div>
+        </div>
+      </div>
+
+      <div class="egreso wrap">
+        <header class="egreso__head">
+          <p class="label">Perfil de egreso</p>
+          <h3 class="display-sm js-lines">Tres dimensiones del <em>abogado unimetano.</em></h3>
+        </header>
+        <div class="egreso__cols">
+          <div class="egreso__col js-fade">
+            <p class="egreso__k">i.</p>
+            <h4>Conocimiento y aplicación</h4>
+            <ul><li>Razonamiento y argumentación jurídica</li><li>Derecho de vanguardia</li><li>Análisis crítico de las instituciones</li><li>Escenarios globalizados</li></ul>
+          </div>
+          <div class="egreso__col js-fade">
+            <p class="egreso__k">ii.</p>
+            <h4>Interacción y desarrollo</h4>
+            <ul><li>Resolución de conflictos y mediación</li><li>Innovación</li><li>Adaptabilidad profesional</li><li>Liderazgo estratégico</li></ul>
+          </div>
+          <div class="egreso__col js-fade">
+            <p class="egreso__k">iii.</p>
+            <h4>Actuación responsable</h4>
+            <ul><li>Ética</li><li>Responsabilidad social empresarial</li><li>Compromiso democrático</li><li>Sustentabilidad</li></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TÍTULO III · PLAN DE ESTUDIOS -->
+    <section class="plan sec" id="plan" data-head="dark" data-run="Título III · Plan de estudios">
+      <div class="wrap">
+        <header class="sec__head">
+          <p class="label sec__num">Título III</p>
+          <p class="label sec__name">Plan de estudios</p>
+        </header>
+        <div class="plan__top">
+          <h2 class="display js-lines">El plan, <em>trimestre</em> a trimestre.</h2>
+          <p class="body js-fade">Doce trimestres, cinco asignaturas por trimestre. Elige un área para ver cómo recorre la carrera, o toca una asignatura para ubicarla.</p>
+        </div>
+
+        <div class="plan__filters" role="group" aria-label="Filtrar por área">
+          <button class="chip is-on" data-area="all">Todas</button>
+          <button class="chip" data-area="fund"><i></i>Fundamentos</button>
+          <button class="chip" data-area="civil"><i></i>Civil</button>
+          <button class="chip" data-area="publico"><i></i>Público</button>
+          <button class="chip" data-area="empresa"><i></i>Empresa y trabajo</button>
+          <button class="chip" data-area="proc"><i></i>Procesal y penal</button>
+          <button class="chip" data-area="intl"><i></i>Internacional</button>
+          <button class="chip" data-area="integral"><i></i>Formación integral</button>
+        </div>
+
+        <div class="malla" data-area="all">
+          <div class="malla__scroll js-malla"></div>
+          <div class="malla__tramos" aria-hidden="true">
+            <span style="--c:4">Fundamentos</span><span style="--c:4">Núcleo jurídico</span><span style="--c:4">Profundización</span>
+          </div>
+        </div>
+
+        <div class="requisitos">
+          <p class="label">Además del plan, para egresar</p>
+          <ol>
+            <li><span>01</span>Servicio Comunitario</li>
+            <li><span>02</span>Pasantía Académica</li>
+            <li><span>03</span>Examen Comprehensivo</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- TÍTULO IV · PERFIL Y FUTURO -->
+    <section class="perfil sec" id="perfil" data-head="dark" data-run="Título IV · Perfil y futuro">
+      <div class="wrap perfil__grid">
+        <div class="perfil__media">
+          <figure class="perfil__fig reveal-img"><img src="img/campus-caminata.jpg" alt="Estudiantes de la UNIMET caminando por el campus" loading="lazy"></figure>
+        </div>
+        <div class="perfil__body">
+          <header class="sec__head sec__head--inline">
+            <p class="label sec__num">Título IV</p>
+            <p class="label sec__name">Perfil del estudiante</p>
+          </header>
+          <h2 class="display js-lines">¿Es para <em>ti?</em></h2>
+          <ol class="rasgos">
+            <li class="js-fade"><span class="rasgos__n">a)</span>Amplia curiosidad intelectual y sólida cultura general.</li>
+            <li class="js-fade"><span class="rasgos__n">b)</span>Interés en la resolución de conflictos y necesidades jurídicas.</li>
+            <li class="js-fade"><span class="rasgos__n">c)</span>Aspiración a una formación integral, emprendedora y con responsabilidad social.</li>
+          </ol>
+
+          <div class="destinos">
+            <p class="label">Al egresar, podrás</p>
+            <ul>
+              <li class="destino"><span>Fundar tu propia firma de abogados</span><i>→</i></li>
+              <li class="destino"><span>Incorporarte a las grandes firmas del país</span><i>→</i></li>
+              <li class="destino"><span>Asesorar al sector público y privado</span><i>→</i></li>
+              <li class="destino"><span>Trabajar en organismos internacionales</span><i>→</i></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TÍTULO V · GUÍA -->
+    <section class="guia" id="guia" data-head="light" data-run="Título V · Guía del estudiante">
+      <div class="wrap guia__intro">
+        <p class="label sec__num">Título V</p>
+        <h2 class="display-xl js-lines">Guía del <em>estudiante.</em></h2>
+        <p class="body">Herramientas para los primeros trimestres y para toda la carrera: cómo leer una sentencia, cómo se ordenan las normas y las máximas latinas que escucharás desde la primera clase.</p>
+      </div>
+
+      <!-- Cómo leer una sentencia -->
+      <div class="lectura">
+        <div class="lectura__sticky">
+          <div class="wrap lectura__grid">
+            <div class="lectura__steps">
+              <p class="label lectura__kicker">Capítulo I · Cómo leer una sentencia</p>
+              <ol class="pasos">
+                <li class="paso is-on"><span class="paso__n">1</span><div><h4>Identifica el tribunal y las partes</h4><p>Quién decide, en qué sala o instancia, y quién demanda a quién. El contexto define el alcance de lo decidido.</p></div></li>
+                <li class="paso"><span class="paso__n">2</span><div><h4>Reconstruye los hechos</h4><p>Separa lo que ocurrió de lo que cada parte alega. Una línea de tiempo simple aclara casi cualquier caso.</p></div></li>
+                <li class="paso"><span class="paso__n">3</span><div><h4>Formula el problema jurídico</h4><p>Escribe en una pregunta qué debe resolver el tribunal. Si no puedes formularla, todavía no entendiste el caso.</p></div></li>
+                <li class="paso"><span class="paso__n">4</span><div><h4>Encuentra la motivación</h4><p>Las razones de la decisión: normas aplicadas, interpretación y precedentes. Aquí vive la <i>ratio decidendi.</i></p></div></li>
+                <li class="paso"><span class="paso__n">5</span><div><h4>Lee el dispositivo</h4><p>La parte que decide: con lugar, sin lugar, anula, ordena. Contrástalo con el problema que formulaste.</p></div></li>
+              </ol>
+            </div>
+            <div class="doc" aria-hidden="true">
+              <div class="doc__paper">
+                <div class="doc__seal"><svg><use href="#iso"/></svg></div>
+                <div class="doc__blk" data-b="1"><span class="doc__tag">Tribunal · Partes</span><i style="--w:62%"></i><i style="--w:44%"></i></div>
+                <div class="doc__blk" data-b="2"><span class="doc__tag">Hechos</span><i style="--w:96%"></i><i style="--w:88%"></i><i style="--w:92%"></i><i style="--w:54%"></i></div>
+                <div class="doc__blk" data-b="3"><span class="doc__tag">Problema jurídico</span><i style="--w:78%"></i><i style="--w:36%"></i></div>
+                <div class="doc__blk" data-b="4"><span class="doc__tag">Motivación</span><i style="--w:94%"></i><i style="--w:97%"></i><i style="--w:90%"></i><i style="--w:95%"></i><i style="--w:70%"></i></div>
+                <div class="doc__blk" data-b="5"><span class="doc__tag">Dispositivo</span><i style="--w:84%"></i><i style="--w:48%"></i></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Jerarquía de las normas -->
+      <div class="piramide wrap">
+        <div class="piramide__text">
+          <p class="label lectura__kicker">Capítulo II · El orden de las normas</p>
+          <h3 class="display-sm js-lines">No todas las normas <em>pesan</em> igual.</h3>
+          <p class="body js-fade">En el ordenamiento venezolano, cada norma encuentra su validez en la superior. Toca un nivel para ver su fundamento en la Constitución de 1999.</p>
+          <div class="piramide__info" aria-live="polite">
+            <p class="piramide__info-k label js-pk">Artículo 7 CRBV</p>
+            <p class="piramide__info-t js-pt">La Constitución es la norma suprema y el fundamento del ordenamiento jurídico. Todas las personas y los órganos del Poder Público están sujetos a ella.</p>
+          </div>
+        </div>
+        <ol class="piramide__fig" role="list">
+          <li class="nivel is-on" style="--i:0" data-k="Artículo 7 CRBV" data-t="La Constitución es la norma suprema y el fundamento del ordenamiento jurídico. Todas las personas y los órganos del Poder Público están sujetos a ella."><button><span>Constitución</span></button></li>
+          <li class="nivel" style="--i:1" data-k="Artículo 23 CRBV" data-t="Los tratados, pactos y convenciones sobre derechos humanos suscritos y ratificados por Venezuela tienen jerarquía constitucional y prevalecen en el orden interno en la medida en que contengan normas más favorables."><button><span>Tratados de derechos humanos</span></button></li>
+          <li class="nivel" style="--i:2" data-k="Artículo 203 CRBV" data-t="Las leyes orgánicas organizan los poderes públicos, desarrollan derechos constitucionales o sirven de marco a otras leyes. Su aprobación exige mayoría calificada de la Asamblea Nacional."><button><span>Leyes orgánicas</span></button></li>
+          <li class="nivel" style="--i:3" data-k="Artículos 202 y 236.8 CRBV" data-t="Ley es el acto sancionado por la Asamblea Nacional como cuerpo legislador. Los decretos con rango, valor y fuerza de ley los dicta el Presidente previa autorización mediante ley habilitante."><button><span>Leyes y decretos-ley</span></button></li>
+          <li class="nivel" style="--i:4" data-k="Artículo 236.10 CRBV" data-t="El Ejecutivo puede reglamentar total o parcialmente las leyes, sin alterar su espíritu, propósito y razón."><button><span>Reglamentos</span></button></li>
+          <li class="nivel" style="--i:5" data-k="Actos de la Administración" data-t="Actos administrativos de efectos generales y particulares: deben respetar todas las normas de rango superior y pueden ser controlados por la jurisdicción contencioso-administrativa."><button><span>Actos administrativos</span></button></li>
+        </ol>
+      </div>
+
+      <!-- Brocardos -->
+      <div class="brocardos">
+        <div class="marquee" aria-hidden="true">
+          <div class="marquee__row js-marquee">
+            <span>Pacta sunt servanda</span><b>§</b><span>In dubio pro reo</span><b>§</b><span>Iura novit curia</span><b>§</b><span>Non bis in idem</span><b>§</b><span>Audi alteram partem</span><b>§</b>
+          </div>
+        </div>
+        <div class="wrap">
+          <div class="brocardos__head">
+            <p class="label lectura__kicker">Capítulo III · Brocardos</p>
+            <h3 class="display-sm js-lines">Máximas latinas que <em>todavía</em> deciden casos.</h3>
+          </div>
+          <div class="brocardos__grid">
+            <button class="broc"><span class="broc__la">Pacta sunt servanda</span><span class="broc__es">Los pactos deben cumplirse. Fundamento de la fuerza obligatoria de los contratos y de los tratados.</span></button>
+            <button class="broc"><span class="broc__la">Nullum crimen, nulla poena sine lege</span><span class="broc__es">No hay delito ni pena sin ley previa. Principio de legalidad penal.</span></button>
+            <button class="broc"><span class="broc__la">In dubio pro reo</span><span class="broc__es">En caso de duda, a favor del acusado. Expresión de la presunción de inocencia.</span></button>
+            <button class="broc"><span class="broc__la">Non bis in idem</span><span class="broc__es">Nadie puede ser juzgado ni sancionado dos veces por los mismos hechos.</span></button>
+            <button class="broc"><span class="broc__la">Audi alteram partem</span><span class="broc__es">Escucha a la otra parte. Núcleo del derecho a la defensa y del debido proceso.</span></button>
+            <button class="broc"><span class="broc__la">Iura novit curia</span><span class="broc__es">El juez conoce el Derecho. Las partes aportan los hechos; el tribunal aplica la norma.</span></button>
+            <button class="broc"><span class="broc__la">Lex posterior derogat priori</span><span class="broc__es">La ley posterior deroga a la anterior de igual rango.</span></button>
+            <button class="broc"><span class="broc__la">Lex specialis derogat generali</span><span class="broc__es">La norma especial prevalece sobre la general.</span></button>
+            <button class="broc"><span class="broc__la">Onus probandi incumbit actori</span><span class="broc__es">La carga de la prueba corresponde a quien afirma.</span></button>
+          </div>
+          <p class="nota nota--light">Toca cada máxima para leer su sentido.</p>
+        </div>
+      </div>
+
+      <!-- Fuentes -->
+      <div class="fuentes wrap">
+        <p class="label lectura__kicker">Capítulo IV · Dónde consultar</p>
+        <ul class="fuentes__list">
+          <li><a href="http://www.tsj.gob.ve" target="_blank" rel="noopener"><span class="fuentes__n">Tribunal Supremo de Justicia</span><span class="fuentes__d">Jurisprudencia de todas las Salas</span><span class="fuentes__a">↗</span></a></li>
+          <li><a href="https://www.acienpol.org.ve" target="_blank" rel="noopener"><span class="fuentes__n">Academia de Ciencias Políticas y Sociales</span><span class="fuentes__d">Doctrina y publicaciones jurídicas</span><span class="fuentes__a">↗</span></a></li>
+          <li><a href="https://www.unimet.edu.ve" target="_blank" rel="noopener"><span class="fuentes__n">Biblioteca UNIMET</span><span class="fuentes__d">Catálogo y bases de datos de la Universidad</span><span class="fuentes__a">↗</span></a></li>
+          <li><a href="https://www.unimet.edu.ve/derecho/" target="_blank" rel="noopener"><span class="fuentes__n">Portal de la carrera</span><span class="fuentes__d">Información oficial de la Escuela</span><span class="fuentes__a">↗</span></a></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- TÍTULO VI · MÁS ALLÁ DEL AULA -->
+    <section class="comunidad" id="comunidad" data-head="light" data-run="Título VI · Más allá del aula">
+      <div class="comunidad__hero">
+        <div class="comunidad__img"><img src="img/aula-estudiantes.jpg" alt="Estudiantes de Derecho atentos en un auditorio" loading="lazy"></div>
+        <div class="wrap comunidad__copy">
+          <p class="label sec__num">Título VI</p>
+          <h2 class="display-xl js-lines">Más allá <em>del aula.</em></h2>
+        </div>
+      </div>
+      <div class="wrap">
+        <div class="vias">
+          <article class="via js-fade">
+            <p class="via__k label">Planes combinados</p>
+            <h3>Derecho y Estudios Internacionales. Derecho y Estudios Liberales. O los tres.</h3>
+            <p>Combina la carrera con otra licenciatura y amplía tu perfil desde el primer día.</p>
+          </article>
+          <article class="via js-fade">
+            <p class="via__k label">Intercambio</p>
+            <h3>Sciences Po, París.</h3>
+            <p>Convenio con el Instituto de Estudios Políticos de Francia para vivir el Derecho desde otra tradición jurídica.</p>
+          </article>
+          <article class="via js-fade">
+            <p class="via__k label">Pasantía Académica</p>
+            <h3>La práctica, antes del título.</h3>
+            <p>Experiencia obligatoria en el ejercicio profesional antes de egresar.</p>
+          </article>
+          <article class="via js-fade">
+            <p class="via__k label">Grupos reducidos</p>
+            <h3>Atención individual.</h3>
+            <p>Secciones pequeñas para debatir, preguntar y ser escuchado. Un currículo flexible para enfocarte en lo que te apasiona.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- TÍTULO VII · PREGUNTAS -->
+    <section class="faq sec" id="preguntas" data-head="dark" data-run="Título VII · Preguntas frecuentes">
+      <div class="wrap faq__grid">
+        <header class="faq__head">
+          <p class="label sec__num">Título VII</p>
+          <h2 class="display js-lines">Preguntas <em>frecuentes.</em></h2>
+          <figure class="faq__fig reveal-img"><img src="img/campus-edificio.jpg" alt="Edificio y letrero UNIMET en el campus" loading="lazy"></figure>
+        </header>
+        <div class="faq__list">
+          <details class="q"><summary><span>¿Cuánto dura la carrera?</span><i></i></summary><div class="q__a"><p>El plan de estudios se organiza en doce trimestres, con cinco asignaturas por trimestre. Además se cumplen el Servicio Comunitario, la Pasantía Académica y el Examen Comprehensivo.</p></div></details>
+          <details class="q"><summary><span>¿Puedo estudiar Derecho junto con otra carrera?</span><i></i></summary><div class="q__a"><p>Sí. Existen planes combinados de Derecho y Estudios Internacionales, Derecho y Estudios Liberales, y un plan que integra las tres carreras.</p></div></details>
+          <details class="q"><summary><span>¿Qué son las electivas?</span><i></i></summary><div class="q__a"><p>Son cinco asignaturas que eliges tú: una en el IV trimestre, una en el XI y tres en el XII. Te permiten profundizar en el área que más te interesa.</p></div></details>
+          <details class="q"><summary><span>¿Hay oportunidades de intercambio?</span><i></i></summary><div class="q__a"><p>La Escuela mantiene un convenio de intercambio con el Instituto de Estudios Políticos de Francia (Sciences Po).</p></div></details>
+          <details class="q"><summary><span>¿Cómo se trabaja la tesis?</span><i></i></summary><div class="q__a"><p>El Taller de Trabajo de Grado se cursa en el X trimestre y acompaña la elaboración de tu investigación final.</p></div></details>
+          <details class="q"><summary><span>¿En qué puedo trabajar al egresar?</span><i></i></summary><div class="q__a"><p>En tu propia firma, en las grandes firmas del país, como consultor del sector público o privado, o en organismos internacionales. La formación en negocios, tecnología y energía abre además áreas emergentes del ejercicio.</p></div></details>
+          <details class="q"><summary><span>¿A quién escribo si tengo dudas?</span><i></i></summary><div class="q__a"><p>A la Dirección de la Escuela de Derecho. Encontrarás el contacto al final de esta página.</p></div></details>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section class="contacto" id="contacto" data-head="light" data-run="Disposición final · Contacto">
+      <div class="wrap">
+        <div class="contacto__logos">
+          <svg class="contacto__derecho" role="img" aria-label="UNIMET Derecho"><use href="#logo-derecho"/></svg>
+          <svg class="contacto__unimet" role="img" aria-label="Universidad Metropolitana"><use href="#logo-unimet"/></svg>
+        </div>
+        <p class="label sec__num">Disposición final</p>
+        <h2 class="contacto__title js-lines">Escríbenos.<br><em>Te orientamos.</em></h2>
+        <div class="contacto__grid">
+          <div class="contacto__item">
+            <p class="label">Dirección de la Escuela</p>
+            <p class="contacto__big">Prof. Jesús Dávila</p>
+            <a class="contacto__mail" href="mailto:jdavila@unimet.edu.ve">jdavila@unimet.edu.ve</a>
+          </div>
+          <div class="contacto__item">
+            <p class="label">Facultad</p>
+            <p>Facultad de Estudios Jurídicos y Políticos<br>Universidad Metropolitana</p>
+          </div>
+          <div class="contacto__item">
+            <p class="label">Campus</p>
+            <p>Distribuidor Universidad, Autopista Petare–Guarenas<br>Terrazas del Ávila, Caracas</p>
+          </div>
+          <div class="contacto__item">
+            <p class="label">Síguenos</p>
+            <p class="contacto__links"><a href="https://www.instagram.com/unimet/" target="_blank" rel="noopener">Instagram</a><a href="https://www.linkedin.com/school/universidad-metropolitana---unimet/" target="_blank" rel="noopener">LinkedIn</a><a href="https://www.unimet.edu.ve/derecho/" target="_blank" rel="noopener">unimet.edu.ve</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" data-head="light">
+    <div class="wrap">
+      <div class="footer__top">
+        <div class="footer__brand">
+          <svg class="footer__derecho" role="img" aria-label="UNIMET Derecho"><use href="#logo-derecho"/></svg>
+          <svg class="footer__unimet" role="img" aria-label="Universidad Metropolitana"><use href="#logo-unimet"/></svg>
+        </div>
+        <nav class="footer__nav" aria-label="Pie de página">
+          <a href="#objetivo">Objetivo</a><a href="#carrera">La carrera</a><a href="#competencias">Competencias</a><a href="#plan">Plan de estudios</a><a href="#guia">Guía</a><a href="#preguntas">Preguntas</a><a href="#contacto">Contacto</a>
+        </nav>
+        <a href="#inicio" class="footer__top-link label">Volver al inicio ↑</a>
+      </div>
+      <p class="footer__word js-footword" data-word="Derecho" aria-hidden="true">Derecho</p>
+      <div class="footer__bottom label">
+        <span>© 2026 Escuela de Derecho · Universidad Metropolitana</span>
+        <span>Caracas, Venezuela</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/SplitText.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
