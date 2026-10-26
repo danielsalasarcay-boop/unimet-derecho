@@ -17,7 +17,7 @@
 
   gsap.registerPlugin(ScrollTrigger, SplitText);
   const mm = gsap.matchMedia();
-  const isDesk = '(min-width: 821px)';
+  const isDesk = '(min-width: 821px) and (min-height: 561px), (min-width: 821px) and (orientation: portrait)';
 
   /* ---------- Smooth scroll ---------- */
   let lenis = null;
@@ -81,7 +81,18 @@
   const seal = $('.js-seal');
   const stage = $('.hero__stage');
 
+  function fitTitle() {
+    const h1 = $('.hero__title'), word = $('.js-hero-word');
+    const col = parseFloat(getComputedStyle($('.hero__copy')).gridTemplateColumns) || innerWidth;
+    h1.style.fontSize = '100px';
+    const w = word.getBoundingClientRect().width / 100;   // ancho por px de cuerpo
+    let size = (col - 4) / (w + .28 - .19);               // padding .28em menos el margen óptico -.19em
+    size = Math.min(size, innerHeight * (innerWidth > innerHeight ? .3 : .2), 340);
+    h1.style.fontSize = size.toFixed(1) + 'px';
+  }
+
   function layoutHero() {
+    fitTitle();
     const W = stage.clientWidth, H = stage.clientHeight;
     const slot = $('.js-iso-slot').getBoundingClientRect();
     const sr = stage.getBoundingClientRect();
@@ -97,7 +108,7 @@
   /* ---------- Loader ---------- */
   function intro() {
     const loader = $('.loader');
-    const titleSplit = SplitText.create('.js-hero-word', { type: 'chars', mask: 'chars', charsClass: 'ch' });
+    const titleSplit = SplitText.create('.js-hero-word', { type: 'chars', charsClass: 'ch' });
     gsap.set(titleSplit.chars, { yPercent: 110 });
     gsap.set(['.hero__meta', '.hero__kicker', '.hero__lede', '.hero__scroll'], { autoAlpha: 0, y: 24 });
     gsap.set('.header', { yPercent: -120 });
@@ -292,19 +303,6 @@
     gsap.fromTo('.js-footword', { '--fill': '100%' }, {
       '--fill': '0%', ease: 'none',
       scrollTrigger: { trigger: '.footer', start: 'top 85%', end: 'bottom bottom', scrub: true }
-    });
-
-    // Marquee de brocardos
-    const row = $('.js-marquee');
-    row.innerHTML += row.innerHTML;
-    const loop = gsap.to(row, { xPercent: -50, duration: 38, ease: 'none', repeat: -1 });
-    ScrollTrigger.create({
-      trigger: '.brocardos', start: 'top bottom', end: 'bottom top',
-      onUpdate: s => {
-        const v = gsap.utils.clamp(-6, 6, s.getVelocity() / 400);
-        gsap.to(loop, { timeScale: 1 + Math.abs(v), duration: .3, overwrite: true });
-        gsap.to(loop, { timeScale: 1, duration: 1.2, delay: .3 });
-      }
     });
 
     mm.add(isDesk, () => {

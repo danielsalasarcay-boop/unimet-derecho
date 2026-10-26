@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="is-loading">
+  <a class="skip label" href="#objetivo">Saltar al contenido</a>
 
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
     <defs>
@@ -78,7 +79,7 @@
   </header>
 
   <!-- ÍNDICE (menú) -->
-  <div class="indice" id="indice" aria-hidden="true">
+  <div class="indice" id="indice" aria-hidden="true" data-lenis-prevent>
     <div class="indice__inner">
       <p class="label indice__kicker">Índice general</p>
       <ol class="indice__list">
@@ -150,7 +151,7 @@
 
         <div class="carrera__grid">
           <figure class="carrera__fig reveal-img">
-            <img src="img/abogada.jpg" alt="Estudiante de Derecho revisando un documento junto a una balanza" loading="lazy">
+            <img src="img/abogada.jpg" width="2120" height="1800" alt="Estudiante de Derecho revisando un documento junto a una balanza" loading="lazy">
           </figure>
           <div class="carrera__body">
             <h2 class="display js-lines">Un abogado que <em>previene</em> antes de litigar.</h2>
@@ -279,7 +280,8 @@
         </div>
 
         <div class="malla" data-area="all">
-          <div class="malla__scroll js-malla"></div>
+          <div class="malla__scroll js-malla" data-lenis-prevent></div>
+          <p class="malla__hint label">Desliza para ver los 12 trimestres →</p>
           <div class="malla__tramos" aria-hidden="true">
             <span style="--c:4">Fundamentos</span><span style="--c:4">Núcleo jurídico</span><span style="--c:4">Profundización</span>
           </div>
@@ -300,7 +302,7 @@
     <section class="perfil sec" id="perfil" data-head="dark" data-run="Título IV · Perfil y futuro">
       <div class="wrap perfil__grid">
         <div class="perfil__media">
-          <figure class="perfil__fig reveal-img"><img src="img/campus-caminata.jpg" alt="Estudiantes de la UNIMET caminando por el campus" loading="lazy"></figure>
+          <figure class="perfil__fig reveal-img"><img src="img/comunidad-saman.jpg" width="1200" height="1600" alt="Estudiantes y profesores de Derecho bajo el samán frente a la Biblioteca Pedro Grases, UNIMET" loading="lazy"></figure>
         </div>
         <div class="perfil__body">
           <header class="sec__head sec__head--inline">
@@ -386,11 +388,6 @@
 
       <!-- Brocardos -->
       <div class="brocardos">
-        <div class="marquee" aria-hidden="true">
-          <div class="marquee__row js-marquee">
-            <span>Pacta sunt servanda</span><b>§</b><span>In dubio pro reo</span><b>§</b><span>Iura novit curia</span><b>§</b><span>Non bis in idem</span><b>§</b><span>Audi alteram partem</span><b>§</b>
-          </div>
-        </div>
         <div class="wrap">
           <div class="brocardos__head">
             <p class="label lectura__kicker">Capítulo III · Brocardos</p>
@@ -486,12 +483,12 @@
           <svg class="contacto__unimet" role="img" aria-label="Universidad Metropolitana"><use href="#logo-unimet"/></svg>
         </div>
         <p class="label sec__num">Disposición final</p>
-        <h2 class="contacto__title js-lines">Escríbenos.<br><em>Te orientamos.</em></h2>
+        <h2 class="contacto__title js-lines">Escríbenos. <em>Te orientamos.</em></h2>
         <div class="contacto__grid">
           <div class="contacto__item">
-            <p class="label">Dirección de la Escuela</p>
-            <p class="contacto__big">Prof. Jesús Dávila</p>
-            <a class="contacto__mail" href="mailto:jdavila@unimet.edu.ve">jdavila@unimet.edu.ve</a>
+            <p class="label">Escuela de Derecho</p>
+            <a class="contacto__big contacto__mail-big" href="mailto:escueladerecho@unimet.edu.ve">escueladerecho@<wbr>unimet.edu.ve</a>
+            <p class="contacto__dir">Director: Prof. Jesús Dávila</p>
           </div>
           <div class="contacto__item">
             <p class="label">Facultad</p>
@@ -503,7 +500,7 @@
           </div>
           <div class="contacto__item">
             <p class="label">Síguenos</p>
-            <p class="contacto__links"><a href="https://www.instagram.com/unimet/" target="_blank" rel="noopener">Instagram</a><a href="https://www.linkedin.com/school/universidad-metropolitana---unimet/" target="_blank" rel="noopener">LinkedIn</a><a href="https://www.unimet.edu.ve/derecho/" target="_blank" rel="noopener">unimet.edu.ve</a></p>
+            <p class="contacto__links"><a class="btn-ig" href="https://www.instagram.com/derechounimet/" target="_blank" rel="noopener"><svg class="ig" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.4" cy="6.6" r="1.2" fill="currentColor"/></svg><span>@derechounimet</span></a><a href="https://www.linkedin.com/school/universidad-metropolitana---unimet/" target="_blank" rel="noopener">LinkedIn</a><a href="https://www.unimet.edu.ve/derecho/" target="_blank" rel="noopener">unimet.edu.ve</a></p>
           </div>
         </div>
       </div>
@@ -520,7 +517,7 @@
         <nav class="footer__nav" aria-label="Pie de página">
           <a href="#objetivo">Objetivo</a><a href="#carrera">La carrera</a><a href="#competencias">Competencias</a><a href="#plan">Plan de estudios</a><a href="#guia">Guía</a><a href="#preguntas">Preguntas</a><a href="#contacto">Contacto</a>
         </nav>
-        <a href="#inicio" class="footer__top-link label">Volver al inicio ↑</a>
+        <div class="footer__side"><a class="btn-ig btn-ig--dark" href="https://www.instagram.com/derechounimet/" target="_blank" rel="noopener"><svg class="ig" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.4" cy="6.6" r="1.2" fill="currentColor"/></svg><span>@derechounimet</span></a><a href="#inicio" class="footer__top-link label">Volver al inicio ↑</a></div>
       </div>
       <p class="footer__word js-footword" data-word="Derecho" aria-hidden="true">Derecho</p>
       <div class="footer__bottom label">
