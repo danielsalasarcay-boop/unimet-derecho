@@ -613,16 +613,6 @@ body::after {
 .footer__bottom { display: flex; justify-content: space-between; gap: 20px; opacity: .5; }
 .footer__legal a { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; transition: color .3s; }
 .footer__legal a:hover { color: #FF7A96; }
-/* Variantes cortas para que el pie conserve exactamente su número de líneas en cada ancho */
-.footer__uni-s, .footer__nfl-s { display: none; }
-@media (min-width: 821px) and (max-width: 1039px), (min-width: 446px) and (max-width: 560px) {
-  .footer__nfl { display: none; }
-  .footer__nfl-s { display: inline; }
-}
-@media (min-width: 821px) and (max-width: 1039px), (max-width: 445px) {
-  .footer__uni { display: none; }
-  .footer__uni-s { display: inline; }
-}
 
 /* ---------- Instagram permanente ---------- */
 .float { position: fixed; right: 18px; bottom: 18px; z-index: 85; margin-bottom: env(safe-area-inset-bottom); }
