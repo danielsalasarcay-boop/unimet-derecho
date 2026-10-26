@@ -65,12 +65,94 @@
       chips.forEach(c => c.classList.toggle('is-on', c.dataset.area === area));
       $$('.asig', host).forEach(a => a.classList.toggle('is-match', area !== 'all' && a.dataset.area === area));
     };
-    chips.forEach(c => c.addEventListener('click', () => setArea(c.dataset.area)));
     host.addEventListener('click', (e) => {
       const a = e.target.closest('.asig');
       if (!a || a.dataset.area === 'el') return;
-      setArea(malla.dataset.area === a.dataset.area ? 'all' : a.dataset.area);
+      pick(malla.dataset.area === a.dataset.area ? 'all' : a.dataset.area);
     });
+
+    /* Versión táctil (teléfono): pestañas por trimestre, fichas grandes y vista por área */
+    const AREA = { fund: 'Fundamentos', civil: 'Civil', publico: 'Público', empresa: 'Empresa y trabajo', proc: 'Procesal y penal', intl: 'Internacional', integral: 'Formación integral', el: 'Electiva' };
+    const TRAMO = i => i < 4 ? 'Fundamentos' : i < 8 ? 'Núcleo jurídico' : 'Profundización';
+    const mp = $('.js-mplan');
+    const st = { t: 0, area: 'all', open: -1 };
+    mp.innerHTML = `
+      <div class="mplan__tabs" role="tablist" aria-label="Trimestres">${R.map((r, i) => `<button class="mtab" role="tab" data-t="${i}" aria-label="Trimestre ${r}">${r}<i></i></button>`).join('')}</div>
+      <div class="mplan__head">
+        <div><p class="mplan__k label js-mk"></p><h3 class="mplan__t js-mt"></h3></div>
+        <div class="mplan__nav"><button class="mnav" data-d="-1" aria-label="Trimestre anterior">←</button><button class="mnav" data-d="1" aria-label="Trimestre siguiente">→</button></div>
+      </div>
+      <ol class="mplan__list js-ml"></ol>`;
+    const tabs = $('.mplan__tabs', mp), list = $('.js-ml', mp);
+
+    const card = (n, a, i, k) => `
+      <li><button class="mcard${a === 'el' ? ' mcard--el' : ''}" data-area="${a}" data-t="${i}" data-k="${k}" aria-expanded="false">
+        <i class="mcard__bar"></i>
+        <span class="mcard__body"><span class="mcard__n">${n}</span><span class="mcard__a">${st.area === 'all' ? AREA[a] : 'Trimestre ' + R[i]}</span></span>
+        <span class="mcard__x" aria-hidden="true"></span>
+        <span class="mcard__more">${a === 'el'
+          ? '<span class="mcard__info">Asignatura de libre elección para orientar la carrera a tus intereses.</span>'
+          : `<span class="mcard__info">Trimestre ${R[i]} · ${TRAMO(i)} · ${AREA[a]}</span><span class="mcard__go" data-go="${st.area === 'all' ? 'area' : 'tri'}">${st.area === 'all' ? 'Ver todas las de ' + AREA[a] : 'Ir al trimestre ' + R[i]} →</span>`}</span>
+      </button></li>`;
+
+    const render = (dir = 0) => {
+      st.open = -1;
+      const byArea = st.area !== 'all';
+      mp.classList.toggle('is-area', byArea);
+      mp.dataset.area = st.area;
+      $$('.mtab', tabs).forEach((b, i) => {
+        b.classList.toggle('is-on', !byArea && i === st.t);
+        b.classList.toggle('has', byArea && T[i].some(([, a]) => a === st.area));
+        b.setAttribute('aria-selected', !byArea && i === st.t);
+      });
+      if (byArea) {
+        const items = T.flatMap((t, i) => t.filter(([, a]) => a === st.area).map(([n, a]) => [n, a, i]));
+        $('.js-mk', mp).textContent = 'Área · ' + items.length + ' asignaturas';
+        $('.js-mt', mp).innerHTML = AREA[st.area];
+        list.innerHTML = items.map(([n, a, i], k) => card(n, a, i, k)).join('');
+      } else {
+        $('.js-mk', mp).textContent = TRAMO(st.t);
+        $('.js-mt', mp).innerHTML = 'Trimestre <em>' + R[st.t] + '</em>';
+        list.innerHTML = T[st.t].map(([n, a], k) => card(n, a, st.t, k)).join('');
+        const tab = tabs.children[st.t];
+        tabs.scrollTo({ left: tab.offsetLeft - (tabs.clientWidth - tab.offsetWidth) / 2, behavior: 'smooth' });
+      }
+      if (!reduce && hasGsap) gsap.fromTo(list.children, { x: dir * 40, y: dir ? 0 : 14, autoAlpha: 0 }, { x: 0, y: 0, autoAlpha: 1, duration: .55, stagger: .04, ease: 'expo.out' });
+    };
+    const goT = (t, dir) => { st.t = (t + 12) % 12; st.area = 'all'; syncChips(); render(dir); };
+
+    tabs.addEventListener('click', e => { const b = e.target.closest('.mtab'); if (b) goT(+b.dataset.t, Math.sign(+b.dataset.t - st.t)); });
+    $$('.mnav', mp).forEach(b => b.addEventListener('click', () => goT(st.t + +b.dataset.d, +b.dataset.d)));
+    list.addEventListener('click', e => {
+      const go = e.target.closest('.mcard__go'), c = e.target.closest('.mcard');
+      if (!c) return;
+      if (go) {
+        if (go.dataset.go === 'area') pick(c.dataset.area);
+        else goT(+c.dataset.t, 0);
+        $('.plan__filters').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return;
+      }
+      const open = c.getAttribute('aria-expanded') !== 'true';
+      $$('.mcard', list).forEach(x => x.setAttribute('aria-expanded', 'false'));
+      c.setAttribute('aria-expanded', open);
+    });
+    // Deslizar de lado para cambiar de trimestre
+    let sx = 0, sy = 0;
+    list.addEventListener('touchstart', e => { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, { passive: true });
+    list.addEventListener('touchend', e => {
+      if (st.area !== 'all') return;
+      const dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy;
+      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.4) goT(st.t + (dx < 0 ? 1 : -1), dx < 0 ? 1 : -1);
+    }, { passive: true });
+
+    const syncChips = () => chips.forEach(c => c.classList.toggle('is-on', c.dataset.area === st.area));
+    function pick(area) {
+      setArea(area);
+      st.area = area;
+      render(0);
+    }
+    chips.forEach(c => c.addEventListener('click', () => pick(c.dataset.area)));
+    render(0);
   }
   buildMalla();
 
@@ -146,9 +228,10 @@
 
   /* ---------- Header ---------- */
   const header = $('.header');
-  let heroLight = false;
+  let heroLight = true;
   let sectionLight = false;
   const paintHeader = () => header.classList.toggle('is-light', heroLight || sectionLight);
+  paintHeader();
   let lastY = 0;
   const onScroll = (y) => {
     const heroEnd = $('.hero').offsetHeight - innerHeight;
@@ -225,7 +308,7 @@
         trigger: '.hero', start: 'top top', end: 'bottom bottom', scrub: true,
         invalidateOnRefresh: true,
         onRefresh: layoutHero,
-        onUpdate: s => { const l = s.progress > .4 && s.progress < 1; if (l !== heroLight) { heroLight = l; paintHeader(); } }
+        onUpdate: s => { const l = s.progress < 1; if (l !== heroLight) { heroLight = l; paintHeader(); } }
       }
     })
       .to('.hero__copy', { yPercent: -8, autoAlpha: 0, ease: 'power2.in', duration: .22 }, 0)
@@ -236,7 +319,9 @@
           seal.classList.toggle('is-zoom', zoom.p > .02);
         }
       }, .04)
+      .to('.js-hero-bg img', { scale: 1.22, duration: .5, ease: 'power1.in' }, 0)
       .set(stage, { backgroundColor: '#D40134' }, .5)
+      .set('.js-hero-bg', { autoAlpha: 0 }, .5)
       .set(seal, { autoAlpha: 0 }, .505)
       .fromTo('.hero__after > *', { autoAlpha: 0, y: 60 }, { autoAlpha: 1, y: 0, duration: .2, stagger: .04, ease: 'power2.out' }, .44)
       .to({}, { duration: .25 });
@@ -343,15 +428,16 @@
       }
     }, i * .3));
 
-    mm.add(isDesk, () => {
-      // Competencias en horizontal
+    // Competencias en horizontal (en teléfono solo se desplazan las fichas)
+    mm.add({ desk: isDesk, phone: '(max-width: 820px) and (min-height: 561px)' }, ctx => {
       const intro = $('.comp__intro'), rail = $('.comp__rail'), arts = $$('.art');
-      const dist = () => intro.offsetWidth + rail.scrollWidth - innerWidth;
+      const desk = ctx.conditions.desk;
+      const dist = () => desk ? intro.offsetWidth + rail.scrollWidth - innerWidth : rail.scrollWidth - innerWidth;
       const n = $('.js-art-n');
-      gsap.to([intro, rail], {
+      gsap.to(desk ? [intro, rail] : rail, {
         x: () => -dist(), ease: 'none',
         scrollTrigger: {
-          trigger: '.comp__track', start: 'top top', end: 'bottom bottom', scrub: true, invalidateOnRefresh: true,
+          trigger: '.comp__track', start: 'top top', end: 'bottom bottom', scrub: desk ? true : .4, invalidateOnRefresh: true,
           onUpdate: s => {
             const i = Math.min(arts.length - 1, Math.round(s.progress * (arts.length - 1) * 1.05));
             arts.forEach((a, j) => a.classList.toggle('is-on', j <= i));
@@ -359,7 +445,9 @@
           }
         }
       });
+    });
 
+    mm.add(isDesk, () => {
       // Cómo leer una sentencia
       const pasos = $$('.paso'), blks = $$('.doc__blk');
       const setPaso = i => {

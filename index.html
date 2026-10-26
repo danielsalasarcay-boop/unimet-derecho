@@ -122,6 +122,7 @@
     <!-- HERO: entrar por las columnas -->
     <section class="hero" id="inicio" data-head="dark">
       <div class="hero__stage">
+        <div class="hero__bg js-hero-bg"><img src="img/portada-campus.jpg" width="1600" height="1061" alt="" fetchpriority="high"></div>
         <div class="hero__seal js-seal"><svg role="img" aria-label="Logo UNIMET Derecho"><use href="#logo-derecho"/></svg></div>
 
         <div class="hero__copy">
@@ -210,7 +211,7 @@
             <p class="label sec__num">Título II</p>
             <h2 class="display">Principales <em>competencias.</em></h2>
             <p class="body">Cuatro artículos que ordenan lo que un abogado unimetano sabe hacer al egresar, y las asignaturas donde se construye cada uno.</p>
-            <p class="comp__hint label"><span class="js-art-n">01</span> / 04</p>
+            <p class="comp__hint label"><span class="js-art-n">01</span> / 04<span class="comp__swipe">Sigue bajando ↓</span></p>
           </div>
           <div class="comp__rail">
             <article class="art">
@@ -300,6 +301,8 @@
             <span style="--c:4">Fundamentos</span><span style="--c:4">Núcleo jurídico</span><span style="--c:4">Profundización</span>
           </div>
         </div>
+
+        <div class="mplan js-mplan" aria-live="polite"></div>
 
         <div class="requisitos">
           <p class="label">Además del plan, para egresar</p>
@@ -426,7 +429,6 @@
       <div class="fuentes wrap">
         <p class="label lectura__kicker">Capítulo IV · Dónde consultar</p>
         <ul class="fuentes__list">
-          <li><a href="http://www.tsj.gob.ve" target="_blank" rel="noopener"><span class="fuentes__n">Tribunal Supremo de Justicia</span><span class="fuentes__d">Jurisprudencia de todas las Salas</span><span class="fuentes__a">↗</span></a></li>
           <li><a href="https://www.acienpol.org.ve" target="_blank" rel="noopener"><span class="fuentes__n">Academia de Ciencias Políticas y Sociales</span><span class="fuentes__d">Doctrina y publicaciones jurídicas</span><span class="fuentes__a">↗</span></a></li>
           <li><a href="https://www.unimet.edu.ve" target="_blank" rel="noopener"><span class="fuentes__n">Biblioteca UNIMET</span><span class="fuentes__d">Catálogo y bases de datos de la Universidad</span><span class="fuentes__a">↗</span></a></li>
           <li><a href="https://www.unimet.edu.ve/derecho/" target="_blank" rel="noopener"><span class="fuentes__n">Portal de la carrera</span><span class="fuentes__d">Información oficial de la Escuela</span><span class="fuentes__a">↗</span></a></li>
@@ -475,7 +477,7 @@
         <header class="faq__head">
           <p class="label sec__num">Título VII</p>
           <h2 class="display js-lines">Preguntas <em>frecuentes.</em></h2>
-          <figure class="faq__fig reveal-img"><img src="img/campus-edificio.jpg" alt="Edificio y letrero UNIMET en el campus" loading="lazy"></figure>
+          <figure class="faq__fig reveal-img"><img src="img/campus-unimet.jpg" width="1280" height="720" alt="Letrero UNIMET frente a los edificios de ladrillo del campus" loading="lazy"></figure>
         </header>
         <div class="faq__list">
           <details class="q"><summary><span>¿Cuánto dura la carrera?</span><i></i></summary><div class="q__a"><p>El plan de estudios se organiza en doce trimestres, con cinco asignaturas por trimestre. Además se cumplen el Servicio Comunitario, la Pasantía Académica y el Examen Comprehensivo.</p></div></details>
@@ -535,6 +537,15 @@
       </div>
     </div>
   </footer>
+
+  <!-- Instagram permanente -->
+  <div class="float">
+    <a class="float__btn" href="https://www.instagram.com/derechounimet/" target="_blank" rel="noopener" aria-label="Instagram de la Escuela de Derecho UNIMET (se abre en una pestaña nueva)">
+      <span class="float__wave"></span><span class="float__wave float__wave--2"></span>
+      <span class="float__label">Síguenos</span>
+      <span class="float__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></span>
+    </a>
+  </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
