@@ -157,6 +157,7 @@
     if (!menuOpen) header.classList.toggle('is-hidden', y > lastY && y > innerHeight * .4 && y > 80);
     lastY = y;
     $('.runhead').classList.toggle('is-on', y > heroEnd);
+    $('.runhead').classList.toggle('is-off', y > $('#contacto').offsetTop - innerHeight * .7);
   };
   if (lenis) lenis.on('scroll', e => onScroll(e.scroll)); else addEventListener('scroll', () => onScroll(scrollY), { passive: true });
 
@@ -299,11 +300,48 @@
     });
 
     // Footer: la palabra se llena de lacre
-    ScrollTrigger.create({ trigger: '.footer', start: 'top 70%', onToggle: s => $('.runhead').classList.toggle('is-off', s.isActive) });
-    gsap.fromTo('.js-footword', { '--fill': '100%' }, {
-      '--fill': '0%', ease: 'none',
-      scrollTrigger: { trigger: '.footer', start: 'top 85%', end: 'bottom bottom', scrub: true }
+    const fw = $('.js-footword');
+    fw.innerHTML = [...fw.dataset.word].map((c, i) =>
+      `<span class="fl" style="--i:${i}">${c}<span class="fl__ink">${c}</span><span class="fl__glow">${c}</span></span>`).join('');
+    const letters = $$('.fl', fw);
+    // Luz que sigue al puntero sobre la tinta (solo con mouse)
+    if (matchMedia('(hover: hover) and (pointer: fine)').matches && !reduce) {
+      const foot = $('.footer');
+      let tx = 0, cx = 0, active = false;
+      const light = () => {
+        cx += (tx - cx) * .12;
+        const pad = parseFloat(getComputedStyle(fw).fontSize) * .22;   // la tinta empieza .22em antes de la letra
+        letters.forEach(l => l.style.setProperty('--lx', (cx - l.getBoundingClientRect().left + pad).toFixed(1) + 'px'));
+      };
+      foot.addEventListener('pointerenter', e => { cx = tx = e.clientX; if (!active) { active = true; gsap.ticker.add(light); } });
+      foot.addEventListener('pointermove', e => { tx = e.clientX; });
+      foot.addEventListener('pointerleave', () => {
+        active = false; gsap.ticker.remove(light);
+        letters.forEach(l => l.style.setProperty('--lx', '-3em'));
+      });
+    }
+    gsap.from(letters, {
+      yPercent: 26, autoAlpha: 0, filter: 'blur(14px)', duration: 1.6, stagger: .06, ease: 'expo.out',
+      clearProps: 'filter', scrollTrigger: { trigger: fw, start: 'top 92%' }
     });
+    const fill = gsap.timeline({
+      scrollTrigger: {
+        trigger: fw, start: 'top 98%', end: 'max', scrub: 1.4,
+        onUpdate: s => {
+          fw.classList.toggle('is-full', s.progress > .995);
+          fw.classList.toggle('is-filling', s.progress > .001 && s.progress <= .995);
+        }
+      }
+    });
+    letters.forEach((l, i) => fill.to(l, {
+      '--p': 1, duration: 1, ease: 'power1.inOut',
+      onUpdate() {
+        const p = this.progress();
+        l.style.setProperty('--g', p > .02 && p < .97 ? 1 : 0);
+        if (p > .995 && !l.classList.contains('is-done')) l.classList.add('is-done');
+        if (p < .9) l.classList.remove('is-done');
+      }
+    }, i * .3));
 
     mm.add(isDesk, () => {
       // Competencias en horizontal
