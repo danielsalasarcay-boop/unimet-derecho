@@ -28,6 +28,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&family=Archivo:wdth,wght@62..125,400..700&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="img/portada-campus.jpg" fetchpriority="high">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="is-loading">
@@ -122,11 +123,14 @@
     <!-- HERO: entrar por las columnas -->
     <section class="hero" id="inicio" data-head="dark">
       <div class="hero__stage">
-        <div class="hero__bg js-hero-bg"><img src="img/portada-campus.jpg" width="1600" height="1061" alt="" fetchpriority="high"></div>
-        <div class="hero__seal js-seal"><svg role="img" aria-label="Logo UNIMET Derecho"><use href="#logo-derecho"/></svg></div>
+        <div class="hero__bg js-hero-bg"><div class="hero__par js-hero-par"><div class="hero__drift"><img src="img/portada-campus.jpg" width="1600" height="1061" alt="" fetchpriority="high"></div></div></div>
+        <div class="hero__seal js-seal">
+          <svg class="hero__ring" viewBox="0 0 200 200" aria-hidden="true"><defs><path id="ring-path" d="M100 100m-88 0a88 88 0 1 1 176 0a88 88 0 1 1-176 0"/></defs><text><textPath href="#ring-path" textLength="548" lengthAdjust="spacing">Escuela de Derecho · Universidad Metropolitana · Caracas ·</textPath></text></svg>
+          <svg class="hero__logo" role="img" aria-label="Logo UNIMET Derecho"><use href="#logo-derecho"/></svg>
+        </div>
 
         <div class="hero__copy">
-          <p class="hero__meta label"><span>Universidad Metropolitana</span><span>Caracas, Venezuela</span></p>
+          <p class="hero__meta label"><span>Universidad Metropolitana</span><span class="hero__meta-mid">Facultad de Estudios Jurídicos y Políticos</span><span>Caracas, Venezuela</span></p>
           <p class="hero__kicker"><em>Escuela de</em></p>
           <h1 class="hero__title"><span class="js-hero-word">Derecho</span></h1>
           <div class="hero__slot js-iso-slot" aria-hidden="true"></div>
@@ -166,7 +170,7 @@
 
         <div class="carrera__grid">
           <figure class="carrera__fig reveal-img">
-            <img src="img/abogada.jpg" width="2120" height="1800" alt="Estudiante de Derecho revisando un documento junto a una balanza" loading="lazy">
+            <img src="img/abogada.jpg" width="2120" height="1800" alt="Estudiante de Derecho revisando un documento junto a una balanza" loading="lazy" decoding="async">
           </figure>
           <div class="carrera__body">
             <h2 class="display js-lines">Un abogado que <em>previene</em> antes de litigar.</h2>
@@ -319,7 +323,7 @@
     <section class="perfil sec" id="perfil" data-head="dark" data-run="Título IV · Perfil y futuro">
       <div class="wrap perfil__grid">
         <div class="perfil__media">
-          <figure class="perfil__fig reveal-img"><img src="img/comunidad-saman.jpg" width="1200" height="1600" alt="Estudiantes y profesores de Derecho bajo el samán frente a la Biblioteca Pedro Grases, UNIMET" loading="lazy"></figure>
+          <figure class="perfil__fig reveal-img"><img src="img/comunidad-saman.jpg" width="1080" height="1440" alt="Estudiantes y profesores de Derecho bajo el samán frente a la Biblioteca Pedro Grases, UNIMET" loading="lazy" decoding="async"></figure>
         </div>
         <div class="perfil__body">
           <header class="sec__head sec__head--inline">
@@ -439,7 +443,7 @@
     <!-- TÍTULO VI · MÁS ALLÁ DEL AULA -->
     <section class="comunidad" id="comunidad" data-head="light" data-run="Título VI · Más allá del aula">
       <div class="comunidad__hero">
-        <div class="comunidad__img"><img src="img/aula-estudiantes.jpg" alt="Estudiantes de Derecho atentos en un auditorio" loading="lazy"></div>
+        <div class="comunidad__img"><img src="img/aula-estudiantes.jpg" width="2190" height="1520" alt="Estudiantes de Derecho atentos en un auditorio" loading="lazy" decoding="async"></div>
         <div class="wrap comunidad__copy">
           <p class="label sec__num">Título VI</p>
           <h2 class="display-xl js-lines">Más allá <em>del aula.</em></h2>
@@ -477,7 +481,7 @@
         <header class="faq__head">
           <p class="label sec__num">Título VII</p>
           <h2 class="display js-lines">Preguntas <em>frecuentes.</em></h2>
-          <figure class="faq__fig reveal-img"><img src="img/campus-unimet.jpg" width="1280" height="720" alt="Letrero UNIMET frente a los edificios de ladrillo del campus" loading="lazy"></figure>
+          <figure class="faq__fig reveal-img"><img src="img/campus-unimet.jpg" width="1280" height="720" alt="Letrero UNIMET frente a los edificios de ladrillo del campus" loading="lazy" decoding="async"></figure>
         </header>
         <div class="faq__list">
           <details class="q"><summary><span>¿Cuánto dura la carrera?</span><i></i></summary><div class="q__a"><p>El plan de estudios se organiza en doce trimestres, con cinco asignaturas por trimestre. Además se cumplen el Servicio Comunitario, la Pasantía Académica y el Examen Comprehensivo.</p></div></details>

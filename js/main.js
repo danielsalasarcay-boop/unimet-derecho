@@ -178,13 +178,22 @@
     const W = stage.clientWidth, H = stage.clientHeight;
     const slot = $('.js-iso-slot').getBoundingClientRect();
     const sr = stage.getBoundingClientRect();
-    const size = Math.max(140, Math.min(slot.width, slot.height));
+    const size = Math.max(130, Math.min(slot.width, slot.height) / 1.36);   // deja sitio al anillo de texto
     const x = slot.left - sr.left + (slot.width - size) / 2;
     const y = slot.top - sr.top + (slot.height - size) / 2;
     gsap.set(seal, { left: x, top: y, width: size, height: size, transformOrigin: `${ENTRY[0] * 100}% ${ENTRY[1] * 100}%` });
     const px = x + ENTRY[0] * size, py = y + ENTRY[1] * size;
     const far = Math.max(Math.hypot(px, py), Math.hypot(W - px, py), Math.hypot(px, H - py), Math.hypot(W - px, H - py));
     hero.scaleMax = far / (CLEAR * size) * 1.08;
+  }
+
+  // Paralaje suave de la foto con el mouse (solo puntero fino)
+  if (matchMedia('(hover: hover) and (pointer: fine)').matches && !reduce) {
+    const bg = $('.js-hero-par');
+    const qx = gsap.quickTo(bg, 'xPercent', { duration: 1.2, ease: 'power3.out' });
+    const qy = gsap.quickTo(bg, 'yPercent', { duration: 1.2, ease: 'power3.out' });
+    stage.addEventListener('pointermove', e => { qx((e.clientX / innerWidth - .5) * -2.2); qy((e.clientY / innerHeight - .5) * -1.6); });
+    stage.addEventListener('pointerleave', () => { qx(0); qy(0); });
   }
 
   /* ---------- Loader ---------- */
@@ -195,6 +204,7 @@
     gsap.set(['.hero__meta', '.hero__kicker', '.hero__lede', '.hero__scroll'], { autoAlpha: 0, y: 24 });
     gsap.set('.header', { yPercent: -120 });
     gsap.set(seal, { scale: .55, rotate: -14, autoAlpha: 0 });
+    gsap.set('.js-hero-bg img', { scale: 1.32, filter: 'brightness(.35)' });
 
     const done = () => {
       document.body.classList.remove('is-loading');
@@ -208,6 +218,7 @@
       gsap.set(['.hero__meta', '.hero__kicker', '.hero__lede', '.hero__scroll'], { autoAlpha: 1, y: 0 });
       gsap.set('.header', { clearProps: 'transform' });
       gsap.set(seal, { scale: 1, rotate: 0, autoAlpha: 1 });
+      gsap.set('.js-hero-bg img', { scale: 1.08, clearProps: 'filter' });
       done();
       return;
     }
@@ -220,6 +231,7 @@
       .to('.loader__logo', { scale: .94, duration: .18, ease: 'power2.in' }, 1.75)
       .to('.loader__logo', { scale: 1, duration: .9, ease: 'elastic.out(1, .5)' }, 1.93)
       .to(loader, { clipPath: 'inset(0 0 100% 0)', duration: 1.15, ease: 'expo.inOut' }, 2.25)
+      .to('.js-hero-bg img', { scale: 1.08, filter: 'brightness(1)', duration: 2.4, ease: 'expo.out', clearProps: 'filter' }, 2.3)
       .to(seal, { scale: 1, rotate: 0, autoAlpha: 1, duration: 1.8, ease: 'expo.out' }, 2.5)
       .to(titleSplit.chars, { yPercent: 0, duration: 1.3, stagger: .045 }, 2.75)
       .to(['.hero__meta', '.hero__kicker', '.hero__lede', '.hero__scroll'], { autoAlpha: 1, y: 0, duration: 1.1, stagger: .08 }, 2.9)
