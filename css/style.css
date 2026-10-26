@@ -141,6 +141,8 @@ body::after {
 .header__nav a:hover::after { transform: scaleX(1); transform-origin: left; }
 .header__cta { padding: 11px 18px; border-radius: 999px; background: var(--lacre); color: #fff; transition: background .3s; }
 .header__cta:hover { background: var(--lacre-deep); }
+.header.is-light .header__cta { background: #fff; color: var(--lacre); }
+.header.is-light .brand__logo { border-radius: 50%; box-shadow: 0 0 0 1.5px rgba(255,255,255,.8); }
 .header__index { display: flex; align-items: center; gap: 10px; position: relative; padding: 8px 0; }
 .header__index i { display: block; width: 22px; height: 1.5px; background: currentColor; transition: transform .5s var(--ease); }
 .header__index i + i { position: absolute; right: 0; top: calc(50% + 4px); width: 14px; }
@@ -176,17 +178,17 @@ body::after {
 
 /* ---------- Hero ---------- */
 .hero { position: relative; height: calc(var(--vh) * 2.6); }
-.hero__stage { position: sticky; top: 0; height: var(--vh); overflow: hidden; background: var(--carbon); }
-.hero__photo { position: absolute; inset: 0; }
-.hero__photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%; transform: scale(1.18); will-change: transform; }
-.hero__photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,20,22,.1), rgba(20,20,22,.55)); opacity: 0; transition: none; }
-.hero__cover { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; fill: var(--paper); }
-.hero__copy { position: absolute; inset: 0; padding: 104px var(--gutter) 36px; display: grid; grid-template-columns: 1fr minmax(160px, 22vw); grid-template-rows: auto auto 1fr auto; column-gap: 4vw; }
+.hero__stage { position: sticky; top: 0; height: var(--vh); overflow: hidden; background: var(--paper); }
+.hero__seal { position: absolute; left: 0; top: 0; width: 300px; height: 300px; z-index: 1; border-radius: 50%; }
+.hero__seal::before { content: ""; position: absolute; inset: 6% 4% -4%; border-radius: 50%; background: rgba(163, 0, 42, .35); filter: blur(40px); z-index: -1; transition: opacity .4s; }
+.hero__seal svg { display: block; width: 100%; height: 100%; }
+.hero__seal.is-zoom::before { opacity: 0; }
+.hero__copy { position: absolute; inset: 0; z-index: 2; padding: 104px var(--gutter) 36px; display: grid; grid-template-columns: 1fr minmax(220px, 31vw); grid-template-rows: auto auto 1fr auto; column-gap: 4vw; }
 .hero__meta { grid-column: 1 / -1; display: flex; justify-content: space-between; color: var(--muted); padding-bottom: 14px; border-bottom: 1px solid var(--rule); }
 .hero__kicker { grid-column: 1; margin-top: clamp(32px, 6vh, 72px); margin-bottom: .5em; font-size: clamp(24px, 2.6vw, 42px); font-weight: 300; color: var(--lacre); line-height: 1; }
 .hero__title {
   grid-column: 1; grid-row: 3; align-self: start;
-  font-weight: 300; font-size: clamp(88px, 19.5vw, 330px); line-height: .8; letter-spacing: -.055em;
+  font-weight: 300; font-size: clamp(88px, 17.5vw, 300px); line-height: .8; letter-spacing: -.055em;
   font-variation-settings: "opsz" 72; margin-left: -.05em; white-space: nowrap;
 }
 .hero__title .ch { display: inline-block; }
@@ -197,8 +199,11 @@ body::after {
 .hero__scroll-line { width: 40px; height: 1px; background: currentColor; position: relative; overflow: hidden; }
 .hero__scroll-line::after { content: ""; position: absolute; inset: 0; background: var(--lacre); animation: scrollLine 2.2s var(--ease) infinite; }
 @keyframes scrollLine { 0% { transform: translateX(-100%); } 60%, 100% { transform: translateX(100%); } }
-.hero__after { position: absolute; left: var(--gutter); right: var(--gutter); bottom: clamp(40px, 9vh, 96px); color: #fff; opacity: 0; }
-.hero__after .label { opacity: .8; margin-bottom: 18px; }
+.hero__after { position: absolute; z-index: 3; left: var(--gutter); right: var(--gutter); bottom: clamp(40px, 9vh, 96px); color: #fff; }
+.hero__after > * { opacity: 0; visibility: hidden; }
+.hero__after-logo, .contacto__unimet { --iso: #fff; }
+.hero__after-logo { display: block; width: 170px; height: 67px; color: #fff; margin-bottom: clamp(28px, 5vh, 56px); }
+.hero__after .label { color: rgba(255,255,255,.8); margin-bottom: 18px; }
 .hero__after-title { font-size: clamp(44px, 7.6vw, 128px); font-weight: 300; line-height: .95; letter-spacing: -.03em; max-width: 11em; }
 .hero__after-title em { font-weight: 300; }
 

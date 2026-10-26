@@ -33,7 +33,7 @@
       </symbol>
       <!-- Logo institucional Universidad Metropolitana -->
       <symbol id="logo-unimet" viewBox="0 0 1230 486">
-        <use href="#iso" x="0" y="0" width="250" height="448" color="#FF8200"/>
+        <use href="#iso" x="0" y="0" width="250" height="448" style="color: var(--iso, #FF8200)"/>
         <text x="306" y="290" font-family="Roboto Condensed, Archivo, sans-serif" font-weight="400" font-size="159" fill="currentColor" textLength="757" lengthAdjust="spacingAndGlyphs">Universidad</text>
         <text x="306" y="444" font-family="Roboto Condensed, Archivo, sans-serif" font-weight="700" font-size="159" fill="currentColor" textLength="919" lengthAdjust="spacingAndGlyphs">Metropolitana</text>
       </symbol>
@@ -107,8 +107,7 @@
     <!-- HERO: entrar por las columnas -->
     <section class="hero" id="inicio" data-head="dark">
       <div class="hero__stage">
-        <div class="hero__photo"><img src="img/campus-caminata.jpg" alt="Estudiantes caminando junto al letrero UNIMET en el campus de la Universidad Metropolitana" fetchpriority="high"></div>
-        <svg class="hero__cover" aria-hidden="true"><path class="js-cover" fill-rule="evenodd"/></svg>
+        <div class="hero__seal js-seal"><svg role="img" aria-label="Logo UNIMET Derecho"><use href="#logo-derecho"/></svg></div>
 
         <div class="hero__copy">
           <p class="hero__meta label"><span>Universidad Metropolitana</span><span>Caracas, Venezuela</span></p>
@@ -120,6 +119,7 @@
         </div>
 
         <div class="hero__after">
+          <svg class="hero__after-logo" role="img" aria-label="Universidad Metropolitana"><use href="#logo-unimet"/></svg>
           <p class="label">Facultad de Estudios Jurídicos y Políticos</p>
           <p class="hero__after-title">Abogados para un mundo <em>interrelacionado.</em></p>
         </div>

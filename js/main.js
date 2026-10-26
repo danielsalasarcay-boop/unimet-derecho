@@ -74,38 +74,24 @@
   }
   buildMalla();
 
-  /* ---------- Hero: el isotipo como ventana ---------- */
-  const ISO = [
-    [[0, 0], [62, 0], [62, 214.3], [0, 236]],
-    [[0, 269], [62, 247.3], [62, 448], [0, 448]],
-    [[94, 0], [156, 0], [156, 181.4], [94, 203.1]],
-    [[94, 236.1], [156, 214.4], [156, 448], [94, 448]],
-    [[188, 203.2], [250, 181.5], [250, 448], [188, 448]]
-  ];
-  const hero = { scaleMax: 20, origin: [0, 0] };
-  const cover = $('.hero__cover');
-  const coverPath = $('.js-cover');
+  /* ---------- Hero: entrar en el sello de la Escuela ---------- */
+  // Punto de entrada: zona roja limpia bajo "Derecho" (en coordenadas del logo, 804 x 804).
+  const ENTRY = [402 / 804, 700 / 804], CLEAR = 104 / 804;
+  const hero = { scaleMax: 20 };
+  const seal = $('.js-seal');
   const stage = $('.hero__stage');
-  const shade = document.createElement('div');
-  shade.className = 'hero__shade';
-  Object.assign(shade.style, { position: 'absolute', inset: '0', background: 'linear-gradient(180deg, rgba(20,20,22,.15), rgba(20,20,22,.72))', opacity: 0, pointerEvents: 'none' });
-  $('.hero__photo').after(shade);
 
   function layoutHero() {
     const W = stage.clientWidth, H = stage.clientHeight;
     const slot = $('.js-iso-slot').getBoundingClientRect();
     const sr = stage.getBoundingClientRect();
-    const sw = slot.width, sh = Math.max(slot.height, 120);
-    const k = Math.min(sw / 250, sh / 448);
-    const x0 = slot.left - sr.left + (sw - 250 * k) / 2;
-    const y0 = slot.top - sr.top + (sh - 448 * k) / 2;
-    const p = ISO.map(poly => 'M' + poly.map(([x, y]) => `${(x0 + x * k).toFixed(2)} ${(y0 + y * k).toFixed(2)}`).join('L') + 'Z').join('');
-    cover.setAttribute('viewBox', `0 0 ${W} ${H}`);
-    coverPath.setAttribute('d', `M-40000 -40000H40000V40000H-40000Z${p}`);
-    const px = x0 + 125 * k, py = y0 + 340 * k;
-    hero.origin = [px, py];
-    hero.scaleMax = Math.max(px / (31 * k), (W - px) / (31 * k), py / (103.9 * k), (H - py) / (108 * k)) * 1.06;
-    gsap.set(cover, { transformOrigin: `${px}px ${py}px` });
+    const size = Math.max(140, Math.min(slot.width, slot.height));
+    const x = slot.left - sr.left + (slot.width - size) / 2;
+    const y = slot.top - sr.top + (slot.height - size) / 2;
+    gsap.set(seal, { left: x, top: y, width: size, height: size, transformOrigin: `${ENTRY[0] * 100}% ${ENTRY[1] * 100}%` });
+    const px = x + ENTRY[0] * size, py = y + ENTRY[1] * size;
+    const far = Math.max(Math.hypot(px, py), Math.hypot(W - px, py), Math.hypot(px, H - py), Math.hypot(W - px, H - py));
+    hero.scaleMax = far / (CLEAR * size) * 1.08;
   }
 
   /* ---------- Loader ---------- */
@@ -115,7 +101,7 @@
     gsap.set(titleSplit.chars, { yPercent: 110 });
     gsap.set(['.hero__meta', '.hero__kicker', '.hero__lede', '.hero__scroll'], { autoAlpha: 0, y: 24 });
     gsap.set('.header', { yPercent: -120 });
-    gsap.set(cover, { scale: 1.06 });
+    gsap.set(seal, { scale: .55, rotate: -14, autoAlpha: 0 });
 
     const done = () => {
       document.body.classList.remove('is-loading');
@@ -127,7 +113,8 @@
     if (reduce) {
       gsap.set(titleSplit.chars, { yPercent: 0 });
       gsap.set(['.hero__meta', '.hero__kicker', '.hero__lede', '.hero__scroll'], { autoAlpha: 1, y: 0 });
-      gsap.set(['.header', cover], { clearProps: 'transform' });
+      gsap.set('.header', { clearProps: 'transform' });
+      gsap.set(seal, { scale: 1, rotate: 0, autoAlpha: 1 });
       done();
       return;
     }
@@ -140,7 +127,7 @@
       .to('.loader__logo', { scale: .94, duration: .18, ease: 'power2.in' }, 1.75)
       .to('.loader__logo', { scale: 1, duration: .9, ease: 'elastic.out(1, .5)' }, 1.93)
       .to(loader, { clipPath: 'inset(0 0 100% 0)', duration: 1.15, ease: 'expo.inOut' }, 2.25)
-      .to(cover, { scale: 1, duration: 1.6, ease: 'expo.out' }, 2.55)
+      .to(seal, { scale: 1, rotate: 0, autoAlpha: 1, duration: 1.8, ease: 'expo.out' }, 2.5)
       .to(titleSplit.chars, { yPercent: 0, duration: 1.3, stagger: .045 }, 2.75)
       .to(['.hero__meta', '.hero__kicker', '.hero__lede', '.hero__scroll'], { autoAlpha: 1, y: 0, duration: 1.1, stagger: .08 }, 2.9)
       .to('.header', { yPercent: 0, duration: 1.1 }, 3.0);
@@ -218,7 +205,7 @@
 
   /* ---------- Animaciones de scroll ---------- */
   function scrollAnims() {
-    // Hero: entrar por la columna central del isotipo
+    // Hero: la cámara entra en el sello hasta llenar la pantalla de lacre
     layoutHero();
     const zoom = { p: 0 };
     gsap.timeline({
@@ -226,19 +213,21 @@
         trigger: '.hero', start: 'top top', end: 'bottom bottom', scrub: true,
         invalidateOnRefresh: true,
         onRefresh: layoutHero,
-        onUpdate: s => { const l = s.progress > .55 && s.progress < 1; if (l !== heroLight) { heroLight = l; paintHeader(); } }
+        onUpdate: s => { const l = s.progress > .4 && s.progress < 1; if (l !== heroLight) { heroLight = l; paintHeader(); } }
       }
     })
       .to('.hero__copy', { yPercent: -8, autoAlpha: 0, ease: 'power2.in', duration: .22 }, 0)
       .to(zoom, {
-        p: 1, duration: .62, ease: 'power2.inOut',
-        onUpdate: () => gsap.set(cover, { scale: Math.pow(hero.scaleMax, zoom.p) })
+        p: 1, duration: .46, ease: 'power1.in',
+        onUpdate: () => {
+          gsap.set(seal, { scale: Math.pow(hero.scaleMax, zoom.p) });
+          seal.classList.toggle('is-zoom', zoom.p > .02);
+        }
       }, .04)
-      .to('.hero__photo img', { scale: 1, duration: .7, ease: 'none' }, 0)
-      .to(cover, { autoAlpha: 0, duration: .04 }, .66)
-      .to(shade, { opacity: 1, duration: .2 }, .6)
-      .fromTo('.hero__after', { autoAlpha: 0, y: 50 }, { autoAlpha: 1, y: 0, duration: .22, ease: 'power2.out' }, .7)
-      .to({}, { duration: .08 });
+      .set(stage, { backgroundColor: '#D40134' }, .5)
+      .set(seal, { autoAlpha: 0 }, .505)
+      .fromTo('.hero__after > *', { autoAlpha: 0, y: 60 }, { autoAlpha: 1, y: 0, duration: .2, stagger: .04, ease: 'power2.out' }, .44)
+      .to({}, { duration: .25 });
 
     // Títulos por líneas
     $$('.js-lines').forEach(el => {
