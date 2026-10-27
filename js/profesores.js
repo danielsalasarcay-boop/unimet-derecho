@@ -109,7 +109,7 @@
       const s = SplitText.create(el, { type: 'lines', mask: 'lines', linesClass: 'ln' });
       if (window.traceTitle?.ok && el.matches('.contacto__title')) {
         gsap.set(s.lines, { opacity: 0 });
-        ScrollTrigger.create({ trigger: el, start: 'top 82%', once: true, onEnter: () => traceTitle(s.lines, { draw: 1.5, stagger: .05 }) });
+        ScrollTrigger.create({ trigger: el, start: traceTitle.start(), once: true, onEnter: () => traceTitle(s.lines, traceTitle.section()) });
       } else if (!reduce) gsap.from(s.lines, { yPercent: 110, duration: 1.25, stagger: .09, ease: 'expo.out', scrollTrigger: { trigger: el, start: 'top 86%' } });
     });
     if (reduce) return;
