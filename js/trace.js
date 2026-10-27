@@ -77,15 +77,15 @@
       const t = i * stagger;
       tl.fromTo(p.text, { strokeDasharray: p.len, strokeDashoffset: p.len },
           { strokeDashoffset: 0, duration: draw, ease: 'power2.inOut' }, t)
-        .to(p.text, { fillOpacity: 1, duration: calm ? .8 : quick ? .3 : .55, ease: 'power1.inOut' }, t + draw - (calm ? .45 : quick ? .2 : .35))
-        .to(p.fill, { opacity: 1, duration: calm ? .7 : quick ? .3 : .5, ease: 'power1.out' }, t + draw + (calm ? .45 : quick ? .05 : .2))
-        .to(p.svg, { opacity: 0, duration: calm ? 1.2 : quick ? .4 : .8, ease: 'power2.inOut' }, t + draw + (calm ? .6 : quick ? .1 : .3));
+        .to(p.text, { fillOpacity: 1, duration: calm ? .8 : quick ? .2 : .55, ease: 'power1.inOut' }, t + draw - (calm ? .45 : quick ? .15 : .35))
+        .to(p.fill, { opacity: 1, duration: calm ? .7 : quick ? .2 : .5, ease: 'power1.out' }, t + draw + (calm ? .45 : quick ? 0 : .2))
+        .to(p.svg, { opacity: 0, duration: calm ? 1.2 : quick ? .25 : .8, ease: 'power2.inOut' }, t + draw + (calm ? .6 : quick ? .05 : .3));
     });
     return tl;
   };
   window.traceTitle.ok = !reduce;
-  // títulos de sección: en teléfono se trazan en ~1 s y arrancan apenas asoman
+  // títulos de sección: en teléfono se trazan en menos de 1 s y arrancan en cuanto asoman
   const phone = () => innerWidth <= 820;
-  window.traceTitle.section = () => phone() ? { draw: .8, stagger: .03, quick: true } : { draw: 1.5, stagger: .05 };
-  window.traceTitle.start = () => phone() ? 'top 96%' : 'top 80%';
+  window.traceTitle.section = () => phone() ? { draw: .5, stagger: .02, quick: true } : { draw: 1.5, stagger: .05 };
+  window.traceTitle.start = () => phone() ? 'top bottom' : 'top 80%';
 })();
