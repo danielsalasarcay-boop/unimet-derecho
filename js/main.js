@@ -185,14 +185,33 @@
     const px = x + ENTRY[0] * size, py = y + ENTRY[1] * size;
     const far = Math.max(Math.hypot(px, py), Math.hypot(W - px, py), Math.hypot(px, H - py), Math.hypot(W - px, H - py));
     hero.scaleMax = far / (CLEAR * size) * 1.08;
+    fitBg(x + size / 2, y + size / 2, size);
+  }
+
+  // La foto se coloca para que el hueco de la escultura quede justo detrás del sello,
+  // en cualquier pantalla, y la imagen siga cubriendo todo el fondo.
+  const PHOTO = [1600, 1061], HOLE = [1190, 562, 210];   // centro y radio del hueco, en píxeles de la foto
+  function fitBg(cx, cy, size) {
+    const img = $('.js-hero-bg img'), box = $('.js-hero-par'), drift = $('.hero__drift');
+    const W = box.offsetWidth, H = box.offsetHeight;
+    const bx = cx + (W - stage.clientWidth) / 2, by = cy + (H - stage.clientHeight) / 2;
+    const [nw, nh] = PHOTO, [hx, hy, hr] = HOLE;
+    const s = Math.max(W / nw, H / nh, bx / hx, (W - bx) / (nw - hx), by / hy, (H - by) / (nh - hy), size * .72 / hr);
+    Object.assign(img.style, {
+      position: 'absolute', maxWidth: 'none', objectFit: 'fill',
+      width: nw * s + 'px', height: nh * s + 'px', left: bx - hx * s + 'px', top: by - hy * s + 'px'
+    });
+    gsap.set(img, { transformOrigin: `${hx * s}px ${hy * s}px` });   // los acercamientos se centran en la escultura
+    drift.style.transformOrigin = `${bx}px ${by}px`;
   }
 
   // Paralaje suave de la foto con el mouse (solo puntero fino)
   if (matchMedia('(hover: hover) and (pointer: fine)').matches && !reduce) {
-    const bg = $('.js-hero-par');
-    const qx = gsap.quickTo(bg, 'xPercent', { duration: 1.2, ease: 'power3.out' });
-    const qy = gsap.quickTo(bg, 'yPercent', { duration: 1.2, ease: 'power3.out' });
-    stage.addEventListener('pointermove', e => { qx((e.clientX / innerWidth - .5) * -2.2); qy((e.clientY / innerHeight - .5) * -1.6); });
+    // El sello acompaña a la foto para no despegarse de la escultura
+    const move = [$('.js-hero-par'), seal];
+    const qx = gsap.quickTo(move, 'x', { duration: 1.2, ease: 'power3.out' });
+    const qy = gsap.quickTo(move, 'y', { duration: 1.2, ease: 'power3.out' });
+    stage.addEventListener('pointermove', e => { qx((e.clientX / innerWidth - .5) * -.022 * innerWidth); qy((e.clientY / innerHeight - .5) * -.016 * innerHeight); });
     stage.addEventListener('pointerleave', () => { qx(0); qy(0); });
   }
 

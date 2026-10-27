@@ -204,7 +204,7 @@ body::after {
 @keyframes ring-spin { to { transform: rotate(360deg); } }
 .hero__par, .hero__drift { position: absolute; inset: -3%; }
 .hero__drift { inset: 0; animation: drift 24s ease-in-out infinite alternate; }
-@keyframes drift { from { transform: scale(1) translate3d(0, 0, 0); } to { transform: scale(1.06) translate3d(-1.2%, -.8%, 0); } }
+@keyframes drift { from { transform: scale(1); } to { transform: scale(1.06); } }
 .hero__seal.is-zoom::before { opacity: 0; }
 .hero__copy { position: absolute; inset: 0; z-index: 2; padding: 104px var(--gutter) 36px; display: grid; grid-template-columns: 1fr minmax(220px, 31vw); grid-template-rows: auto auto 1fr auto; column-gap: 4vw; }
 .hero__meta { grid-column: 1 / -1; display: flex; justify-content: space-between; color: var(--muted); padding-bottom: 14px; border-bottom: 1px solid var(--rule); }
