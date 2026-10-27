@@ -18,7 +18,6 @@
   seal.setAttribute('aria-hidden', 'true');
   // relieve: cada trazo del grabado en sombra (abajo) y en luz (arriba) sobre la cera
   seal.innerHTML = `
-    <span class="sello__wave"></span>
     <svg class="sello__wax" viewBox="0 0 200 200">
       <defs>
         <radialGradient id="selloCera" cx="50%" cy="46%" r="60%">
@@ -55,7 +54,7 @@
 
   if (reduce || typeof gsap === 'undefined') return;
   gsap.registerPlugin(ScrollTrigger);
-  const wax = seal.querySelector('.sello__wax'), wave = seal.querySelector('.sello__wave');
+  const wax = seal.querySelector('.sello__wax');
   const drops = [...seal.querySelectorAll('.sello__drops circle')];
   gsap.set(drops, { svgOrigin: '100 100' });
 
@@ -73,7 +72,6 @@
     // 2) golpe: se aplasta contra la página y la cera se escapa por los bordes
     .to(wax, { scaleX: 1.1, scaleY: .9, duration: .06, ease: 'power2.out' })
     .fromTo(drops, { scale: 0 }, { scale: 1, duration: .2, stagger: .01, ease: 'expo.out' }, '<')
-    .fromTo(wave, { scale: .7, autoAlpha: .6 }, { scale: 2, autoAlpha: 0, duration: .3, ease: 'expo.out', immediateRender: false }, '<')
     .fromTo(main, { y: 0 }, { y: 3, duration: .03, yoyo: true, repeat: 1 }, '<')
     // 3) rebota y queda pegado
     .to(wax, { scaleX: 1, scaleY: 1, duration: .3, ease: 'back.out(3)' }, '<.06');
