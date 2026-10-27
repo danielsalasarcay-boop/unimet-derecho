@@ -26,10 +26,11 @@
       letterSpacing: cs.letterSpacing, fontVariationSettings: cs.fontVariationSettings
     });
 
-    // palabra por palabra, cada una en el x que ocupa en la página
+    // palabra por palabra, cada una en el x y el renglón que ocupa en la página
+    // (en teléfono una línea puede partirse en dos renglones)
     const walker = document.createTreeWalker(u, NodeFilter.SHOW_TEXT);
     const range = document.createRange();
-    let node;
+    let node, k = null;
     while ((node = walker.nextNode())) {
       const style = getComputedStyle(node.parentElement).fontStyle;
       const re = /\S+/g;
@@ -37,9 +38,11 @@
       while ((m = re.exec(node.data))) {
         range.setStart(node, m.index);
         range.setEnd(node, m.index + m[0].length);
+        const rs = range.getClientRects(), r = rs[rs.length - 1] || range.getBoundingClientRect();
+        if (k === null) k = base - (r.top - ur.top); // de la parte alta de la palabra a la línea base
         const t = document.createElementNS(NS, 'tspan');
-        t.setAttribute('x', (range.getBoundingClientRect().left - ur.left).toFixed(2));
-        t.setAttribute('y', base.toFixed(2));
+        t.setAttribute('x', (r.left - ur.left).toFixed(2));
+        t.setAttribute('y', (r.top - ur.top + k).toFixed(2));
         t.style.fontStyle = style;
         t.textContent = m[0];
         text.append(t);
