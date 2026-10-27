@@ -413,7 +413,7 @@
         defaults: { ease: 'power3.out' },
         scrollTrigger: {
           // La biblioteca queda fija mientras se llena; al subir, los tomos salen en el mismo orden inverso
-          trigger: '.js-biblio-track', start: 'top 70%', scrub: innerWidth > 820 ? 1.2 : .5, invalidateOnRefresh: true,
+          trigger: '.js-biblio-track', start: 'top 70%', scrub: innerWidth > 820 ? 1.4 : .5, invalidateOnRefresh: true,
           end: () => `bottom ${Math.round(Math.max(84, (innerHeight - fig.offsetHeight) / 2) + fig.offsetHeight + innerHeight * .1)}px`,
           onUpdate: s => {
             const n = Math.min(books.length, Math.floor(s.progress * 1.04 * books.length + .001));
