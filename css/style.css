@@ -985,6 +985,6 @@ body::after {
   .biblio-track:not(.is-static) ~ .carrera__body { position: sticky; top: max(84px, calc((var(--vh) - var(--fh, 640px)) / 2)); min-height: var(--fh, 640px); display: flex; flex-direction: column; justify-content: center; }
 }
 @media (max-width: 820px) {
-  .biblio-track { height: calc(var(--fh, 380px) + var(--vh) * 1.8); }   /* en teléfono, un recorrido largo: los tomos avanzan al ritmo del dedo */
+  .biblio-track { height: calc(var(--fh, 380px) + var(--vh) * 2); }   /* en teléfono, un recorrido largo: los tomos avanzan al ritmo del dedo */
   .biblio-track .biblio { width: min(100%, calc((var(--vh) - 140px) * 4 / 4.2)); }
 }
