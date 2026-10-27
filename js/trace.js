@@ -84,8 +84,18 @@
     return tl;
   };
   window.traceTitle.ok = !reduce;
-  // títulos de sección: en teléfono se trazan en menos de 1 s y arrancan en cuanto asoman
   const phone = () => innerWidth <= 820;
-  window.traceTitle.section = () => phone() ? { draw: .5, stagger: .02, quick: true } : { draw: 1.5, stagger: .05 };
-  window.traceTitle.start = () => phone() ? 'top bottom' : 'top 80%';
+  // dispara cb cuando el título entra en pantalla. Se mira el título mismo
+  // (IntersectionObserver): no depende de posiciones calculadas que en iOS cambian con la
+  // barra del navegador y las imágenes que cargan tarde
+  window.traceTitle.when = (el, cb) => {
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver(es => {
+        if (es.some(e => e.isIntersecting)) { io.disconnect(); cb(); }
+      }, { rootMargin: phone() ? '0px' : '0px 0px -8% 0px' });
+      io.observe(el);
+    } else ScrollTrigger.create({ trigger: el, start: 'top 90%', once: true, onEnter: cb });
+  };
+  // títulos de sección: ~0,8 s en teléfono y ~1,2 s en computadora
+  window.traceTitle.section = () => phone() ? { draw: .5, stagger: .02, quick: true } : { draw: .9, stagger: .04, quick: true };
 })();
