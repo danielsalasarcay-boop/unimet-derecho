@@ -55,7 +55,8 @@
     return { u, svg, text, fill, len: parseFloat(cs.fontSize) * 4.2 };
   };
 
-  window.traceTitle = (units, { delay = 0, draw = 2.4, stagger = .14 } = {}) => {
+  // calm: el ritmo pausado del título "Profesores" (llenado y asentado más lentos)
+  window.traceTitle = (units, { delay = 0, draw = 2.4, stagger = .14, calm = false } = {}) => {
     if (reduce || typeof gsap === 'undefined') { gsap?.set(units, { opacity: 1 }); return null; }
     const parts = [...units].map(build);
     gsap.set(parts.map(p => p.fill), { opacity: 0 });
@@ -73,9 +74,9 @@
       const t = i * stagger;
       tl.fromTo(p.text, { strokeDasharray: p.len, strokeDashoffset: p.len },
           { strokeDashoffset: 0, duration: draw, ease: 'power2.inOut' }, t)
-        .to(p.text, { fillOpacity: 1, duration: .55, ease: 'power1.inOut' }, t + draw - .35)
-        .to(p.fill, { opacity: 1, duration: .5, ease: "power1.out" }, t + draw + .2)
-        .to(p.svg, { opacity: 0, duration: .8, ease: "power2.inOut" }, t + draw + .3);
+        .to(p.text, { fillOpacity: 1, duration: calm ? .8 : .55, ease: 'power1.inOut' }, t + draw - (calm ? .45 : .35))
+        .to(p.fill, { opacity: 1, duration: calm ? .7 : .5, ease: 'power1.out' }, t + draw + (calm ? .45 : .2))
+        .to(p.svg, { opacity: 0, duration: calm ? 1.2 : .8, ease: 'power2.inOut' }, t + draw + (calm ? .6 : .3));
     });
     return tl;
   };
