@@ -994,3 +994,9 @@ body::after {
 .trace { position: absolute; left: 0; top: 0; overflow: visible; pointer-events: none; }
 .trace text { fill: var(--trace, var(--lacre)); fill-opacity: 0; stroke: var(--trace, var(--lacre)); stroke-width: 1; stroke-linejoin: round; stroke-linecap: round; }
 .contacto { --trace: #fff; }
+
+/* Con foto (añadir .prof__photo--img y el <img>): marco blanco sobre la foto, como en Caraqueña;
+   al pasar el mouse se cierra en lacre y la foto se acerca apenas */
+.prof__photo--img .prof__ini, .prof__photo--img .prof__soon { display: none; }
+.prof__photo--img::before { border-color: rgba(255, 255, 255, .55); }
+.prof__photo--img .prof__n { color: rgba(255, 255, 255, .8); }

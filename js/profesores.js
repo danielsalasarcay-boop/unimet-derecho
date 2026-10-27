@@ -119,7 +119,7 @@
     // Recuadros: se abren de abajo hacia arriba, en tanda por fila
     const reveal = (photos) => gsap.timeline()
       .fromTo(photos, { clipPath: 'inset(100% 0 0 0)' }, { clipPath: 'inset(0% 0 0 0)', duration: 1.3, stagger: .1, ease: 'expo.inOut' })
-      .from(photos.map(p => $('.prof__ini', p)), { yPercent: 30, autoAlpha: 0, duration: 1.4, stagger: .1, ease: 'expo.out' }, .45);
+      .from(photos.map(p => $('.prof__ini, img', p)), { yPercent: 30, autoAlpha: 0, duration: 1.4, stagger: .1, ease: 'expo.out', clearProps: 'transform' }, .45);
     const big = $('.js-prof-photo');
     gsap.set(big, { clipPath: 'inset(100% 0 0 0)' });
     ScrollTrigger.create({ trigger: big, start: 'top 85%', once: true, onEnter: () => reveal([big]) });
