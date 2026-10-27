@@ -29,7 +29,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&family=Archivo:wdth,wght@62..125,400..700&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
   <link rel="preload" as="image" href="img/portada-campus.jpg" fetchpriority="high">
-  <link rel="stylesheet" href="css/style.css?v=202610262325">
+  <link rel="stylesheet" href="css/style.css?v=202610262337">
 </head>
 <body class="is-loading">
   <a class="skip label" href="#objetivo">Saltar al contenido</a>
@@ -171,8 +171,10 @@
         </header>
 
         <div class="carrera__grid">
-          <figure class="carrera__fig reveal-img">
-            <img src="img/abogada.jpg" width="2120" height="1800" alt="Estudiante de Derecho revisando un documento junto a una balanza" loading="lazy" decoding="async">
+          <figure class="carrera__fig biblio js-biblio" role="img" aria-label="Biblioteca jurídica: tomos de Derecho venezolano que se ordenan en los estantes">
+            <div class="biblio__case js-biblio-case"></div>
+            <div class="biblio__lamp" aria-hidden="true"></div>
+            <figcaption class="biblio__cap" aria-hidden="true"><span class="label">Biblioteca jurídica</span><span class="biblio__now"><b class="js-biblio-n">00</b><i class="js-biblio-t">Tomos en el estante</i></span></figcaption>
           </figure>
           <div class="carrera__body">
             <h2 class="display js-lines">Un abogado que <em>previene</em> antes de litigar.</h2>
@@ -561,6 +563,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/SplitText.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
-  <script src="js/main.js?v=202610262325"></script>
+  <script src="js/main.js?v=202610262337"></script>
 </body>
 </html>

@@ -12,6 +12,7 @@
     document.body.classList.remove('is-loading');
     $('.loader')?.remove();
     buildMalla();
+    buildBiblio();
     return;
   }
 
@@ -32,6 +33,29 @@
     if (lenis) lenis.scrollTo(target, { duration: 1.6, offset: 0 });
     else (typeof target === 'number' ? window.scrollTo({ top: target, behavior: 'smooth' }) : target.scrollIntoView({ behavior: 'smooth' }));
   };
+
+  /* ---------- Biblioteca jurídica (Título I) ---------- */
+  function buildBiblio() {
+    // [lomo, color, ancho % del estante, alto %, tomo, inclinación final]
+    const SHELVES = [
+      [['Constitución', 'L', 8.6, 94], ['C. Civil', 'B', 9.4, 90], ['C. de Comercio', 'V', 8.4, 86], ['C. Penal', 'K', 7.6, 92], ['COPP', 'A', 6.4, 80], ['C. Proc. Civil', 'C', 9, 95], ['C. O. Tributario', 'G', 8, 84], ['LOTTT', 'T', 6.6, 78], ['Ley de Amparo', 'P', 7.2, 74], ['Gaceta Oficial', 'N', 10.4, 88, '', 9]],
+      [['D. Romano', 'C', 8, 90, 'I'], ['D. Romano', 'C', 8, 90, 'II'], ['Personas', 'B', 7.4, 84], ['Bienes', 'B', 7.4, 84], ['Obligaciones', 'V', 8.4, 93, 'I'], ['Obligaciones', 'V', 8.4, 93, 'II'], ['Contratos', 'V', 8, 88], ['Sucesiones', 'L', 7.2, 80], ['Familia', 'P', 6.8, 76], ['Doctrina', 'K', 9, 86, '', 7]],
+      [['D. Constitucional', 'A', 9.2, 92], ['D. Administrativo', 'K', 8.2, 95, 'I'], ['D. Administrativo', 'K', 8.2, 95, 'II'], ['D. Administrativo', 'K', 8.2, 95, 'III'], ['Teoría del Estado', 'L', 7.6, 82], ['DD. HH.', 'P', 6.4, 76], ['D. Int. Público', 'G', 8.4, 88], ['D. Int. Privado', 'G', 8.4, 88], ['D. Tributario', 'T', 8.8, 84, '', 8]],
+      [['D. Mercantil', 'V', 8.6, 90], ['Títulos Valores', 'V', 7.4, 82], ['D. del Trabajo', 'C', 8.4, 92], ['Proc. Civil', 'A', 7.8, 88], ['Casación', 'A', 7, 84], ['D. Penal', 'K', 8, 90], ['Criminología', 'N', 7, 80], ['Filosofía del D.', 'P', 7.6, 86], ['Arbitraje', 'T', 6.8, 78], ['Derecho', 'U', 11, 96]]
+    ];
+    const SPINE = { L: '#A3002A', B: '#5A1426', C: '#6E3F24', T: '#93602F', V: '#1E3B2F', A: '#1B2B47', K: '#26272B', P: '#D9CCB0', N: '#141414', G: '#3C4757', U: '#D40134' };
+    const box = $('.js-biblio-case');
+    if (!box) return;
+    box.innerHTML = SHELVES.map(sh => `<div class="shelf">${sh.map(([t, c, w, h, vol = '', lean = 0]) => `
+      <span class="bk${c === 'P' ? ' bk--light' : ''}${c === 'U' ? ' bk--unimet' : ''}" data-t="${t}${vol ? ' ' + vol : ''}" data-lean="${lean}" style="--bc:${SPINE[c]};width:${w}%;height:${h}%${lean ? `;transform-origin:0 100%;transform:rotate(${lean}deg)` : ''}">
+        <i class="bk__band"></i>${c === 'U' ? '<svg class="bk__iso"><use href="#iso"/></svg>' : ''}<em class="bk__t">${t}</em>${vol ? `<b class="bk__vol">${vol}</b>` : ''}<i class="bk__band bk__band--b"></i><i class="bk__sh"></i>
+      </span>`).join('')}</div>`).join('');
+    const fig = $('.js-biblio');
+    const fit = () => { fig.style.fontSize = Math.min(fig.clientWidth / 46, fig.clientHeight / 54).toFixed(2) + 'px'; };
+    fit();
+    if (typeof ResizeObserver !== 'undefined') new ResizeObserver(fit).observe(fig);
+    $('.js-biblio-n').textContent = String($$('.bk', box).length).padStart(2, '0');
+  }
 
   /* ---------- Plan de estudios (datos oficiales del plan) ---------- */
   function buildMalla() {
@@ -155,6 +179,7 @@
     render(0);
   }
   buildMalla();
+  buildBiblio();
 
   /* ---------- Hero: entrar en el sello de la Escuela ---------- */
   // Punto de entrada: zona roja limpia bajo "Derecho" (en coordenadas del logo, 804 x 804).
@@ -190,13 +215,13 @@
 
   // La foto se coloca para que el hueco de la escultura quede justo detrás del sello,
   // en cualquier pantalla, y la imagen siga cubriendo todo el fondo.
-  const PHOTO = [1600, 1061], HOLE = [1195, 562, 220];   // centro y radio del hueco, en píxeles de la foto
+  const PHOTO = [1600, 1061], HOLE = [1195, 562];   // centro del hueco, en píxeles de la foto
   function fitBg(cx, cy, size) {
     const img = $('.js-hero-bg img'), box = $('.js-hero-par'), drift = $('.hero__drift');
     const W = box.offsetWidth, H = box.offsetHeight;
     const bx = cx + (W - stage.clientWidth) / 2, by = cy + (H - stage.clientHeight) / 2;
-    const [nw, nh] = PHOTO, [hx, hy, hr] = HOLE;
-    const s = Math.max(W / nw, H / nh, bx / hx, (W - bx) / (nw - hx), by / hy, (H - by) / (nh - hy), size * .75 / hr);
+    const [nw, nh] = PHOTO, [hx, hy] = HOLE;
+    const s = Math.max(W / nw, H / nh, bx / hx, (W - bx) / (nw - hx), by / hy, (H - by) / (nh - hy));   // lo mínimo para cubrir: la foto no se amplía de más
     Object.assign(img.style, {
       position: 'absolute', maxWidth: 'none', objectFit: 'fill',
       width: nw * s + 'px', height: nh * s + 'px', left: bx - hx * s + 'px', top: by - hy * s + 'px'
@@ -370,6 +395,36 @@
     $$('.js-fade').forEach(el => {
       gsap.from(el, { y: 36, autoAlpha: 0, duration: 1.1, ease: 'expo.out', scrollTrigger: { trigger: el, start: 'top 90%' } });
     });
+
+    // Biblioteca: los tomos llegan uno a uno y se empujan dentro de los estantes
+    const books = $$('.js-biblio .bk');
+    if (books.length && !reduce) {
+      const fig = $('.js-biblio'), nEl = $('.js-biblio-n'), tEl = $('.js-biblio-t');
+      const rnd = i => ((Math.sin(i * 91.7) * 43758.5) % 1 + 1) % 1;   // aleatorio estable
+      nEl.textContent = '00';
+      const lib = gsap.timeline({
+        defaults: { ease: 'power3.out' },
+        scrollTrigger: {
+          trigger: fig, start: 'top 90%', end: 'center 55%', scrub: 1.6,
+          onUpdate: s => {
+            const n = Math.min(books.length, Math.floor(s.progress * 1.04 * books.length + .001));
+            nEl.textContent = String(n).padStart(2, '0');
+            tEl.textContent = n === 0 ? 'Tomos en el estante' : n === books.length ? 'Biblioteca completa' : books[n - 1].dataset.t;
+            fig.classList.toggle('is-full', n === books.length);
+          }
+        }
+      });
+      books.forEach((b, i) => {
+        const lean = +b.dataset.lean, r = rnd(i), at = i * .12;
+        lib.fromTo(b, {
+          x: () => fig.clientWidth * (.14 + r * .18) * (r > .5 ? 1 : -1), yPercent: -26 - r * 18,
+          rotation: (r - .5) * 18, scale: 1.14, autoAlpha: 0, transformOrigin: lean ? '0% 100%' : '50% 100%'
+        }, { x: 0, yPercent: -5, rotation: lean * .4, scale: 1.05, autoAlpha: 1, duration: .7, ease: 'power2.out' }, at)
+          .to(b, { yPercent: 0, rotation: lean, scale: 1, duration: .45, ease: 'back.out(1.3)' }, at + .7)
+          .fromTo($('.bk__sh', b), { opacity: 0 }, { opacity: 1, duration: .45, ease: 'power2.out' }, at + .7);
+      });
+      lib.to({}, { duration: .2 });
+    }
 
     // Imágenes que se revelan
     $$('.reveal-img').forEach(fig => {
