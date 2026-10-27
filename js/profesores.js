@@ -100,13 +100,18 @@
         .fromTo('.header', { yPercent: -120 }, { yPercent: 0, duration: 1.1, clearProps: 'transform' }, .1)
         .from('.ph__top', { autoAlpha: 0, y: 16, duration: 1 }, .15)
         .from(split.chars, { yPercent: 112, duration: 1.4, stagger: .045 }, .2)
+        .add(() => window.traceTitle?.(split.chars, { draw: 2.1, stagger: .05 }), .2)
         .from('.js-ph-fade', { autoAlpha: 0, y: 24, duration: 1.1, stagger: .08 }, .6);
     }
 
     // Títulos por líneas
     $$('.js-lines').forEach(el => {
       const s = SplitText.create(el, { type: 'lines', mask: 'lines', linesClass: 'ln' });
-      if (!reduce) gsap.from(s.lines, { yPercent: 110, duration: 1.25, stagger: .09, ease: 'expo.out', scrollTrigger: { trigger: el, start: 'top 86%' } });
+      let traced = !el.matches('.contacto__title') || !window.traceTitle;
+      if (!reduce) gsap.from(s.lines, {
+        yPercent: 110, duration: 1.25, stagger: .09, ease: 'expo.out',
+        scrollTrigger: { trigger: el, start: 'top 86%', onEnter: () => { if (!traced) { traced = true; traceTitle(s.lines); } } }
+      });
     });
     if (reduce) return;
 

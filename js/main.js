@@ -390,11 +390,13 @@
       .to({}, { duration: .25 });
 
     // Títulos por líneas
+    // los títulos grandes, además, se trazan en lacre y luego se rellenan
     $$('.js-lines').forEach(el => {
       const split = SplitText.create(el, { type: 'lines', mask: 'lines', linesClass: 'ln' });
+      let traced = !el.matches('.display, .display-sm, .display-xl, .contacto__title') || !window.traceTitle;
       gsap.from(split.lines, {
         yPercent: 110, duration: 1.25, stagger: .09, ease: 'expo.out',
-        scrollTrigger: { trigger: el, start: 'top 86%' }
+        scrollTrigger: { trigger: el, start: 'top 86%', onEnter: () => { if (!traced) { traced = true; traceTitle(split.lines); } } }
       });
     });
 

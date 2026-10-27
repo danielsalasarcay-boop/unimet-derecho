@@ -988,3 +988,9 @@ body::after {
   .biblio-track { height: calc(var(--fh, 380px) + var(--vh) * 1.95); }   /* en teléfono, un recorrido largo: los tomos avanzan al ritmo del dedo */
   .biblio-track .biblio { width: min(100%, calc((var(--vh) - 140px) * 4 / 4.2)); }
 }
+
+/* Títulos que se trazan en lacre (js/trace.js) */
+.is-tracing { position: relative; }
+.trace { position: absolute; left: 0; top: 0; overflow: visible; pointer-events: none; }
+.trace text { fill: none; stroke: var(--trace, var(--lacre)); stroke-width: 1.1; stroke-linejoin: round; }
+.contacto { --trace: #fff; }
