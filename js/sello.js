@@ -1,7 +1,7 @@
 /* Escuela de Derecho · UNIMET — sello de lacre en "Disposición final".
-   Estampado real ligado al scroll: se derrama la cera, baja el sello de bronce, presiona
-   (la cera se escapa por los bordes) y, al levantarse, deja grabado el escudo.
-   Al subir, todo vuelve atrás. Va junto al título "Escríbenos. Te orientamos.". */
+   Ligado al scroll: el sello baja desde cerca de la pantalla girando, golpea, se aplasta
+   soltando cera por los bordes y queda pegado. Al subir, se despega.
+   Va junto al título "Escríbenos. Te orientamos.". */
 
 (() => {
   const grid = document.querySelector('.contacto__grid');
@@ -44,21 +44,6 @@
           <use href="#iso" x="81" y="66.5" width="38" height="68" style="color: rgba(45,0,10,.74)"/>
         </g>
       </g>
-    </svg>
-    <svg class="sello__stamp" viewBox="0 0 200 200">
-      <defs>
-        <radialGradient id="selloBronce" cx="40%" cy="36%" r="70%">
-          <stop offset="0" stop-color="#E8C77E"/><stop offset=".55" stop-color="#B08433"/><stop offset="1" stop-color="#6B4A16"/>
-        </radialGradient>
-        <radialGradient id="selloMadera" cx="42%" cy="38%" r="68%">
-          <stop offset="0" stop-color="#6B3A22"/><stop offset=".7" stop-color="#3E1F11"/><stop offset="1" stop-color="#24120A"/>
-        </radialGradient>
-      </defs>
-      <circle cx="100" cy="100" r="78" fill="url(#selloBronce)"/>
-      <circle cx="100" cy="100" r="70" fill="none" stroke="rgba(60,38,8,.55)" stroke-width="1.5"/>
-      <circle cx="100" cy="100" r="54" fill="url(#selloMadera)"/>
-      <circle cx="100" cy="100" r="54" fill="none" stroke="rgba(232,199,126,.5)" stroke-width="1.2"/>
-      <circle cx="100" cy="100" r="30" fill="none" stroke="rgba(0,0,0,.25)" stroke-width="1"/>
     </svg>`;
 
   const main = grid.querySelector('.contacto__main'), title = grid.querySelector('.contacto__title');
@@ -68,36 +53,28 @@
   addEventListener('resize', place);
   document.fonts?.ready.then(place);
 
-  const stamp = seal.querySelector('.sello__stamp');
-  if (reduce || typeof gsap === 'undefined') { stamp.style.display = 'none'; return; }
+  if (reduce || typeof gsap === 'undefined') return;
   gsap.registerPlugin(ScrollTrigger);
-  const q = sel => seal.querySelector(sel);
-  const wax = q('.sello__wax'), body = q('.sello__body'), mark = q('.sello__mark'), wave = q('.sello__wave');
+  const wax = seal.querySelector('.sello__wax'), wave = seal.querySelector('.sello__wave');
   const drops = [...seal.querySelectorAll('.sello__drops circle')];
-  gsap.set([body, ...drops], { svgOrigin: '100 100' });
-  gsap.set(wax, { rotation: -14 });
-  const high = 'drop-shadow(0 46px 26px rgba(30,0,8,.32))', low = 'drop-shadow(0 3px 3px rgba(30,0,8,.5))';
+  gsap.set(drops, { svgOrigin: '100 100' });
 
+  // ligado al scroll: al bajar el sello cae y se pega; al subir, se despega y se va
   gsap.timeline({
     defaults: { ease: 'none' },
     scrollTrigger: {
-      trigger: grid, start: 'top 82%', scrub: .6,
-      end: self => Math.min(self.start + innerHeight * .7, ScrollTrigger.maxScroll(window) - 2)
+      trigger: grid, start: 'top 80%', scrub: .5,
+      end: self => Math.min(self.start + innerHeight * .5, ScrollTrigger.maxScroll(window) - 2)
     }
   })
-    // 1) se derrama la cera
-    .fromTo(body, { scale: .2, rotation: -40, autoAlpha: 0 }, { scale: 1, rotation: 0, autoAlpha: 1, duration: .2, ease: 'power2.out' }, 0)
-    .set(mark, { autoAlpha: 0 }, 0)
-    // 2) baja el sello de bronce
-    .fromTo(stamp, { scale: 1.9, y: -46, autoAlpha: 0, filter: high }, { scale: 1, y: 0, autoAlpha: 1, filter: low, duration: .32, ease: 'power2.in' }, .16)
-    // 3) presiona: la cera se aplasta y se escapa por los bordes
-    .to(wax, { scaleX: 1.07, scaleY: .95, duration: .05 }, .48)
-    .to(stamp, { scale: .96, duration: .05 }, .48)
-    .fromTo(drops, { scale: 0 }, { scale: 1, duration: .14, stagger: .01, ease: 'expo.out' }, .48)
-    .fromTo(wave, { scale: .7, autoAlpha: .6 }, { scale: 2, autoAlpha: 0, duration: .25, ease: 'expo.out' }, .5)
-    // 4) se levanta y deja el grabado
-    .set(mark, { autoAlpha: 1 }, .6)
-    .to(stamp, { scale: 1.7, y: -34, autoAlpha: 0, filter: high, duration: .34, ease: 'power1.in' }, .6)
-    .to(wax, { scaleX: 1, scaleY: 1, duration: .2, ease: 'back.out(2.2)' }, .6)
-    .to({}, { duration: .06 });
+    // 1) baja desde cerca de la pantalla, girando, con su sombra lejos
+    .fromTo(wax, { scale: 2.6, rotation: -60, y: -50, autoAlpha: 0, filter: 'drop-shadow(0 60px 40px rgba(40,0,10,.3))' },
+      { scale: 1, rotation: -14, y: 0, autoAlpha: 1, filter: 'drop-shadow(0 4px 4px rgba(40,0,10,.5))', duration: .55, ease: 'power3.in' })
+    // 2) golpe: se aplasta contra la página y la cera se escapa por los bordes
+    .to(wax, { scaleX: 1.1, scaleY: .9, duration: .06, ease: 'power2.out' })
+    .fromTo(drops, { scale: 0 }, { scale: 1, duration: .2, stagger: .01, ease: 'expo.out' }, '<')
+    .fromTo(wave, { scale: .7, autoAlpha: .6 }, { scale: 2, autoAlpha: 0, duration: .3, ease: 'expo.out', immediateRender: false }, '<')
+    .fromTo(main, { y: 0 }, { y: 3, duration: .03, yoyo: true, repeat: 1 }, '<')
+    // 3) rebota y queda pegado
+    .to(wax, { scaleX: 1, scaleY: 1, duration: .3, ease: 'back.out(3)' }, '<.06');
 })();
