@@ -395,7 +395,7 @@
       const split = SplitText.create(el, { type: 'lines', mask: 'lines', linesClass: 'ln' });
       if (window.traceTitle?.ok && el.matches('.display, .display-sm, .display-xl, .contacto__title')) {
         gsap.set(split.lines, { opacity: 0 });
-        ScrollTrigger.create({ trigger: el, start: 'top 82%', once: true, onEnter: () => traceTitle(split.lines) });
+        ScrollTrigger.create({ trigger: el, start: 'top 75%', once: true, onEnter: () => traceTitle(split.lines, { draw: 2.6, stagger: .06 }) });
         return;
       }
       gsap.from(split.lines, {
@@ -530,6 +530,45 @@
     }, i * .3));
 
     // Competencias en horizontal (en teléfono solo se desplazan las fichas)
+    // Pasos de la sentencia: una línea lacre baja por los números; el paso donde estás se engruesa
+    const pasosEl = $('.pasos');
+    const rail = document.createElement('span');
+    rail.className = 'pasos__rail';
+    rail.innerHTML = '<i></i><b></b>';
+    pasosEl.prepend(rail);
+    const nums = $$('.paso__n', pasosEl);
+    const railFill = $('i', rail), railDot = $('b', rail);
+    // centros de los números; el riel va del primero al último
+    const centers = () => {
+      const c = nums.map(n => n.offsetTop + n.offsetHeight / 2);
+      rail.style.top = c[0] + 'px';
+      rail.style.height = (c[c.length - 1] - c[0]) + 'px';
+      return c.map(v => v - c[0]);
+    };
+    const fillTo = gsap.quickTo(railFill, 'scaleY', { duration: .6, ease: 'power3.out' });
+    const dotTo = gsap.quickTo(railDot, 'y', { duration: .6, ease: 'power3.out' });
+    const setNum = i => nums.forEach((n, j) => n.parentElement.classList.toggle('is-here', j === i));
+    // i: paso actual; t: avance (0–1) hacia el siguiente
+    const railTo = (i, t) => {
+      const c = centers(), H = rail.offsetHeight || 1;
+      const y = c[i] + ((c[i + 1] ?? c[i]) - c[i]) * t;
+      fillTo(Math.max(0, Math.min(1, y / H))); dotTo(y); setNum(i);
+    };
+    railTo(0, 0);
+    mm.add('(max-width: 820px), (max-height: 560px)', () => {
+      ScrollTrigger.create({
+        trigger: pasosEl, start: 'top 62%', end: 'bottom 62%',
+        onUpdate: s => {
+          const c = centers(), y = s.progress * c[c.length - 1];
+          let i = 0;
+          c.forEach((v, j) => { if (y >= v - 2) i = j; });
+          const t = c[i + 1] ? (y - c[i]) / (c[i + 1] - c[i]) : 0;
+          railTo(i, Math.max(0, t));
+          setNum(t > .5 ? i + 1 : i); // el número más cercano a la punta de la línea
+        }
+      });
+    });
+
     mm.add({ desk: isDesk, phone: '(max-width: 820px) and (min-height: 561px)' }, ctx => {
       const intro = $('.comp__intro'), rail = $('.comp__rail'), arts = $$('.art');
       const desk = ctx.conditions.desk;
@@ -558,7 +597,10 @@
       setPaso(0);
       ScrollTrigger.create({
         trigger: '.lectura', start: 'top top', end: 'bottom bottom',
-        onUpdate: s => setPaso(Math.min(4, Math.floor(s.progress * 5)))
+        onUpdate: s => {
+          const f = Math.min(4.999, s.progress * 5), i = Math.floor(f);
+          setPaso(i); railTo(i, f - i);
+        }
       });
       gsap.fromTo('.doc__paper', { rotateX: 14, rotateY: -16, rotateZ: 3 }, {
         rotateX: 2, rotateY: -4, rotateZ: 0, ease: 'none',

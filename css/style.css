@@ -376,9 +376,16 @@ body::after {
 .lectura { height: calc(var(--vh) * 2.3); position: relative; }
 .lectura__sticky { position: sticky; top: 0; height: var(--vh); display: flex; align-items: flex-start; padding-top: clamp(84px, 12vh, 130px); }
 .lectura__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6vw; align-items: center; }
-.paso { display: grid; grid-template-columns: 52px 1fr; padding: 20px 0; border-top: 1px solid var(--rule-light); opacity: .32; transition: opacity .5s var(--ease); }
-.paso.is-on { opacity: 1; }
-.paso__n { font-size: 30px; font-style: italic; font-weight: 300; color: var(--lacre); line-height: 1; }
+.pasos { position: relative; }
+.paso { display: grid; grid-template-columns: 52px 1fr; padding: 20px 0 20px 30px; border-top: 1px solid var(--rule-light); }
+.paso > div { opacity: .32; transition: opacity .5s var(--ease); }
+.paso.is-on > div { opacity: 1; }
+.paso__n { font-size: 30px; font-style: italic; font-weight: 300; color: var(--lacre); line-height: 1; transform-origin: 0 60%;
+  transition: font-weight .6s var(--ease), transform .7s var(--ease); }
+.paso.is-here .paso__n { font-weight: 600; transform: scale(1.5); }
+.pasos__rail { position: absolute; left: 6px; width: 1px; background: var(--rule-light); pointer-events: none; }
+.pasos__rail i { position: absolute; inset: 0; background: var(--lacre); transform-origin: 50% 0; transform: scaleY(0); }
+.pasos__rail b { position: absolute; left: -3.5px; top: -3.5px; width: 8px; height: 8px; border-radius: 50%; background: var(--lacre); box-shadow: 0 0 0 4px rgba(212,1,52,.22), 0 0 14px rgba(212,1,52,.7); }
 .paso h4 { font-weight: 400; font-size: clamp(21px, 1.8vw, 27px); line-height: 1.15; letter-spacing: -.01em; }
 .paso p { margin-top: 0; max-height: 0; overflow: hidden; color: rgba(255,255,255,.66); font-size: 16px; transition: max-height .6s var(--ease), margin .6s var(--ease); }
 .paso.is-on p { max-height: 8em; margin-top: 10px; }
@@ -757,7 +764,7 @@ body::after {
   .lectura { height: auto; }
   .lectura__sticky { position: static; height: auto; padding: var(--sp-s) 0 0; }
   .doc { display: none; }
-  .paso { opacity: 1; }
+  .paso > div { opacity: 1; }
   .paso p { max-height: none; margin-top: 10px; }
   .piramide__info { min-height: 0; }
   .brocardos__grid { grid-template-columns: 1fr; }
@@ -808,7 +815,7 @@ body::after {
   .art { width: 100%; min-height: 0; }
   .art__t { margin-top: 24px; }
   .doc { display: none; }
-  .paso { opacity: 1; }
+  .paso > div { opacity: 1; }
   .paso p { max-height: none; margin-top: 10px; }
   .comunidad__hero { height: auto; min-height: 100vh; }
 }
