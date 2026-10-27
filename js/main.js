@@ -190,13 +190,13 @@
 
   // La foto se coloca para que el hueco de la escultura quede justo detrás del sello,
   // en cualquier pantalla, y la imagen siga cubriendo todo el fondo.
-  const PHOTO = [1600, 1061], HOLE = [1190, 562, 210];   // centro y radio del hueco, en píxeles de la foto
+  const PHOTO = [1600, 1061], HOLE = [1195, 562, 220];   // centro y radio del hueco, en píxeles de la foto
   function fitBg(cx, cy, size) {
     const img = $('.js-hero-bg img'), box = $('.js-hero-par'), drift = $('.hero__drift');
     const W = box.offsetWidth, H = box.offsetHeight;
     const bx = cx + (W - stage.clientWidth) / 2, by = cy + (H - stage.clientHeight) / 2;
     const [nw, nh] = PHOTO, [hx, hy, hr] = HOLE;
-    const s = Math.max(W / nw, H / nh, bx / hx, (W - bx) / (nw - hx), by / hy, (H - by) / (nh - hy), size * .72 / hr);
+    const s = Math.max(W / nw, H / nh, bx / hx, (W - bx) / (nw - hx), by / hy, (H - by) / (nh - hy), size * .75 / hr);
     Object.assign(img.style, {
       position: 'absolute', maxWidth: 'none', objectFit: 'fill',
       width: nw * s + 'px', height: nh * s + 'px', left: bx - hx * s + 'px', top: by - hy * s + 'px'
