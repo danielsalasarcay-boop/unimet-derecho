@@ -142,7 +142,7 @@ body::after {
 .header__nav a:hover { opacity: 1; }
 .header__nav a.is-pill { color: #fff; opacity: 1; }
 /* píldora que se desliza: lacre de la Escuela y naranja UNIMET, alternados */
-.nav__pill { position: absolute; left: 0; top: 0; bottom: 0; width: 0; border-radius: 999px; background: var(--lacre); opacity: 0; pointer-events: none;
+.nav__pill { position: absolute; left: 0; top: 0; width: 0; height: 100%; border-radius: 999px; background: var(--lacre); opacity: 0; pointer-events: none;
   transition: transform .45s cubic-bezier(.2, .8, .2, 1), width .45s cubic-bezier(.2, .8, .2, 1), opacity .3s, background-color .4s; }
 .nav__pill.is-uni { background: var(--naranja); }
 .header.is-lacre .nav__pill { background: var(--naranja); }
@@ -578,6 +578,25 @@ body::after {
 .footer__nav { display: flex; flex-wrap: wrap; gap: 8px 26px; justify-content: center; font-family: var(--sans); font-size: 14px; }
 .footer__nav a { opacity: .7; transition: opacity .3s; }
 .footer__nav a:hover { opacity: 1; }
+/* píldora del footer: va por encima, sin tocar medidas */
+.footer__nav { position: relative; }
+.footer__nav a { position: relative; z-index: 1; transition: opacity .3s, color .35s; }
+.footer__nav a.is-pill { opacity: 1; color: #fff; }
+.footer__nav .nav__pill { z-index: 0; }
+/* Instagram del footer: el degradado de Instagram se abre desde el ícono como un flash
+   y la cámara gira y dispara */
+.footer .btn-ig { position: relative; isolation: isolate; overflow: hidden; }
+.footer .btn-ig::before { content: ""; position: absolute; inset: 0; z-index: -1;
+  background: radial-gradient(circle at 18% 120%, #FEDA75 0%, #FA7E1E 24%, #D62976 50%, #962FBF 74%, #4F5BD5 100%);
+  clip-path: circle(0 at 24px 50%); transition: clip-path .7s var(--ease); }
+.footer .btn-ig .ig { transition: transform .7s var(--ease); }
+.footer .btn-ig .ig circle:last-child { transform-box: fill-box; transform-origin: center; }
+@media (hover: hover) {
+  .footer .btn-ig:hover::before { clip-path: circle(160% at 24px 50%); }
+  .footer .btn-ig:hover .ig { transform: rotate(-14deg) scale(1.16); }
+  .footer .btn-ig:hover .ig circle:last-child { animation: igFlash .7s var(--ease) .15s; }
+}
+@keyframes igFlash { 0%, 100% { transform: scale(1); filter: none; } 40% { transform: scale(2.2); filter: drop-shadow(0 0 3px #fff) drop-shadow(0 0 6px #fff); } }
 .footer__top-link { opacity: .7; }
 .footer__top-link:hover { opacity: 1; }
 .footer__word {
