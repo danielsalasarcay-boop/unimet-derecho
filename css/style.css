@@ -331,13 +331,15 @@ body::after {
 .asig {
   position: relative; min-height: 92px; padding: 10px 10px 12px; text-align: left;
   background: var(--white); border-radius: 3px; font-family: var(--sans); font-size: 12.5px; line-height: 1.25; font-weight: 500;
-  font-stretch: 80%; letter-spacing: -.005em; hyphens: manual; overflow-wrap: normal; transition: opacity .45s var(--ease), transform .45s var(--ease), background .3s, color .3s;
+  font-stretch: 80%; letter-spacing: -.005em; hyphens: manual; overflow-wrap: normal; transition: background .35s, color .35s;
   overflow: hidden;
 }
 .asig::before { content: ""; position: absolute; left: 0; top: 0; right: 0; height: 3px; background: var(--c, var(--ink)); }
 .asig:hover, .asig.is-pick { background: var(--c, var(--ink)); color: #fff; }
 .asig--el { background: transparent; border: 1px dashed var(--rule); font-style: italic; color: var(--muted); }
-.malla:not([data-area="all"]) .asig:not(.is-match) { opacity: .16; transform: scale(.97); }
+/* atenuadas sin opacidad ni escala: en Safari, decenas de capas así hacían ir el scroll a tirones */
+.malla:not([data-area="all"]) .asig:not(.is-match) { background: rgba(255, 255, 255, .35); color: rgba(29, 30, 33, .2); }
+.malla:not([data-area="all"]) .asig:not(.is-match)::before { background: rgba(29, 30, 33, .12); }
 .malla .asig.is-match { background: var(--c, var(--ink)); color: #fff; }
 .malla__hint { display: none; margin-top: 10px; color: var(--muted); }
 .malla__tramos { display: grid; grid-template-columns: repeat(12, 1fr); gap: 6px; margin-top: 14px; }

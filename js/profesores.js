@@ -100,7 +100,7 @@
       gsap.timeline({ defaults: { ease: 'expo.out' } })
         .fromTo('.header', { yPercent: -120 }, { yPercent: 0, duration: 1.1, clearProps: 'transform' }, .1)
         .from('.ph__top', { autoAlpha: 0, y: 16, duration: 1 }, .15)
-        .add(() => window.traceTitle ? traceTitle([$('.js-ph-word')], { draw: 2.6, calm: true }) : null, .25)
+        .add(() => window.traceTitle ? traceTitle([$('.js-ph-word')], innerWidth <= 820 ? { draw: .9, quick: true } : { draw: 2.6, calm: true }) : null, .25)
         .from('.js-ph-fade', { autoAlpha: 0, y: 24, duration: 1.1, stagger: .08 }, .6);
     }
 
