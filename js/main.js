@@ -393,10 +393,14 @@
     // los títulos grandes, además, se trazan en lacre y luego se rellenan
     $$('.js-lines').forEach(el => {
       const split = SplitText.create(el, { type: 'lines', mask: 'lines', linesClass: 'ln' });
-      let traced = !el.matches('.display, .display-sm, .display-xl, .contacto__title') || !window.traceTitle;
+      if (window.traceTitle?.ok && el.matches('.display, .display-sm, .display-xl, .contacto__title')) {
+        gsap.set(split.lines, { opacity: 0 });
+        ScrollTrigger.create({ trigger: el, start: 'top 82%', once: true, onEnter: () => traceTitle(split.lines) });
+        return;
+      }
       gsap.from(split.lines, {
         yPercent: 110, duration: 1.25, stagger: .09, ease: 'expo.out',
-        scrollTrigger: { trigger: el, start: 'top 86%', onEnter: () => { if (!traced) { traced = true; traceTitle(split.lines); } } }
+        scrollTrigger: { trigger: el, start: 'top 86%' }
       });
     });
 

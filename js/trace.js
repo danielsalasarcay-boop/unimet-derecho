@@ -55,25 +55,29 @@
     return { u, svg, text, fill, len: parseFloat(cs.fontSize) * 4.2 };
   };
 
-  // Devuelve la línea de tiempo (o null con movimiento reducido)
-  window.traceTitle = (units, { delay = 0, draw = 1.9, stagger = .1 } = {}) => {
-    if (reduce || typeof gsap === 'undefined') return null;
+  window.traceTitle = (units, { delay = 0, draw = 2.4, stagger = .14 } = {}) => {
+    if (reduce || typeof gsap === 'undefined') { gsap?.set(units, { opacity: 1 }); return null; }
     const parts = [...units].map(build);
-    const at = (i) => delay + i * stagger;
+    gsap.set(parts.map(p => p.fill), { opacity: 0 });
+    gsap.set(units, { opacity: 1 });
     const tl = gsap.timeline({
+      delay,
       onComplete: () => parts.forEach(p => {
         p.svg.remove();
         p.u.classList.remove('is-tracing');
         gsap.set(p.fill, { clearProps: 'opacity' });
       })
     });
+    // 1) el contorno lacre se dibuja  2) se llena de lacre  3) la tinta se asienta en su color
     parts.forEach((p, i) => {
-      tl.set(p.fill, { opacity: 0 }, 0)
-        .fromTo(p.text, { strokeDasharray: p.len, strokeDashoffset: p.len },
-          { strokeDashoffset: 0, duration: draw, ease: 'power2.inOut' }, at(i))
-        .to(p.fill, { opacity: 1, duration: .9, ease: 'power1.out' }, at(i) + draw - .55)
-        .to(p.svg, { opacity: 0, duration: .9, ease: 'power1.out' }, at(i) + draw - .4);
+      const t = i * stagger;
+      tl.fromTo(p.text, { strokeDasharray: p.len, strokeDashoffset: p.len },
+          { strokeDashoffset: 0, duration: draw, ease: 'power2.inOut' }, t)
+        .to(p.text, { fillOpacity: 1, duration: .8, ease: 'power1.inOut' }, t + draw - .45)
+        .to(p.fill, { opacity: 1, duration: .7, ease: "power1.out" }, t + draw + .45)
+        .to(p.svg, { opacity: 0, duration: 1.2, ease: "power2.inOut" }, t + draw + .6);
     });
     return tl;
   };
+  window.traceTitle.ok = !reduce;
 })();

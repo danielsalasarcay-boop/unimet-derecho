@@ -992,5 +992,5 @@ body::after {
 /* Títulos que se trazan en lacre (js/trace.js) */
 .is-tracing { position: relative; }
 .trace { position: absolute; left: 0; top: 0; overflow: visible; pointer-events: none; }
-.trace text { fill: none; stroke: var(--trace, var(--lacre)); stroke-width: 1.1; stroke-linejoin: round; }
+.trace text { fill: var(--trace, var(--lacre)); fill-opacity: 0; stroke: var(--trace, var(--lacre)); stroke-width: 1; stroke-linejoin: round; stroke-linecap: round; }
 .contacto { --trace: #fff; }
