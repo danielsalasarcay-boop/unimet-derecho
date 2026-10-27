@@ -371,7 +371,11 @@
         trigger: '.hero', start: 'top top', end: 'bottom bottom', scrub: true,
         invalidateOnRefresh: true,
         onRefresh: layoutHero,
-        onUpdate: s => { const l = s.progress < 1; if (l !== heroLight) { heroLight = l; paintHeader(); } }
+        onUpdate: s => {
+          const l = s.progress < 1; if (l !== heroLight) { heroLight = l; paintHeader(); }
+          // pantalla lacre de "Abogados para un mundo interrelacionado": la píldora va toda en naranja
+          header.classList.toggle('is-lacre', s.progress > .5 && s.progress < 1);
+        }
       }
     })
       .to('.hero__copy', { yPercent: -8, autoAlpha: 0, ease: 'power2.in', duration: .22 }, 0)

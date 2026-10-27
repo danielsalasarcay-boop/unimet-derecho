@@ -1,7 +1,7 @@
 /* =========================================================
    Escuela de Derecho · Universidad Metropolitana
    Paleta del logo de la Escuela: lacre + blanco + carbón.
-   El naranja UNIMET vive solo en el logo institucional.
+   El naranja UNIMET vive en el logo institucional y en la píldora del header.
    ========================================================= */
 
 :root {
@@ -137,11 +137,15 @@ body::after {
 .brand__word { display: flex; flex-direction: column; line-height: 1.12; }
 .brand__word b { font-family: var(--serif); font-weight: 500; font-size: 17px; letter-spacing: -.01em; }
 .brand__word span { font-family: var(--sans); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; font-weight: 600; opacity: .62; font-stretch: 90%; }
-.header__nav { display: flex; gap: clamp(18px, 1.9vw, 28px); white-space: nowrap; font-family: var(--sans); font-size: 14px; font-weight: 500; }
-.header__nav a { position: relative; padding: 4px 0; opacity: .82; transition: opacity .3s; }
-.header__nav a::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: right; transition: transform .5s var(--ease); }
+.header__nav { position: relative; display: flex; gap: 2px; white-space: nowrap; font-family: var(--sans); font-size: 14px; font-weight: 500; }
+.header__nav a { position: relative; z-index: 1; padding: 9px clamp(8px, calc(2.6vw - 22px), 15px); border-radius: 999px; opacity: .82; transition: opacity .3s, color .35s; }
 .header__nav a:hover { opacity: 1; }
-.header__nav a:hover::after { transform: scaleX(1); transform-origin: left; }
+.header__nav a.is-pill { color: #fff; opacity: 1; }
+/* píldora que se desliza: lacre de la Escuela y naranja UNIMET, alternados */
+.nav__pill { position: absolute; left: 0; top: 0; bottom: 0; width: 0; border-radius: 999px; background: var(--lacre); opacity: 0; pointer-events: none;
+  transition: transform .45s cubic-bezier(.2, .8, .2, 1), width .45s cubic-bezier(.2, .8, .2, 1), opacity .3s, background-color .4s; }
+.nav__pill.is-uni { background: var(--naranja); }
+.header.is-lacre .nav__pill { background: var(--naranja); }
 .header__cta { padding: 11px 18px; border-radius: 999px; background: var(--lacre); color: #fff; transition: background .3s; }
 .header__cta:hover { background: var(--lacre-deep); }
 .header.is-light .header__cta { background: #fff; color: var(--lacre); }
@@ -827,8 +831,6 @@ body::after {
 }
 
 /* ---------- Profesores (página aparte) ---------- */
-.header__nav a[aria-current] { opacity: 1; }
-.header__nav a[aria-current]::after { transform: scaleX(1); }
 .indice__list a[aria-current] .t { color: var(--lacre); }
 
 .ph { padding: clamp(118px, 12vw, 168px) 0 var(--sp-s); }
