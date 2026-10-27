@@ -377,10 +377,10 @@ body::after {
 .lectura__sticky { position: sticky; top: 0; height: var(--vh); display: flex; align-items: flex-start; padding-top: clamp(84px, 12vh, 130px); }
 .lectura__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6vw; align-items: center; }
 .pasos { position: relative; }
-.paso { display: grid; grid-template-columns: 52px 1fr; padding: 20px 0 20px 30px; border-top: 1px solid var(--rule-light); }
+.paso { display: grid; grid-template-columns: 52px 1fr; align-items: baseline; padding: 20px 0 20px 30px; border-top: 1px solid var(--rule-light); }
 .paso > div { opacity: .32; transition: opacity .5s var(--ease); }
 .paso.is-on > div { opacity: 1; }
-.paso__n { font-size: 30px; font-style: italic; font-weight: 300; color: var(--lacre); line-height: 1; transform-origin: 0 60%;
+.paso__n { font-size: 30px; font-style: italic; font-weight: 300; color: var(--lacre); line-height: 1; transform-origin: 0 80%; align-self: baseline;
   transition: font-weight .6s var(--ease), transform .7s var(--ease); }
 .paso.is-here .paso__n { font-weight: 600; transform: scale(1.5); }
 .pasos__rail { position: absolute; left: 6px; width: 1px; background: var(--rule-light); pointer-events: none; }
