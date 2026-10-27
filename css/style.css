@@ -975,7 +975,7 @@ body::after {
 .biblio__now i { font-size: max(12px, 1.2em); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 /* La biblioteca queda fija en pantalla mientras se llena */
-.biblio-track { position: relative; height: calc(var(--fh, 640px) + var(--vh) * 1.06); }
+.biblio-track { position: relative; height: calc(var(--fh, 640px) + var(--vh) * 1.18); }
 .biblio-track .biblio { position: sticky; top: max(84px, calc((var(--vh) - var(--fh, 640px)) / 2)); width: min(100%, calc((var(--vh) - 150px) * .8)); margin: 0 auto; }
 .biblio-track.is-static { height: auto; }
 .biblio-track.is-static .biblio { position: relative; top: auto; }
