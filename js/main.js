@@ -50,8 +50,12 @@
       <span class="bk${c === 'P' ? ' bk--light' : ''}${c === 'U' ? ' bk--unimet' : ''}" data-t="${t}${vol ? ' ' + vol : ''}" data-lean="${lean}" style="--bc:${SPINE[c]};width:${w}%;height:${h}%${lean ? `;transform-origin:0 100%;transform:rotate(${lean}deg)` : ''}">
         <i class="bk__band"></i>${c === 'U' ? '<svg class="bk__iso"><use href="#iso"/></svg>' : ''}<em class="bk__t">${t}</em>${vol ? `<b class="bk__vol">${vol}</b>` : ''}<i class="bk__band bk__band--b"></i><i class="bk__sh"></i>
       </span>`).join('')}</div>`).join('');
-    const fig = $('.js-biblio');
-    const fit = () => { fig.style.fontSize = Math.min(fig.clientWidth / 46, fig.clientHeight / 54).toFixed(2) + 'px'; };
+    const fig = $('.js-biblio'), track = $('.js-biblio-track');
+    if (!hasGsap || reduce) track.classList.add('is-static'); else track.parentElement.classList.add('is-lib');
+    const fit = () => {
+      fig.style.fontSize = Math.min(fig.clientWidth / 46, fig.clientHeight / 54).toFixed(2) + 'px';
+      track.parentElement.style.setProperty('--fh', fig.offsetHeight + 'px');   // la columna de texto también lo usa
+    };
     fit();
     if (typeof ResizeObserver !== 'undefined') new ResizeObserver(fit).observe(fig);
     $('.js-biblio-n').textContent = String($$('.bk', box).length).padStart(2, '0');
@@ -217,16 +221,14 @@
   // en cualquier pantalla, y la imagen siga cubriendo todo el fondo.
   const PHOTO = [1600, 1061], HOLE = [1195, 562];   // centro del hueco, en píxeles de la foto
   function fitBg(cx, cy, size) {
-    const img = $('.js-hero-bg img'), box = $('.js-hero-par'), drift = $('.hero__drift');
+    const img = $('.js-hero-bg img'), fitBox = $('.js-hero-fit'), box = $('.js-hero-par'), drift = $('.hero__drift');
     const W = box.offsetWidth, H = box.offsetHeight;
     const bx = cx + (W - stage.clientWidth) / 2, by = cy + (H - stage.clientHeight) / 2;
     const [nw, nh] = PHOTO, [hx, hy] = HOLE;
     const s = Math.max(W / nw, H / nh, bx / hx, (W - bx) / (nw - hx), by / hy, (H - by) / (nh - hy));   // lo mínimo para cubrir: la foto no se amplía de más
-    Object.assign(img.style, {
-      position: 'absolute', maxWidth: 'none', objectFit: 'fill',
-      width: nw * s + 'px', height: nh * s + 'px', left: bx - hx * s + 'px', top: by - hy * s + 'px'
-    });
-    gsap.set(img, { transformOrigin: `${hx * s}px ${hy * s}px` });   // los acercamientos se centran en la escultura
+    // Solo transform: mover la foto así no cuenta como salto de contenido (CLS)
+    fitBox.style.transform = `translate(${(bx - hx * s).toFixed(2)}px, ${(by - hy * s).toFixed(2)}px) scale(${s.toFixed(4)})`;
+    gsap.set(img, { transformOrigin: `${hx}px ${hy}px` });   // los acercamientos se centran en la escultura
     drift.style.transformOrigin = `${bx}px ${by}px`;
   }
 
@@ -262,7 +264,7 @@
       gsap.set(['.hero__meta', '.hero__kicker', '.hero__lede', '.hero__scroll'], { autoAlpha: 1, y: 0 });
       gsap.set('.header', { clearProps: 'transform' });
       gsap.set(seal, { scale: 1, rotate: 0, autoAlpha: 1 });
-      gsap.set('.js-hero-bg img', { scale: 1.08, clearProps: 'filter' });
+      gsap.set('.js-hero-bg img', { scale: 1.02, clearProps: 'filter' });
       done();
       return;
     }
@@ -275,7 +277,7 @@
       .to('.loader__logo', { scale: .94, duration: .18, ease: 'power2.in' }, 1.75)
       .to('.loader__logo', { scale: 1, duration: .9, ease: 'elastic.out(1, .5)' }, 1.93)
       .to(loader, { clipPath: 'inset(0 0 100% 0)', duration: 1.15, ease: 'expo.inOut' }, 2.25)
-      .to('.js-hero-bg img', { scale: 1.08, filter: 'brightness(1)', duration: 2.4, ease: 'expo.out', clearProps: 'filter' }, 2.3)
+      .to('.js-hero-bg img', { scale: 1.02, filter: 'brightness(1)', duration: 2.4, ease: 'expo.out', clearProps: 'filter' }, 2.3)
       .to(seal, { scale: 1, rotate: 0, autoAlpha: 1, duration: 1.8, ease: 'expo.out' }, 2.5)
       .to(titleSplit.chars, { yPercent: 0, duration: 1.3, stagger: .045 }, 2.75)
       .to(['.hero__meta', '.hero__kicker', '.hero__lede', '.hero__scroll'], { autoAlpha: 1, y: 0, duration: 1.1, stagger: .08 }, 2.9)
@@ -405,7 +407,9 @@
       const lib = gsap.timeline({
         defaults: { ease: 'power3.out' },
         scrollTrigger: {
-          trigger: fig, start: 'top 90%', end: 'center 55%', scrub: 1.6,
+          // La biblioteca queda fija mientras se llena; al subir, los tomos salen en el mismo orden inverso
+          trigger: '.js-biblio-track', start: 'top 70%', scrub: 1.2, invalidateOnRefresh: true,
+          end: () => `bottom ${Math.round(Math.max(84, (innerHeight - fig.offsetHeight) / 2) + fig.offsetHeight + innerHeight * .1)}px`,
           onUpdate: s => {
             const n = Math.min(books.length, Math.floor(s.progress * 1.04 * books.length + .001));
             nEl.textContent = String(n).padStart(2, '0');

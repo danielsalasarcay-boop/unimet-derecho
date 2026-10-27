@@ -28,8 +28,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&family=Archivo:wdth,wght@62..125,400..700&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="preload" as="image" href="img/portada-campus.jpg" fetchpriority="high">
-  <link rel="stylesheet" href="css/style.css?v=202610262338">
+  <link rel="preload" as="image" href="img/portada-campus.jpg" imagesrcset="img/portada-campus.jpg 1600w, img/portada-campus-2400.jpg 2400w" imagesizes="(max-width: 820px) 170vw, 130vw" fetchpriority="high">
+  <link rel="stylesheet" href="css/style.css?v=202610270004">
 </head>
 <body class="is-loading">
   <a class="skip label" href="#objetivo">Saltar al contenido</a>
@@ -125,7 +125,7 @@
     <!-- HERO: entrar por las columnas -->
     <section class="hero" id="inicio" data-head="dark">
       <div class="hero__stage">
-        <div class="hero__bg js-hero-bg"><div class="hero__par js-hero-par"><div class="hero__drift"><img src="img/portada-campus.jpg" width="1600" height="1061" alt="" fetchpriority="high"></div></div></div>
+        <div class="hero__bg js-hero-bg"><div class="hero__par js-hero-par"><div class="hero__drift"><div class="hero__fit js-hero-fit"><img src="img/portada-campus.jpg" srcset="img/portada-campus.jpg 1600w, img/portada-campus-2400.jpg 2400w" sizes="(max-width: 820px) 170vw, 130vw" width="1600" height="1061" alt="" fetchpriority="high"></div></div></div></div>
         <div class="hero__seal js-seal">
           <svg class="hero__ring" viewBox="0 0 200 200" aria-hidden="true"><defs><path id="ring-path" d="M100 100m-88 0a88 88 0 1 1 176 0a88 88 0 1 1-176 0"/></defs><text><textPath href="#ring-path" textLength="548" lengthAdjust="spacing">Escuela de Derecho · Universidad Metropolitana · Caracas ·</textPath></text></svg>
           <svg class="hero__logo" role="img" aria-label="Logo UNIMET Derecho"><use href="#logo-derecho"/></svg>
@@ -171,11 +171,13 @@
         </header>
 
         <div class="carrera__grid">
+          <div class="biblio-track js-biblio-track">
           <figure class="carrera__fig biblio js-biblio" role="img" aria-label="Biblioteca jurídica: tomos de Derecho venezolano que se ordenan en los estantes">
             <div class="biblio__case js-biblio-case"></div>
             <div class="biblio__lamp" aria-hidden="true"></div>
             <figcaption class="biblio__cap" aria-hidden="true"><span class="label">Biblioteca jurídica</span><span class="biblio__now"><b class="js-biblio-n">00</b><i class="js-biblio-t">Tomos en el estante</i></span></figcaption>
           </figure>
+          </div>
           <div class="carrera__body">
             <h2 class="display js-lines">Un abogado que <em>previene</em> antes de litigar.</h2>
             <p class="body-lg js-fade">La Escuela de Derecho de la Universidad Metropolitana forma juristas capaces de negociar, razonar jurídicamente, argumentar e investigar. Un currículo flexible, grupos reducidos y una mirada internacional que entiende el Derecho como herramienta para emprender, construir instituciones y servir.</p>
@@ -563,6 +565,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/SplitText.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
-  <script src="js/main.js?v=202610262337"></script>
+  <script src="js/main.js?v=202610270004"></script>
 </body>
 </html>
