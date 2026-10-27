@@ -185,7 +185,7 @@ body::after {
 .hero__bg { position: absolute; inset: 0; overflow: hidden; }
 .hero__bg img { width: 100%; height: 100%; object-fit: cover; object-position: 60% 50%; transform: scale(1.08); }
 .hero__bg::after { content: ""; position: absolute; inset: 0;
-  background: linear-gradient(90deg, rgba(18,18,20,.74) 0%, rgba(18,18,20,.46) 42%, rgba(18,18,20,.1) 72%, rgba(18,18,20,.04) 100%), linear-gradient(180deg, rgba(18,18,20,.3) 0%, transparent 24%, transparent 72%, rgba(18,18,20,.42) 100%); }
+  background: linear-gradient(90deg, rgba(18,18,20,.74) 0%, rgba(18,18,20,.46) 42%, rgba(18,18,20,.1) 72%, rgba(18,18,20,.04) 100%), linear-gradient(180deg, rgba(18,18,20,.45) 0%, rgba(18,18,20,.12) 16%, transparent 26%, transparent 72%, rgba(18,18,20,.42) 100%); }
 .hero__copy { color: #fff; }
 .hero__copy .hero__meta { color: rgba(255,255,255,.7); border-bottom-color: rgba(255,255,255,.22); }
 .hero__meta-mid { opacity: .75; }
