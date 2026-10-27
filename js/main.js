@@ -98,6 +98,10 @@
       chips.forEach(c => c.classList.toggle('is-on', c.dataset.area === area));
       $$('.asig', host).forEach(a => a.classList.toggle('is-match', area !== 'all' && a.dataset.area === area));
     };
+    // Con mouse o trackpad, tocar una materia o un filtro no les da el foco: en Safari el foco
+    // hacía que el navegador moviera la página por su cuenta mientras el scroll suave seguía
+    // andando, y la página daba un tirón hacia arriba (el teclado sigue funcionando igual)
+    $('.plan').addEventListener('mousedown', e => { if (e.target.closest('.asig, .chip')) e.preventDefault(); });
     host.addEventListener('click', (e) => {
       const a = e.target.closest('.asig');
       if (!a || a.dataset.area === 'el') return;
