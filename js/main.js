@@ -17,6 +17,7 @@
   }
 
   gsap.registerPlugin(ScrollTrigger, SplitText);
+  ScrollTrigger.config({ ignoreMobileResize: true });   // la barra de Safari no reinicia las animaciones
   const mm = gsap.matchMedia();
   const isDesk = '(min-width: 821px) and (min-height: 561px), (min-width: 821px) and (orientation: portrait)';
 
@@ -51,10 +52,14 @@
         <i class="bk__band"></i>${c === 'U' ? '<svg class="bk__iso"><use href="#iso"/></svg>' : ''}<em class="bk__t">${t}</em>${vol ? `<b class="bk__vol">${vol}</b>` : ''}<i class="bk__band bk__band--b"></i><i class="bk__sh"></i>
       </span>`).join('')}</div>`).join('');
     const fig = $('.js-biblio'), track = $('.js-biblio-track');
-    if (!hasGsap || reduce) track.classList.add('is-static'); else track.parentElement.classList.add('is-lib');
+    if (!hasGsap) track.classList.add('is-static'); else track.parentElement.classList.add('is-lib');
+    let lastH = 0, rt;
     const fit = () => {
       fig.style.fontSize = Math.min(fig.clientWidth / 46, fig.clientHeight / 54).toFixed(2) + 'px';
       track.parentElement.style.setProperty('--fh', fig.offsetHeight + 'px');   // la columna de texto también lo usa
+      // Si cambia la altura de la biblioteca, se recalculan los puntos de scroll de toda la página
+      if (hasGsap && lastH && Math.abs(fig.offsetHeight - lastH) > 1) { clearTimeout(rt); rt = setTimeout(() => ScrollTrigger.refresh(), 200); }
+      lastH = fig.offsetHeight;
     };
     fit();
     if (typeof ResizeObserver !== 'undefined') new ResizeObserver(fit).observe(fig);
@@ -400,7 +405,7 @@
 
     // Biblioteca: los tomos llegan uno a uno y se empujan dentro de los estantes
     const books = $$('.js-biblio .bk');
-    if (books.length && !reduce) {
+    if (books.length) {   // se anima siempre: el movimiento lo controla el propio scroll
       const fig = $('.js-biblio'), nEl = $('.js-biblio-n'), tEl = $('.js-biblio-t');
       const rnd = i => ((Math.sin(i * 91.7) * 43758.5) % 1 + 1) % 1;   // aleatorio estable
       nEl.textContent = '00';
@@ -408,7 +413,7 @@
         defaults: { ease: 'power3.out' },
         scrollTrigger: {
           // La biblioteca queda fija mientras se llena; al subir, los tomos salen en el mismo orden inverso
-          trigger: '.js-biblio-track', start: 'top 70%', scrub: 1.2, invalidateOnRefresh: true,
+          trigger: '.js-biblio-track', start: 'top 70%', scrub: innerWidth > 820 ? 1.2 : .5, invalidateOnRefresh: true,
           end: () => `bottom ${Math.round(Math.max(84, (innerHeight - fig.offsetHeight) / 2) + fig.offsetHeight + innerHeight * .1)}px`,
           onUpdate: s => {
             const n = Math.min(books.length, Math.floor(s.progress * 1.04 * books.length + .001));
@@ -421,8 +426,8 @@
       books.forEach((b, i) => {
         const lean = +b.dataset.lean, r = rnd(i), at = i * .12;
         lib.fromTo(b, {
-          x: () => fig.clientWidth * (.14 + r * .18) * (r > .5 ? 1 : -1), yPercent: -26 - r * 18,
-          rotation: (r - .5) * 18, scale: 1.14, autoAlpha: 0, transformOrigin: lean ? '0% 100%' : '50% 100%'
+          x: () => reduce ? 0 : fig.clientWidth * (.14 + r * .18) * (r > .5 ? 1 : -1), yPercent: reduce ? -12 : -26 - r * 18,
+          rotation: reduce ? 0 : (r - .5) * 18, scale: reduce ? 1 : 1.14, autoAlpha: 0, transformOrigin: lean ? '0% 100%' : '50% 100%'
         }, { x: 0, yPercent: -5, rotation: lean * .4, scale: 1.05, autoAlpha: 1, duration: .7, ease: 'power2.out' }, at)
           .to(b, { yPercent: 0, rotation: lean, scale: 1, duration: .45, ease: 'back.out(1.3)' }, at + .7)
           .fromTo($('.bk__sh', b), { opacity: 0 }, { opacity: 1, duration: .45, ease: 'power2.out' }, at + .7);
@@ -591,6 +596,9 @@
       }
     });
   });
+
+  // Las imágenes diferidas pueden cambiar alturas: se recalculan los puntos de scroll al cargar
+  $$('img[loading="lazy"]').forEach(img => { if (!img.complete) img.addEventListener('load', () => ScrollTrigger.refresh(), { once: true }); });
 
   /* ---------- Arranque ---------- */
   const start = () => { scrollAnims(); intro(); };
