@@ -73,9 +73,9 @@
       const t = i * stagger;
       tl.fromTo(p.text, { strokeDasharray: p.len, strokeDashoffset: p.len },
           { strokeDashoffset: 0, duration: draw, ease: 'power2.inOut' }, t)
-        .to(p.text, { fillOpacity: 1, duration: .8, ease: 'power1.inOut' }, t + draw - .45)
-        .to(p.fill, { opacity: 1, duration: .7, ease: "power1.out" }, t + draw + .45)
-        .to(p.svg, { opacity: 0, duration: 1.2, ease: "power2.inOut" }, t + draw + .6);
+        .to(p.text, { fillOpacity: 1, duration: .55, ease: 'power1.inOut' }, t + draw - .35)
+        .to(p.fill, { opacity: 1, duration: .5, ease: "power1.out" }, t + draw + .2)
+        .to(p.svg, { opacity: 0, duration: .8, ease: "power2.inOut" }, t + draw + .3);
     });
     return tl;
   };

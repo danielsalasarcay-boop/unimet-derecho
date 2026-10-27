@@ -100,7 +100,7 @@
       gsap.timeline({ defaults: { ease: 'expo.out' } })
         .fromTo('.header', { yPercent: -120 }, { yPercent: 0, duration: 1.1, clearProps: 'transform' }, .1)
         .from('.ph__top', { autoAlpha: 0, y: 16, duration: 1 }, .15)
-        .add(() => window.traceTitle ? traceTitle([$('.js-ph-word')], { draw: 2.6 }) : null, .25)
+        .add(() => window.traceTitle ? traceTitle([$('.js-ph-word')], { draw: 2 }) : null, .25)
         .from('.js-ph-fade', { autoAlpha: 0, y: 24, duration: 1.1, stagger: .08 }, .6);
     }
 
@@ -109,7 +109,7 @@
       const s = SplitText.create(el, { type: 'lines', mask: 'lines', linesClass: 'ln' });
       if (window.traceTitle?.ok && el.matches('.contacto__title')) {
         gsap.set(s.lines, { opacity: 0 });
-        ScrollTrigger.create({ trigger: el, start: 'top 82%', once: true, onEnter: () => traceTitle(s.lines) });
+        ScrollTrigger.create({ trigger: el, start: 'top 82%', once: true, onEnter: () => traceTitle(s.lines, { draw: 1.5, stagger: .05 }) });
       } else if (!reduce) gsap.from(s.lines, { yPercent: 110, duration: 1.25, stagger: .09, ease: 'expo.out', scrollTrigger: { trigger: el, start: 'top 86%' } });
     });
     if (reduce) return;

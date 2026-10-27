@@ -395,7 +395,7 @@
       const split = SplitText.create(el, { type: 'lines', mask: 'lines', linesClass: 'ln' });
       if (window.traceTitle?.ok && el.matches('.display, .display-sm, .display-xl, .contacto__title')) {
         gsap.set(split.lines, { opacity: 0 });
-        ScrollTrigger.create({ trigger: el, start: 'top 75%', once: true, onEnter: () => traceTitle(split.lines, { draw: 2.6, stagger: .06 }) });
+        ScrollTrigger.create({ trigger: el, start: 'top 80%', once: true, onEnter: () => traceTitle(split.lines, { draw: 1.5, stagger: .05 }) });
         return;
       }
       gsap.from(split.lines, {
