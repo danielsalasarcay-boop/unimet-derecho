@@ -1124,3 +1124,6 @@ body::after {
 /* en la página del CED su Instagram va en la sección; se quita el botón flotante de la Escuela */
 .page-ce .float { display: none; }
 .fuentes__cta { margin-top: clamp(28px, 3vw, 44px); }
+.ceh__ring { opacity: 0; }
+.ceh__logo { touch-action: manipulation; -webkit-user-select: none; user-select: none; }
+.ceh__logo:focus-visible { outline: 2px solid var(--lacre); outline-offset: 4px; border-radius: 6px; }

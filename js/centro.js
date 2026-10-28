@@ -176,24 +176,35 @@
   /* ---------- 2) El mazo del logo ---------- */
   (() => {
     const logo = document.querySelector('.ceh__logo');
-    if (!logo || reduce || !hasGsap) return;
-    const gavel = logo.querySelector('.ceh__gavel'), hit = logo.querySelector('.ceh__hit');
+    if (!logo || !hasGsap) return;
+    const gavel = logo.querySelector('.ceh__gavel'), hit = logo.querySelector('.ceh__hit'), ring = logo.querySelector('.ceh__ring');
     gsap.set(gavel, { svgOrigin: '683 245' });   // gira desde el extremo del mango
     gsap.set(hit, { svgOrigin: '520 246', scale: .6 });
-    let tl = null;
+    gsap.set(ring, { svgOrigin: '520 248', scale: 0, autoAlpha: 0 });
+    let busy = false;
     const strike = () => {
-      if (tl?.isActive()) return;
-      tl = gsap.timeline()
-        .to(gavel, { rotation: -34, duration: .32, ease: 'power2.out' })
-        .to(gavel, { rotation: 5, duration: .14, ease: 'power4.in' })
-        .add(() => mol?.shock())
-        .to(logo, { y: 3, scale: .97, duration: .06, ease: 'power2.out', yoyo: true, repeat: 1 }, '<')
-        .fromTo(hit, { autoAlpha: 1, scale: .6 }, { scale: 1.25, duration: .45, ease: 'expo.out' }, '<')
-        .to(hit, { autoAlpha: 0, duration: .3, ease: 'power1.in' }, '-=.22')
+      if (busy) return;
+      busy = true;
+      // con "reducir movimiento" el golpe es corto y sin onda, pero se ve
+      const k = reduce ? .5 : 1;
+      gsap.timeline({ onComplete: () => { busy = false; } })
+        .to(gavel, { rotation: -38 * k, duration: .3, ease: 'power2.out' })
+        .to(gavel, { rotation: 6 * k, duration: .13, ease: 'power4.in' })
+        .add(() => { if (!reduce) mol?.shock(); navigator.vibrate?.(18); })
+        .to(logo, { y: 4, scale: .95, duration: .07, ease: 'power2.out', yoyo: true, repeat: 1 }, '<')
+        .fromTo(hit, { autoAlpha: 1, scale: .6 }, { scale: 1.3, duration: .45, ease: 'expo.out' }, '<')
+        .fromTo(ring, { autoAlpha: .9, scale: .2 }, { scale: 1.6, autoAlpha: 0, duration: .7, ease: 'expo.out' }, '<')
+        .to(hit, { autoAlpha: 0, duration: .3, ease: 'power1.in' }, '-=.5')
         .to(gavel, { rotation: 0, duration: .7, ease: 'elastic.out(1.1, .35)' }, '<-.1');
     };
-    logo.addEventListener('pointerdown', strike);
-    logo.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') strike(); });
+    // en iPhone se escucha el toque por todas las vías: touchstart, pointerdown y click
+    let last = 0;
+    const tap = () => { const t = Date.now(); if (t - last > 250) { last = t; strike(); } };
+    logo.addEventListener('touchstart', tap, { passive: true });
+    logo.addEventListener('pointerdown', tap);
+    logo.addEventListener('click', tap);
+    logo.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); tap(); } });
+    logo.addEventListener('mouseenter', tap);
     // un golpe solo al cargar, cuando las moléculas ya están armadas
     setTimeout(strike, innerWidth <= 820 ? 1800 : 3200);
   })();
