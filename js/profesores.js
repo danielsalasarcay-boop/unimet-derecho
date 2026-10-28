@@ -1,5 +1,5 @@
-/* Escuela de Derecho · UNIMET — página de Profesores
-   Comparte header, índice, contacto y footer con la portada; sin loader ni hero fijo. */
+/* Escuela de Derecho · UNIMET — páginas internas (Profesores y Centro de Estudiantes)
+   Comparten header, índice, contacto y footer con la portada; sin loader ni hero fijo. */
 
 (() => {
   const $ = (s, c = document) => c.querySelector(s);
@@ -121,8 +121,10 @@
       .fromTo(photos, { clipPath: 'inset(100% 0 0 0)' }, { clipPath: 'inset(0% 0 0 0)', duration: 1.3, stagger: .1, ease: 'expo.inOut' })
       .from(photos.map(p => $('.prof__ini, img', p)), { yPercent: 30, autoAlpha: 0, duration: 1.4, stagger: .1, ease: 'expo.out', clearProps: 'transform' }, .45);
     const big = $('.js-prof-photo');
-    gsap.set(big, { clipPath: 'inset(100% 0 0 0)' });
-    ScrollTrigger.create({ trigger: big, start: 'top 85%', once: true, onEnter: () => reveal([big]) });
+    if (big) {
+      gsap.set(big, { clipPath: 'inset(100% 0 0 0)' });
+      ScrollTrigger.create({ trigger: big, start: 'top 85%', once: true, onEnter: () => reveal([big]) });
+    }
 
     const cards = $$('.claustro .prof');
     gsap.set(cards.map(c => $('.prof__photo', c)), { clipPath: 'inset(100% 0 0 0)' });
