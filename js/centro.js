@@ -148,3 +148,28 @@
   addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => { build(); go(); }, 120); });
   if (typeof ResizeObserver !== 'undefined') new ResizeObserver(() => { build(); go(); }).observe(box);
 })();
+
+/* Título trazado en lacre y fotos de las directivas que se abren al entrar */
+(() => {
+  if (typeof gsap === 'undefined') return;
+  gsap.registerPlugin(ScrollTrigger);
+  const lines = [...document.querySelectorAll('.js-ce-ln')];
+  if (lines.length && window.traceTitle?.ok) {
+    gsap.set(lines, { opacity: 0 });
+    (document.fonts?.ready || Promise.resolve()).then(() => requestAnimationFrame(() =>
+      traceTitle(lines, innerWidth <= 820 ? { delay: .25, draw: .9, stagger: .12, quick: true } : { delay: .3, draw: 1.8, stagger: .25, calm: true })));
+  }
+
+  const figs = [...document.querySelectorAll('.dv')];
+  if (!figs.length || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const img = f => f.querySelector('img'), cap = f => f.querySelector('figcaption');
+  gsap.set(figs, { clipPath: 'inset(100% 0 0 0)' });
+  gsap.set(figs.map(cap), { autoAlpha: 0 });
+  ScrollTrigger.batch(figs, {
+    start: 'top 90%', once: true,
+    onEnter: b => gsap.timeline()
+      .to(b, { clipPath: 'inset(0% 0 0 0)', duration: 1.3, stagger: .1, ease: 'expo.inOut' })
+      .from(b.map(img), { scale: 1.18, duration: 1.6, stagger: .1, ease: 'expo.out', clearProps: 'transform' }, .2)
+      .to(b.map(cap), { autoAlpha: 1, duration: .8, stagger: .08, ease: 'power2.out' }, .8)
+  });
+})();

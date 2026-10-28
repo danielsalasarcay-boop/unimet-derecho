@@ -10,6 +10,7 @@
   // El título "Profesores" ocupa todo el ancho sin cortarse
   const fitTitle = () => {
     const h1 = $('.ph__title'), word = $('.js-ph-word');
+    if (!word) return;
     h1.style.fontSize = '100px';
     const w = word.getBoundingClientRect().width / 100;
     const col = h1.clientWidth;
@@ -94,13 +95,14 @@
   /* ---------- Animaciones ---------- */
   function anims() {
     // Entrada: el título sube letra por letra
-    const split = SplitText.create('.js-ph-word', { type: 'chars', charsClass: 'ch' });
+    const word = $('.js-ph-word');
+    if (word) SplitText.create(word, { type: 'chars', charsClass: 'ch' });
     if (!reduce) {
-      if (window.traceTitle) gsap.set('.js-ph-word', { opacity: 0 });
+      if (window.traceTitle && word) gsap.set(word, { opacity: 0 });
       gsap.timeline({ defaults: { ease: 'expo.out' } })
         .fromTo('.header', { yPercent: -120 }, { yPercent: 0, duration: 1.1, clearProps: 'transform' }, .1)
         .from('.ph__top', { autoAlpha: 0, y: 16, duration: 1 }, .15)
-        .add(() => window.traceTitle ? traceTitle([$('.js-ph-word')], innerWidth <= 820 ? { draw: .9, quick: true } : { draw: 2.6, calm: true }) : null, .25)
+        .add(() => window.traceTitle && word ? traceTitle([word], innerWidth <= 820 ? { draw: .9, quick: true } : { draw: 2.6, calm: true }) : null, .25)
         .from('.js-ph-fade', { autoAlpha: 0, y: 24, duration: 1.1, stagger: .08 }, .6);
     }
 
