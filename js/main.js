@@ -80,7 +80,7 @@
       [['Derecho Internacional Privado', 'intl'], ['Mundo Global: Tendencias y Transformaciones', 'intl'], ['Seminario Profesional', 'integral'], ['Derecho Procesal Penal', 'proc'], ['Derecho Tributario', 'publico']],
       [['Tópicos de Derecho Internacional Privado', 'intl'], ['Venezuela: Identidad y Contexto', 'integral'], ['Taller de Trabajo de Grado', 'integral'], ['Argumentos y Pruebas', 'proc'], ['Tópicos de Derecho Tributario', 'publico']],
       [['Ética de los Negocios y del Derecho', 'fund'], ['Medios Alternativos de Resolución de Conflictos', 'proc'], ['Derecho Energético', 'publico'], ['Procedimientos Especiales', 'proc'], ['Electiva', 'el']],
-      [['Introducción al Análisis Económico del Derecho', 'fund'], ['Derecho de las Nuevas Tecnologías', 'empresa'], ['Electiva', 'el'], ['Electiva', 'el'], ['Electiva', 'el']]
+      [['Introducción al Análisis Económico del Derecho', 'fund'], ['Electiva', 'el'], ['Derecho de las Nuevas Tecnologías', 'empresa'], ['Electiva', 'el'], ['Electiva', 'el']]
     ];
     const R = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII'];
     const host = $('.js-malla');
