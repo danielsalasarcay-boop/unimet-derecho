@@ -1056,3 +1056,6 @@ body::after {
   .ce__list { grid-template-columns: 1fr; }
   .ce__iso { aspect-ratio: 1 / 1.05; order: -1; }
 }
+.ce__soon + .ce__soon { border-top: 0; }
+.ce__soon a { color: var(--ink); text-transform: none; letter-spacing: .02em; font-size: 13px; transition: color .3s; }
+.ce__soon a:hover { color: var(--lacre); }
