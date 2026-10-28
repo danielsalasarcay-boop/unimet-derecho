@@ -169,7 +169,7 @@ body::after {
 .indice__list a { display: flex; align-items: baseline; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--rule-light); }
 .indice__list .p { flex: none; width: 34px; font-family: var(--serif); font-size: 15px; letter-spacing: .02em; opacity: .55; }
 .indice__list .t { font-size: clamp(20px, 1.9vw, 26px); font-weight: 400; letter-spacing: -.01em; line-height: 1.2; transition: color .3s, transform .5s var(--ease); }
-.indice__list a::after { content: "→"; margin-left: auto; font-family: var(--sans); font-size: 15px; opacity: 0; transform: translateX(-8px); transition: opacity .3s, transform .5s var(--ease); }
+.indice__list a::after { content: ""; flex: none; align-self: center; width: 18px; height: 18px; margin-left: auto; background: currentColor; -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 12h15M13.5 6.5 19 12l-5.5 5.5'/%3E%3C/svg%3E") center / contain no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 12h15M13.5 6.5 19 12l-5.5 5.5'/%3E%3C/svg%3E") center / contain no-repeat; opacity: 0; transform: translateX(-8px); transition: opacity .3s, transform .5s var(--ease); }
 .indice__list a:hover .t { color: var(--lacre); transform: translateX(6px); }
 .indice__list a:hover::after { opacity: .8; transform: none; }
 .indice__foot { margin-top: auto; padding-top: 40px; opacity: .45; }
@@ -370,7 +370,7 @@ body::after {
 .destino { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; border-top: 1px solid var(--rule); font-family: var(--sans); font-size: 17px; font-weight: 500; cursor: default; }
 .destino:last-child { border-bottom: 1px solid var(--rule); }
 .destino span { transition: transform .5s var(--ease), color .3s; }
-.destino i { font-style: normal; color: var(--lacre); opacity: 0; transform: translateX(-12px); transition: all .5s var(--ease); }
+.destino i { display: flex; font-style: normal; font-size: 19px; color: var(--lacre); opacity: 0; transform: translateX(-12px); transition: all .5s var(--ease); }
 .destino:hover span { transform: translateX(10px); color: var(--lacre); }
 .destino:hover i { opacity: 1; transform: none; }
 
@@ -445,13 +445,23 @@ body::after {
 .nota--light { color: rgba(255,255,255,.75); }
 
 .fuentes { padding-top: var(--sp); padding-bottom: var(--sp); }
-.fuentes__list a { display: grid; grid-template-columns: 1.2fr 1fr 40px; gap: 20px; align-items: baseline; padding: 26px 0; border-top: 1px solid var(--rule-light); transition: color .3s; }
+.fuentes__list a { display: grid; grid-template-columns: 1.2fr 1fr 48px; gap: 20px; align-items: center; padding: 26px 0; border-top: 1px solid var(--rule-light); transition: color .3s; }
 .fuentes__list li:last-child a { border-bottom: 1px solid var(--rule-light); }
 .fuentes__n { font-size: clamp(22px, 2.4vw, 38px); font-weight: 300; letter-spacing: -.015em; line-height: 1.1; transition: transform .5s var(--ease); }
 .fuentes__d { font-family: var(--sans); font-size: 14px; color: rgba(255,255,255,.55); }
-.fuentes__a { text-align: right; font-family: var(--sans); font-size: 20px; color: var(--lacre); transition: transform .5s var(--ease); }
+/* flechas dibujadas (sin caracteres de texto) */
+.ico { display: inline-block; width: 1.05em; height: 1.05em; vertical-align: -.16em; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+/* flecha en círculo: al pasar, el círculo se llena de lacre y la flecha sale y vuelve a entrar */
+.arr { position: relative; display: inline-block; flex: none; width: 44px; height: 44px; border-radius: 50%; overflow: hidden; box-shadow: inset 0 0 0 1.2px currentColor; transition: background .45s var(--ease), box-shadow .45s var(--ease), color .45s, transform .5s var(--ease); }
+.arr i { position: absolute; inset: 0; display: grid; place-items: center; transition: transform .55s var(--ease); }
+.arr i + i { transform: translate(-100%, 100%); }
+.arr .ico { width: 17px; height: 17px; vertical-align: 0; }
+a:hover > .arr i:first-child { transform: translate(100%, -100%); }
+a:hover > .arr i + i { transform: none; }
+.fuentes__a { justify-self: end; width: 48px; height: 48px; color: #fff; box-shadow: inset 0 0 0 1.2px rgba(255,255,255,.28); }
 .fuentes__list a:hover .fuentes__n { transform: translateX(12px); }
-.fuentes__list a:hover .fuentes__a { transform: translate(4px, -4px); }
+.fuentes__list a:hover .fuentes__a { background: var(--lacre); box-shadow: inset 0 0 0 1.2px var(--lacre); transform: scale(1.06); }
+.fuentes__list a:active .fuentes__a { background: var(--lacre); box-shadow: inset 0 0 0 1.2px var(--lacre); }
 
 /* ---------- Título VI · Comunidad ---------- */
 .comunidad { background: var(--carbon); color: #fff; padding-bottom: var(--sp); }
@@ -568,6 +578,8 @@ body::after {
 .ficha__links { display: flex; flex-wrap: wrap; gap: 6px 18px; font-family: var(--sans); font-size: 14.5px !important; font-weight: 500; }
 .ficha__links a { border: 0 !important; }
 .ficha__links a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.ficha__links .ico { width: .95em; height: .95em; margin-left: 2px; transition: transform .4s var(--ease); }
+.ficha__links a:hover .ico { transform: translate(2px, -2px); }
 
 /* ---------- Footer ---------- */
 .btn-ig { display: inline-flex; align-items: center; gap: 10px; padding: 10px 18px 10px 14px; border-radius: 999px; background: var(--lacre); color: #fff; font-family: var(--sans); font-weight: 600; font-size: 14px; transition: transform .4s var(--ease), box-shadow .4s, background .3s; }
@@ -759,7 +771,8 @@ body::after {
   .mplan__t { font-weight: 300; font-size: 34px; line-height: 1; letter-spacing: -.02em; }
   .mplan__t em { color: var(--lacre); }
   .mplan__nav { display: flex; gap: 6px; }
-  .mnav { width: 46px; height: 46px; border-radius: 50%; border: 1px solid var(--rule); background: var(--white); font-family: var(--sans); font-size: 18px; }
+  .mnav { display: grid; place-items: center; width: 46px; height: 46px; border-radius: 50%; border: 1px solid var(--rule); background: var(--white); color: var(--ink); font-size: 19px; }
+  .mnav .ico { vertical-align: 0; }
   .mnav:active { background: var(--ink); color: #fff; }
   .mplan.is-area .mplan__nav { display: none; }
   .mplan__list { display: flex; flex-direction: column; gap: 8px; touch-action: pan-y; overflow: hidden; padding-bottom: 2px; }
@@ -798,7 +811,8 @@ body::after {
   .broc, .broc:not(:nth-child(3n+1)) { padding: 24px 0; border-left: 0; min-height: 0; }
   .broc__es { opacity: .9; transform: none; }
   .broc::after { display: none; }
-  .fuentes__list a { grid-template-columns: 1fr 30px; }
+  .fuentes__list a { grid-template-columns: 1fr 40px; }
+  .fuentes__a { width: 40px; height: 40px; }
   .fuentes__d { grid-column: 1; grid-row: 2; }
   .fuentes__a { grid-row: 1 / 3; grid-column: 2; align-self: center; }
   .vias { grid-template-columns: 1fr; }
@@ -1052,21 +1066,22 @@ body::after {
 
 /* correo e Instagram del CED (filas al estilo Caraqueña) */
 .ced__direct { list-style: none; margin: clamp(24px, 2.6vw, 36px) 0 0; padding: 0; max-width: 560px; border-bottom: 1px solid var(--rule); }
-.ced__row { position: relative; display: grid; grid-template-columns: 40px 150px 1fr 20px; align-items: center; gap: 12px; padding: 11px 14px 11px 4px; border-top: 1px solid var(--rule); isolation: isolate; -webkit-tap-highlight-color: transparent; transition: color .45s var(--ease), padding .55s var(--ease); }
+.ced__row { position: relative; display: grid; grid-template-columns: 40px 150px 1fr 34px; align-items: center; gap: 12px; padding: 11px 14px 11px 4px; border-top: 1px solid var(--rule); isolation: isolate; -webkit-tap-highlight-color: transparent; transition: color .45s var(--ease), padding .55s var(--ease); }
 .ced__row::before { content: ""; position: absolute; inset: 0; z-index: -1; background: var(--lacre); transform: scaleX(0); transform-origin: right; transition: transform .55s var(--ease); }
 .ced__icon { position: relative; width: 36px; height: 36px; display: grid; place-items: center; border: 1.2px solid currentColor; border-radius: 50%; overflow: hidden; transition: border-color .45s, background .45s, color .45s; }
 .ced__icon svg { position: relative; width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 .ced__row--ig .ced__icon { color: #fff; border-color: transparent; background: radial-gradient(circle at 30% 110%, #FFD776 0%, #F77737 28%, #E1306C 55%, #C13584 72%, #833AB4 100%); }
 .ced__row .label { color: var(--muted); transition: color .45s; }
 .ced__val { font-family: var(--serif); font-size: clamp(17px, 1.3vw, 20px); line-height: 1.3; overflow-wrap: anywhere; }
-.ced__go { font-size: 17px; opacity: .5; transition: transform .5s var(--ease), opacity .4s; }
+.ced__go { width: 34px; height: 34px; opacity: .55; transition: opacity .4s, background .45s var(--ease), box-shadow .45s; }
+.ced__go .ico { width: 14px; height: 14px; }
 @media (hover: hover) {
   .ced__row:hover { color: #fff; padding-left: 14px; }
   .ced__row:hover::before { transform: scaleX(1); transform-origin: left; }
   .ced__row:hover .label { color: rgba(255, 255, 255, .75); }
   .ced__row:hover .ced__icon { background: #fff; color: var(--lacre); border-color: #fff; }
   .ced__row--ig:hover .ced__icon { background: radial-gradient(circle at 30% 110%, #FFD776 0%, #F77737 28%, #E1306C 55%, #C13584 72%, #833AB4 100%); color: #fff; }
-  .ced__row:hover .ced__go { transform: translate(3px, -3px); opacity: 1; }
+  .ced__row:hover .ced__go { opacity: 1; background: #fff; color: var(--lacre); box-shadow: none; }
 }
 @media (hover: none) {
   .ced__row::before { transition: transform .25s ease; }
@@ -1102,7 +1117,7 @@ body::after {
   .ceh__logo { width: 156px; }
   .ceh__title { font-size: clamp(44px, 13vw, 64px); }
   .ceh__lede { font-size: 17px; }
-  .ced__row { grid-template-columns: 38px 1fr 18px; grid-template-areas: "i l g" "i v g"; row-gap: 0; column-gap: 12px; padding: 12px 6px 12px 2px; }
+  .ced__row { grid-template-columns: 38px 1fr 34px; grid-template-areas: "i l g" "i v g"; row-gap: 0; column-gap: 12px; padding: 12px 6px 12px 2px; }
   .ced__icon { grid-area: i; width: 36px; height: 36px; }
   .ced__row .label { grid-area: l; font-size: 10px; }
   .ced__val { grid-area: v; font-size: 17px; }

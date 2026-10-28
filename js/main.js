@@ -117,7 +117,7 @@
       <div class="mplan__tabs" role="tablist" aria-label="Trimestres">${R.map((r, i) => `<button class="mtab" role="tab" data-t="${i}" aria-label="Trimestre ${r}">${r}<i></i></button>`).join('')}</div>
       <div class="mplan__head">
         <div><p class="mplan__k label js-mk"></p><h3 class="mplan__t js-mt"></h3></div>
-        <div class="mplan__nav"><button class="mnav" data-d="-1" aria-label="Trimestre anterior">←</button><button class="mnav" data-d="1" aria-label="Trimestre siguiente">→</button></div>
+        <div class="mplan__nav"><button class="mnav" data-d="-1" aria-label="Trimestre anterior"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12H5M10.5 6.5 5 12l5.5 5.5"/></svg></button><button class="mnav" data-d="1" aria-label="Trimestre siguiente"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13.5 6.5 19 12l-5.5 5.5"/></svg></button></div>
       </div>
       <ol class="mplan__list js-ml"></ol>`;
     const tabs = $('.mplan__tabs', mp), list = $('.js-ml', mp);
@@ -129,7 +129,7 @@
         <span class="mcard__x" aria-hidden="true"></span>
         <span class="mcard__more">${a === 'el'
           ? '<span class="mcard__info">Asignatura de libre elección para orientar la carrera a tus intereses.</span>'
-          : `<span class="mcard__info">Trimestre ${R[i]} · ${TRAMO(i)} · ${AREA[a]}</span><span class="mcard__go" data-go="${st.area === 'all' ? 'area' : 'tri'}">${st.area === 'all' ? 'Ver todas las de ' + AREA[a] : 'Ir al trimestre ' + R[i]} →</span>`}</span>
+          : `<span class="mcard__info">Trimestre ${R[i]} · ${TRAMO(i)} · ${AREA[a]}</span><span class="mcard__go" data-go="${st.area === 'all' ? 'area' : 'tri'}">${st.area === 'all' ? 'Ver todas las de ' + AREA[a] : 'Ir al trimestre ' + R[i]} <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13.5 6.5 19 12l-5.5 5.5"/></svg></span>`}</span>
       </button></li>`;
 
     const render = (dir = 0) => {
