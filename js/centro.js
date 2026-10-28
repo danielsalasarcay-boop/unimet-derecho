@@ -173,3 +173,14 @@
       .to(b.map(cap), { autoAlpha: 1, duration: .8, stagger: .08, ease: 'power2.out' }, .8)
   });
 })();
+
+/* Logo del CED: el mazo da un golpe al tocarlo (dedo o cursor) y uno solo al cargar */
+(() => {
+  const logo = document.querySelector('.ceh__logo');
+  if (!logo || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const tap = () => { logo.classList.remove('is-tap'); logo.getBoundingClientRect(); logo.classList.add('is-tap'); };
+  logo.addEventListener('animationend', () => logo.classList.remove('is-tap'));
+  logo.addEventListener('pointerdown', tap);
+  logo.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') tap(); });
+  setTimeout(tap, 1600);
+})();

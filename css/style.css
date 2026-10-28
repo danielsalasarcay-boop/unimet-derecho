@@ -1091,5 +1091,6 @@ body::after {
 }
 .ceh__logo { display: block; width: clamp(170px, 15vw, 230px); height: auto; margin-bottom: clamp(20px, 2.2vw, 30px); overflow: visible; }
 .ceh__gavel { transform-box: view-box; transform-origin: 700px 300px; }
-@media (hover: hover) { .ceh__logo:hover .ceh__gavel { animation: gavelTap .7s var(--ease); } }
+.ceh__logo { cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.ceh__logo.is-tap .ceh__gavel { animation: gavelTap .7s var(--ease); }
 @keyframes gavelTap { 30% { transform: rotate(-9deg); } 55% { transform: rotate(3deg); } 75% { transform: rotate(-1deg); } }
