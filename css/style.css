@@ -1188,3 +1188,16 @@ a:hover > .arr i + i { transform: none; }
 .page-gal .broc__es { font-size: 15px; }
 .page-gal .broc::after { top: 16px; right: 14px; }
 @media (max-width: 820px) { .page-gal .broc, .page-gal .broc:not(:nth-child(3n+1)) { min-height: 0; padding: 18px 0; } }
+.page-gal .galeria { padding-bottom: 0; }
+/* Brocardos con color: tarjetas rosadas que se llenan de lacre al pasar o tocar */
+.page-gal .brocardos__grid { gap: 8px; border: 0; }
+.page-gal .broc, .page-gal .broc:not(:nth-child(3n+1)) { border: 0; border-radius: 4px; background: var(--lacre-soft); padding: 22px 24px; transition: background .5s var(--ease), color .5s var(--ease); }
+.page-gal .broc__la { color: var(--lacre); transition: color .5s var(--ease), transform .6s var(--ease); }
+.page-gal .broc::after { color: var(--lacre); top: 18px; right: 18px; transition: transform .5s var(--ease), color .5s var(--ease); }
+.page-gal .broc.is-open { background: var(--lacre); color: #fff; }
+.page-gal .broc.is-open .broc__la, .page-gal .broc.is-open::after { color: #fff; }
+@media (hover: hover) {
+  .page-gal .broc:hover { background: var(--lacre); color: #fff; }
+  .page-gal .broc:hover .broc__la, .page-gal .broc:hover::after { color: #fff; }
+}
+@media (max-width: 820px) { .page-gal .broc, .page-gal .broc:not(:nth-child(3n+1)) { padding: 20px; } .page-gal .brocardos__grid { gap: 6px; } }
