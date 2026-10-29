@@ -7,7 +7,9 @@
     // Las fotos más verticales que el recuadro se muestran completas
     $$('img', tr).forEach(img => {
       const iw = +img.getAttribute('width') || img.naturalWidth, ih = +img.getAttribute('height') || img.naturalHeight;
-      if (iw && ih && iw / ih < (tr.clientWidth / tr.clientHeight) * .8) img.parentNode.classList.add('gal__s--v');
+      const r = iw / ih, fr = tr.clientWidth / tr.clientHeight;
+      // muy verticales o muy panorámicas: completas sobre el fondo difuminado, sin cortar a nadie
+      if (iw && ih && (r < fr * .8 || r > fr * 1.15)) img.parentNode.classList.add('gal__s--v');
     });
     // Fondo único: dos capas que se alternan al cambiar de foto
     const bgs = $$('.gal__bg', g); let shown = -1, layer = 0;
