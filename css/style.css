@@ -1231,3 +1231,14 @@ a:hover > .arr i + i { transform: none; }
   .req__pop::before { display: none; }
   .req.is-open .req__pop { max-height: 640px; padding: 18px; margin-top: 14px; transition: max-height .55s var(--ease), padding .55s var(--ease), margin .55s var(--ease), opacity .4s, visibility 0s; }
 }
+/* En computadora el recuadro va a lo ancho de la lista, en dos columnas: más bajo, tapa menos */
+@media (min-width: 821px) {
+  .requisitos ol { position: relative; }
+  .req { position: static; }
+  .req__pop { left: 0; right: 0; width: auto; top: calc(100% + 16px); padding: 18px 24px 20px; font-size: 15px; line-height: 1.5; }
+  .req__pop p:last-child { max-width: 62em; }
+  .req__pop .req__k { margin-bottom: 6px; }
+  .req__pop::before { right: 40px; }
+}
+.hero { overflow-x: clip; }
+.carrera__grid > * { min-width: 0; }
