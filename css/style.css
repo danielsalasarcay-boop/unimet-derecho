@@ -1171,3 +1171,13 @@ a:hover > .arr i + i { transform: none; }
 }
 .gal__btn:not(:disabled):active { transform: scale(.94); }
 @media (max-width: 760px) { .gal__track { aspect-ratio: 4 / 3; } }
+.page-gal .galeria { padding-top: clamp(104px, 11vw, 150px); }
+/* Brocardos dentro de la galería: sobre papel */
+.page-gal .brocardos { background: none; color: var(--ink); padding-bottom: 0; overflow: visible; }
+.page-gal .brocardos__head { padding-top: var(--sp); }
+.page-gal .brocardos__head .lectura__kicker { color: var(--lacre); opacity: 1; }
+.page-gal .brocardos__head .display-sm em { color: var(--lacre); }
+.page-gal .brocardos__grid, .page-gal .broc { border-color: var(--rule); }
+.page-gal .broc:not(:nth-child(3n+1)) { border-left-color: var(--rule); }
+.gal__title { margin: 0 0 clamp(32px, 4vw, 56px); text-align: center; font-weight: 300; font-size: clamp(56px, 9vw, 140px); line-height: .94; letter-spacing: -.04em; font-variation-settings: "opsz" 72; }
+.gal__ln { display: inline-block; }
