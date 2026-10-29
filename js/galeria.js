@@ -6,9 +6,19 @@
     const tr = $('.gal__track', g), bar = $('.gal__bar', g), bs = $$('.gal__btn', g);
     // Las fotos más verticales que el recuadro se muestran completas
     $$('img', tr).forEach(img => {
-      const fit = () => { if (img.naturalWidth / img.naturalHeight < (tr.clientWidth / tr.clientHeight) * .8) { img.parentNode.classList.add('gal__s--v'); img.parentNode.style.setProperty('--bg', `url("${img.currentSrc || img.src}")`); } };
-      img.complete && img.naturalWidth ? fit() : img.addEventListener('load', fit, { once: true });
+      const iw = +img.getAttribute('width') || img.naturalWidth, ih = +img.getAttribute('height') || img.naturalHeight;
+      if (iw && ih && iw / ih < (tr.clientWidth / tr.clientHeight) * .8) img.parentNode.classList.add('gal__s--v');
     });
+    // Fondo único: dos capas que se alternan al cambiar de foto
+    const bgs = $$('.gal__bg', g); let shown = -1, layer = 0;
+    const backdrop = k => {
+      if (k === shown || !bgs.length) return;
+      const img = $$('img', tr)[k];
+      if (!img) return;
+      shown = k; layer ^= 1;
+      bgs[layer].style.backgroundImage = `url("${img.currentSrc || img.src}")`;
+      bgs[layer].classList.add('is-on'); bgs[layer ^ 1].classList.remove('is-on');
+    };
     const n = () => tr.children.length, w = () => tr.getBoundingClientRect().width || 1, i = () => Math.round(tr.scrollLeft / w());
     // La línea marca el avance continuo; el punto se arrastra para recorrer las fotos
     const max = () => Math.max(1, tr.scrollWidth - tr.clientWidth);
@@ -17,6 +27,7 @@
     const stop = () => { cancelAnimationFrame(raf); raf = 0; tr.style.scrollSnapType = ''; };
     const glide = (k, dur = 1000) => {
       slide = Math.max(0, Math.min(n() - 1, k));
+      backdrop(slide);
       const x = slide * w(), x0 = tr.scrollLeft, t0 = performance.now();
       cancelAnimationFrame(raf);
       if (reduce || Math.abs(x - x0) < 1) { tr.scrollLeft = x; stop(); return; }
@@ -30,6 +41,7 @@
     };
     const sync = () => {
       const k = i(), m = n();
+      backdrop(raf && !drag ? slide : k);
       if (!drag) bar.style.setProperty('--p', Math.min(1, Math.max(0, tr.scrollLeft / max())));
       bar.setAttribute('aria-valuemax', m); bar.setAttribute('aria-valuenow', k + 1);
       bs[0].disabled = k <= 0; bs[1].disabled = k >= m - 1;
