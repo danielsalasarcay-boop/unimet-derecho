@@ -63,6 +63,8 @@
       const d = { ArrowRight: 1, ArrowLeft: -1 }[e.key];
       if (e.key === 'Home') { e.preventDefault(); glide(0); } else if (e.key === 'End') { e.preventDefault(); glide(n() - 1); } else if (d) { e.preventDefault(); go(d); }
     });
+    // Las fotos no se arrastran con el mouse (ni como imagen fantasma)
+    tr.addEventListener('dragstart', e => e.preventDefault());
     // Si el dedo toma las fotos a mitad de un desplazamiento, manda el dedo
     tr.addEventListener('touchstart', () => { if (raf && !drag) stop(); }, { passive: true });
     // Trackpad o rueda horizontal: un gesto avanza una foto (el snap nativo de Chrome devuelve los pasos cortos)
