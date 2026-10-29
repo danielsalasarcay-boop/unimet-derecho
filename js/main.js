@@ -645,12 +645,27 @@
       if (o) { lenis?.stop(); $('.eqm__panel', eqm).scrollTop = 0; setTimeout(() => $('.eqm__x', eqm).focus({ preventScroll: true }), 50); }
       else { lenis?.start(); eqBtn.focus({ preventScroll: true }); }
     };
-    eqBtn.addEventListener('click', () => setEq(true));
+    // Pestañas: abre siempre en Plan combinado (el botón está en esa sección)
+    const tabs = $$('.eqm__tab', eqm);
+    const showTab = t => tabs.forEach(b => {
+      const on = b === t, pane = $('#' + b.getAttribute('aria-controls'));
+      b.classList.toggle('is-on', on); b.setAttribute('aria-selected', on); b.tabIndex = on ? 0 : -1;
+      pane.hidden = !on; pane.classList.toggle('is-on', on);
+    });
+    tabs.forEach((b, i) => {
+      b.addEventListener('click', () => { showTab(b); $('.eqm__panel', eqm).scrollTop = 0; });
+      b.addEventListener('keydown', e => { const d = { ArrowRight: 1, ArrowLeft: -1 }[e.key]; if (d) { const t = tabs[(i + d + tabs.length) % tabs.length]; showTab(t); t.focus(); } });
+    });
+    eqBtn.addEventListener('click', () => { if (tabs[0]) showTab(tabs[0]); setEq(true); });
     $$('[data-eq-close]', eqm).forEach(b => b.addEventListener('click', () => setEq(false)));
     document.addEventListener('keydown', e => {
       if (!eqm.classList.contains('is-open')) return;
       if (e.key === 'Escape') setEq(false);
-      if (e.key === 'Tab') { e.preventDefault(); $('.eqm__x', eqm).focus(); }
+      if (e.key === 'Tab') {
+        const f = $$('button:not([tabindex="-1"])', eqm).filter(x => !x.closest('[hidden]'));
+        const i = f.indexOf(document.activeElement), n = (i + (e.shiftKey ? -1 : 1) + f.length) % f.length;
+        e.preventDefault(); f[n].focus();
+      }
     });
   }
 

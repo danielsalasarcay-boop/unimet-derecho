@@ -1294,3 +1294,24 @@ html.is-eq, html.is-eq body { overflow: hidden; }
   .eq__t--cod td:nth-child(2)::before { content: "→ "; color: var(--muted); }
   .eq__t--cod td:nth-child(3) { grid-column: 1 / -1; }
 }
+/* Pestañas: Plan combinado / Plan de Derecho */
+.eqm__tabs { display: inline-flex; gap: 4px; padding: 4px; margin-bottom: clamp(16px, 2vw, 24px); border-radius: 999px; background: #E7E3DC; }
+.eqm__tab { padding: 10px 18px; border: 0; border-radius: 999px; background: none; color: var(--ink); font-family: var(--sans); font-size: 14px; font-weight: 600; cursor: pointer; transition: background .35s var(--ease), color .35s; }
+.eqm__tab.is-on { background: var(--ink); color: #fff; }
+@media (hover: hover) { .eqm__tab:not(.is-on):hover { background: rgba(29, 30, 33, .08); } }
+.eqm__pane { animation: eqIn .45s var(--ease); }
+@keyframes eqIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.eqm__pane > .eqm__sub { margin: 0 0 18px; }
+.eq__rules { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 18px; font-family: var(--sans); font-size: 14px; line-height: 1.45; }
+.eq__rules div { display: flex; gap: 12px; align-items: baseline; padding: 12px 14px; border-radius: 4px; background: var(--lacre-soft); }
+.eq__rules dt { flex: none; font-weight: 700; color: var(--lacre); }
+.eq__rules dd { margin: 0; }
+.eq__t--pc th:nth-child(2), .eq__t--pc td:nth-child(2) { width: 120px; text-align: center; }
+.eq__r { color: var(--lacre); font-weight: 700; white-space: nowrap; }
+@media (max-width: 820px) {
+  .eqm__tabs { display: flex; }
+  .eqm__tab { flex: 1; padding: 10px 8px; }
+  .eq__rules { grid-template-columns: 1fr; }
+  .eq__t--pc tr { grid-template-columns: 1fr; row-gap: 6px; }
+  .eq__t--pc td:nth-child(2) { width: auto; text-align: left; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; }
+}

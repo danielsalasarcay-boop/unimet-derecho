@@ -29,7 +29,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..600&family=Archivo:wdth,wght@62..125,400..700&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
   <link rel="preload" as="image" href="img/portada-campus.jpg" imagesrcset="img/portada-campus.jpg 1600w, img/portada-campus-2400.jpg 2400w" imagesizes="(max-width: 820px) 170vw, 130vw" fetchpriority="high">
-  <link rel="stylesheet" href="css/style.css?v=202610291709">
+  <link rel="stylesheet" href="css/style.css?v=202610291719">
 </head>
 <body class="is-loading">
   <a class="skip label" href="#objetivo">Saltar al contenido</a>
@@ -530,53 +530,82 @@
     <div class="eqm__panel" data-lenis-prevent>
       <header class="eqm__head">
         <div>
-          <p class="label">Universidad Metropolitana · Derecho</p>
+          <p class="label">Universidad Metropolitana</p>
           <h2 id="eq-title" class="eqm__title">Equivalencias</h2>
-          <p class="eqm__sub">Flujograma de componentes educativos obligatorios de la carrera de Derecho · Octubre 2026</p>
         </div>
         <button class="eqm__x" type="button" data-eq-close aria-label="Cerrar"><i></i><i></i></button>
       </header>
-      <section class="eq">
-        <h3 class="eq__h label">Nuevas asignaturas</h3>
+      <div class="eqm__tabs" role="tablist" aria-label="Tipo de equivalencias">
+        <button class="eqm__tab is-on" type="button" role="tab" id="eqt-pc" aria-selected="true" aria-controls="eqp-pc">Plan combinado</button>
+        <button class="eqm__tab" type="button" role="tab" id="eqt-de" aria-selected="false" aria-controls="eqp-de" tabindex="-1">Plan de Derecho</button>
+      </div>
+      <div class="eqm__pane is-on" id="eqp-pc" role="tabpanel" aria-labelledby="eqt-pc">
+        <p class="eqm__sub">Plan de Estudios Simultáneos: Derecho, Estudios Liberales y Estudios Internacionales. Aprobado en Consejo Universitario el 3 de julio de 2025 y actualizado en septiembre de 2025.</p>
+        <dl class="eq__rules">
+          <div><dt>O</dt><dd>Cursas cualquiera de las dos opciones y te vale para las tres carreras.</dd></div>
+          <div><dt>En lugar de</dt><dd>Cursas la primera asignatura y se te reconoce la segunda.</dd></div>
+        </dl>
         <div class="eq__wrap">
-          <table class="eq__t eq__t--new">
-            <thead>
-              <tr class="eq__grp"><th colspan="2">Asignaturas incorporadas</th><th colspan="2">Asignaturas sustituidas</th></tr>
-              <tr><th>Código</th><th>Nombre</th><th>Código</th><th>Nombre</th></tr>
-            </thead>
+          <table class="eq__t eq__t--pc">
+            <thead><tr><th>Asignatura</th><th>Regla</th><th>Asignatura</th></tr></thead>
             <tbody>
-                  <tr><td class="eq__c">FBTHE05</td><td>Investigación y Sustentabilidad</td><td class="eq__c">FBTCE04</td><td>Téc. de Gestión de la Información</td></tr>
-                  <tr><td class="eq__c">FBTSP04</td><td>Pensamiento Computacional</td><td class="eq__c">FBTCE03</td><td>Tecnología para el Aprendizaje</td></tr>
-                  <tr><td class="eq__c">FBTEM02</td><td>Ideas Emprendedoras</td><td class="eq__c">FBTIE01</td><td>Iniciativa Emprendedora</td></tr>
-                  <tr><td class="eq__c">FPTEJ15</td><td>Derecho Procesal Penal</td><td class="eq__c">FBTHU02</td><td>Comprensión de Venezuela</td></tr>
-                  <tr><td class="eq__c">FPTEJ17</td><td>Derecho de las Nuevas Tecnologías</td><td class="eq__c">FBTMM00</td><td>Matemática General</td></tr>
-                  <tr><td class="eq__c">BPTEP07</td><td>Teoría de la Argumentación</td><td class="eq__c">FBTHU01</td><td>Lenguaje y Universalidad</td></tr>
-                  <tr><td class="eq__c">FPTEJ16</td><td>Derecho Energético</td><td class="eq__c">FBTIE03</td><td>Aprender a Emprender</td></tr>
-                  <tr><td class="eq__c">FPTEJ18</td><td>Procedimientos Especiales</td><td class="eq__c">FPTEJ14</td><td>Prácticas Procesales</td></tr>
-                  <tr><td class="eq__c">FBTEM01</td><td>Competencias para Emprender</td><td class="eq__c">FBTEM01</td><td>Competencias en Acción</td></tr>
-                  <tr><td class="eq__c">FBTLI06</td><td>Lógica y Argumentación</td><td class="eq__c">FBTMM02</td><td>Lógica Básica</td></tr>
-                  <tr><td class="eq__c">FPSXXxx</td><td>Seminario Profesional (Derecho)</td><td class="eq__c">BPTEP07</td><td>Teoría de la Argumentación</td></tr>
-                  <tr><td class="eq__c">FPTEJ19</td><td>Gestión profesional</td><td class="eq__note" colspan="2">Equivalente a Defensa de Trabajo de Grado hasta el 2324-3</td></tr>
-                  <tr><td class="eq__c">FBTHE11</td><td>Venezuela: Identidad y contexto</td><td class="eq__note" colspan="2">Obligatoria para estudiantes de nuevo ingreso a partir del 2425-1</td></tr>
-                  <tr><td class="eq__c">FBTEP02</td><td>Mundo Global: Tendencias y Transformaciones</td><td class="eq__note" colspan="2">Asignatura obligatoria a partir del 2526-1</td></tr>
+              <tr><td>Teoría Política Clásica y Teoría Política Moderna</td><td class="eq__r">O</td><td>Historia del Pensamiento Jurídico e Historia de las Relaciones Internacionales I</td></tr>
+              <tr><td>Civilización Contemporánea</td><td class="eq__r">O</td><td>Historia de las Relaciones Internacionales II</td></tr>
+              <tr><td>Instituciones Políticas Comparadas</td><td class="eq__r">O</td><td>Derecho Comparado</td></tr>
+              <tr><td>Geopolítica y Geoestrategia</td><td class="eq__r">En lugar de</td><td>Problemas Políticos Contemporáneos</td></tr>
+              <tr><td>Medios Alternativos de Resolución de Conflictos</td><td class="eq__r">En lugar de</td><td>Negociación</td></tr>
+              <tr><td>Relaciones Internacionales: Latinoamérica y el Caribe</td><td class="eq__r">En lugar de</td><td>Historia Iberoamericana y Venezolana I</td></tr>
+              <tr><td>Principios de Economía</td><td class="eq__r">En lugar de</td><td>Introducción al Análisis Económico del Derecho</td></tr>
+              <tr><td>Teoría Social I</td><td class="eq__r">En lugar de</td><td>Sociología Jurídica</td></tr>
             </tbody>
           </table>
         </div>
-      </section>
-      <section class="eq">
-        <h3 class="eq__h label">Cambios de código <span>· Según Gaceta Académica N.º 135 del año 2026</span></h3>
-        <div class="eq__wrap">
-          <table class="eq__t eq__t--cod">
-            <thead><tr><th>Código anterior</th><th>Nuevo código</th><th>Asignatura</th></tr></thead>
-            <tbody>
-                  <tr><td class="eq__c">FPTEI02</td><td class="eq__c">FPTEJ22</td><td>Derecho Comparado</td></tr>
-                  <tr><td class="eq__c">BPTEI02</td><td class="eq__c">BPTEJ38</td><td>Derecho Internacional Privado</td></tr>
-                  <tr><td class="eq__c">FPTEI01</td><td class="eq__c">FPTEJ23</td><td>Tópicos de Derecho Internacional Privado</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
-      <p class="eqm__src">Fuente: Flujograma de componentes educativos obligatorios de Derecho, Dirección de la Escuela, octubre 2026.</p>
+        <p class="eqm__src">Fuente: Plan de Estudios Simultáneos Derecho, Estudios Liberales y Estudios Internacionales, Universidad Metropolitana.</p>
+      </div>
+      <div class="eqm__pane" id="eqp-de" role="tabpanel" aria-labelledby="eqt-de" hidden>
+        <p class="eqm__sub">Flujograma de componentes educativos obligatorios de la carrera de Derecho · Octubre 2026.</p>
+        <section class="eq">
+          <h3 class="eq__h label">Nuevas asignaturas</h3>
+          <div class="eq__wrap">
+            <table class="eq__t eq__t--new">
+              <thead>
+                <tr class="eq__grp"><th colspan="2">Asignaturas incorporadas</th><th colspan="2">Asignaturas sustituidas</th></tr>
+                <tr><th>Código</th><th>Nombre</th><th>Código</th><th>Nombre</th></tr>
+              </thead>
+              <tbody>
+                    <tr><td class="eq__c">FBTHE05</td><td>Investigación y Sustentabilidad</td><td class="eq__c">FBTCE04</td><td>Téc. de Gestión de la Información</td></tr>
+                    <tr><td class="eq__c">FBTSP04</td><td>Pensamiento Computacional</td><td class="eq__c">FBTCE03</td><td>Tecnología para el Aprendizaje</td></tr>
+                    <tr><td class="eq__c">FBTEM02</td><td>Ideas Emprendedoras</td><td class="eq__c">FBTIE01</td><td>Iniciativa Emprendedora</td></tr>
+                    <tr><td class="eq__c">FPTEJ15</td><td>Derecho Procesal Penal</td><td class="eq__c">FBTHU02</td><td>Comprensión de Venezuela</td></tr>
+                    <tr><td class="eq__c">FPTEJ17</td><td>Derecho de las Nuevas Tecnologías</td><td class="eq__c">FBTMM00</td><td>Matemática General</td></tr>
+                    <tr><td class="eq__c">BPTEP07</td><td>Teoría de la Argumentación</td><td class="eq__c">FBTHU01</td><td>Lenguaje y Universalidad</td></tr>
+                    <tr><td class="eq__c">FPTEJ16</td><td>Derecho Energético</td><td class="eq__c">FBTIE03</td><td>Aprender a Emprender</td></tr>
+                    <tr><td class="eq__c">FPTEJ18</td><td>Procedimientos Especiales</td><td class="eq__c">FPTEJ14</td><td>Prácticas Procesales</td></tr>
+                    <tr><td class="eq__c">FBTEM01</td><td>Competencias para Emprender</td><td class="eq__c">FBTEM01</td><td>Competencias en Acción</td></tr>
+                    <tr><td class="eq__c">FBTLI06</td><td>Lógica y Argumentación</td><td class="eq__c">FBTMM02</td><td>Lógica Básica</td></tr>
+                    <tr><td class="eq__c">FPSXXxx</td><td>Seminario Profesional (Derecho)</td><td class="eq__c">BPTEP07</td><td>Teoría de la Argumentación</td></tr>
+                    <tr><td class="eq__c">FPTEJ19</td><td>Gestión profesional</td><td class="eq__note" colspan="2">Equivalente a Defensa de Trabajo de Grado hasta el 2324-3</td></tr>
+                    <tr><td class="eq__c">FBTHE11</td><td>Venezuela: Identidad y contexto</td><td class="eq__note" colspan="2">Obligatoria para estudiantes de nuevo ingreso a partir del 2425-1</td></tr>
+                    <tr><td class="eq__c">FBTEP02</td><td>Mundo Global: Tendencias y Transformaciones</td><td class="eq__note" colspan="2">Asignatura obligatoria a partir del 2526-1</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+        <section class="eq">
+          <h3 class="eq__h label">Cambios de código <span>· Según Gaceta Académica N.º 135 del año 2026</span></h3>
+          <div class="eq__wrap">
+            <table class="eq__t eq__t--cod">
+              <thead><tr><th>Código anterior</th><th>Nuevo código</th><th>Asignatura</th></tr></thead>
+              <tbody>
+                    <tr><td class="eq__c">FPTEI02</td><td class="eq__c">FPTEJ22</td><td>Derecho Comparado</td></tr>
+                    <tr><td class="eq__c">BPTEI02</td><td class="eq__c">BPTEJ38</td><td>Derecho Internacional Privado</td></tr>
+                    <tr><td class="eq__c">FPTEI01</td><td class="eq__c">FPTEJ23</td><td>Tópicos de Derecho Internacional Privado</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+        <p class="eqm__src">Fuente: Flujograma de componentes educativos obligatorios de Derecho, Dirección de la Escuela, octubre 2026.</p>
+      </div>
     </div>
   </div>
 
@@ -613,9 +642,9 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/SplitText.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
-  <script src="js/nav.js?v=202610291709"></script>
-  <script src="js/trace.js?v=202610291709"></script>
-  <script src="js/main.js?v=202610291709"></script>
-  <script src="js/sello.js?v=202610291709"></script>
+  <script src="js/nav.js?v=202610291719"></script>
+  <script src="js/trace.js?v=202610291719"></script>
+  <script src="js/main.js?v=202610291719"></script>
+  <script src="js/sello.js?v=202610291719"></script>
 </body>
 </html>
