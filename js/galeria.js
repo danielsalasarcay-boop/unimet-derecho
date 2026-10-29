@@ -11,7 +11,10 @@
     });
     // Fondo único: dos capas que se alternan al cambiar de foto
     const bgs = $$('.gal__bg', g); let shown = -1, layer = 0;
+    // Adelanta la carga de las fotos vecinas para que nunca aparezca un recuadro vacío
+    const near = k => $$('img', tr).slice(Math.max(0, k - 1), k + 3).forEach(im => { if (im.loading === 'lazy') im.loading = 'eager'; });
     const backdrop = k => {
+      near(k);
       if (k === shown || !bgs.length) return;
       const img = $$('img', tr)[k];
       if (!img) return;
