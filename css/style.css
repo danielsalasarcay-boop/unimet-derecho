@@ -1142,3 +1142,32 @@ a:hover > .arr i + i { transform: none; }
 .ceh__ring { opacity: 0; }
 .ceh__logo { touch-action: manipulation; -webkit-user-select: none; user-select: none; }
 .ceh__logo:focus-visible { outline: 2px solid var(--lacre); outline-offset: 4px; border-radius: 6px; }
+
+/* ---------- Galería ---------- */
+.galeria { background: var(--paper); padding: var(--sp) 0; }
+.gal { max-width: 1080px; margin: 0 auto; }
+.gal__track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; border-radius: 3px; aspect-ratio: 16 / 9; outline: none; }
+.gal__track::-webkit-scrollbar { display: none; }
+.gal__track:focus-visible { box-shadow: 0 0 0 2px var(--lacre); }
+.gal__s { flex: 0 0 100%; height: 100%; margin: 0; scroll-snap-align: start; scroll-snap-stop: always; overflow: hidden; background: #E7E3DC; }
+.gal__s:nth-child(even) { background: #DEDAD2; }
+.gal__s { position: relative; }
+.gal__s img { position: relative; width: 100%; height: 100%; object-fit: cover; display: block; }
+/* Fotos verticales: la foto completa sobre un fondo difuminado de sí misma */
+.gal__s--v { background: var(--carbon); }
+.gal__s--v::before { content: ""; position: absolute; inset: -40px; background: var(--bg) center / cover; filter: blur(28px) brightness(.62); }
+.gal__s--v img { object-fit: contain; }
+.gal__ui { display: flex; align-items: center; gap: 10px; margin-top: 18px; }
+.gal__bar { position: relative; flex: 1; height: 1px; margin-right: 14px; background: var(--rule); overflow: hidden; }
+.gal__bar i { position: absolute; inset: 0 auto 0 0; width: 20%; background: var(--ink); transition: transform .6s var(--ease); }
+.gal__btn { color: var(--ink); background: none; border: 0; padding: 0; cursor: pointer; }
+.gal__btn[data-d="-1"] i + i { transform: translate(100%, 100%); }
+.gal__btn:disabled { opacity: .3; cursor: default; }
+@media (hover: hover) {
+  .gal__btn:not(:disabled):hover { background: var(--ink); color: #fff; box-shadow: inset 0 0 0 1.2px var(--ink); }
+  .gal__btn[data-d="1"]:not(:disabled):hover i:first-child { transform: translate(100%, -100%); }
+  .gal__btn[data-d="-1"]:not(:disabled):hover i:first-child { transform: translate(-100%, -100%); }
+  .gal__btn:not(:disabled):hover i + i { transform: none; }
+}
+.gal__btn:not(:disabled):active { transform: scale(.94); }
+@media (max-width: 760px) { .gal__track { aspect-ratio: 4 / 3; } }
