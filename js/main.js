@@ -636,6 +636,15 @@
     });
   }));
 
+  // Examen Comprehensivo: recuadro que se abre al tocarlo y se cierra al tocar fuera o con Escape
+  $$('.req').forEach(r => {
+    const b = $('.req__btn', r);
+    const set = o => { r.classList.toggle('is-open', o); b.setAttribute('aria-expanded', o); if (innerWidth <= 820) setTimeout(() => ScrollTrigger.refresh(), 600); };
+    b.addEventListener('click', e => { e.stopPropagation(); set(!r.classList.contains('is-open')); });
+    document.addEventListener('click', e => { if (r.classList.contains('is-open') && !r.contains(e.target)) set(false); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && r.classList.contains('is-open')) { set(false); b.focus(); } });
+  });
+
   // Brocardos
   $$('.broc').forEach(b => b.addEventListener('click', () => b.classList.toggle('is-open')));
 

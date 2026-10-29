@@ -1213,3 +1213,21 @@ a:hover > .arr i + i { transform: none; }
 .page-gal .galeria { padding-bottom: 8px; }
 @media (max-width: 820px) { .page-gal .galeria { padding-bottom: 6px; } }
 .gal__track, .gal__s img { -webkit-user-drag: none; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }
+
+/* ---------- Examen Comprehensivo: recuadro que se abre al tocarlo ---------- */
+.req { position: relative; }
+.req__btn { display: block; width: 100%; padding: 0; border: 0; background: none; color: inherit; font: inherit; letter-spacing: inherit; line-height: inherit; text-align: left; cursor: pointer; }
+.req__plus { position: relative; display: inline-block; width: 22px; height: 22px; margin-left: 6px; vertical-align: .08em; border-radius: 50%; background: var(--lacre); transition: transform .5s var(--ease), background .3s; }
+.req__plus::before, .req__plus::after { content: ""; position: absolute; left: 50%; top: 50%; width: 10px; height: 1.6px; margin: -.8px 0 0 -5px; background: #fff; border-radius: 1px; }
+.req__plus::after { transform: rotate(90deg); }
+.req.is-open .req__plus { transform: rotate(45deg); background: var(--ink); }
+.req__pop { position: absolute; z-index: 5; top: calc(100% + 14px); right: 0; width: min(400px, 86vw); padding: 22px 24px; border-radius: 4px; background: var(--white); color: var(--ink); box-shadow: 0 1px 0 var(--rule), 0 24px 60px -24px rgba(29, 30, 33, .35); font-family: var(--sans); font-size: 15px; font-weight: 400; letter-spacing: 0; line-height: 1.55; opacity: 0; visibility: hidden; transform: translateY(8px); transition: opacity .35s var(--ease), transform .45s var(--ease), visibility 0s .45s; }
+.req__pop::before { content: ""; position: absolute; top: -6px; right: 28px; width: 12px; height: 12px; background: var(--white); transform: rotate(45deg); }
+.req__pop p + p { margin-top: 10px; }
+.req__pop .req__k { color: var(--lacre); margin-bottom: 10px; }
+.req.is-open .req__pop { opacity: 1; visibility: visible; transform: none; transition: opacity .35s var(--ease), transform .45s var(--ease), visibility 0s; }
+@media (max-width: 820px) {
+  .req__pop { position: static; width: auto; max-height: 0; overflow: hidden; padding: 0 18px; margin-top: 0; transform: none; box-shadow: inset 0 0 0 1px var(--rule); transition: max-height .55s var(--ease), padding .55s var(--ease), margin .55s var(--ease), opacity .4s, visibility 0s .55s; }
+  .req__pop::before { display: none; }
+  .req.is-open .req__pop { max-height: 640px; padding: 18px; margin-top: 14px; transition: max-height .55s var(--ease), padding .55s var(--ease), margin .55s var(--ease), opacity .4s, visibility 0s; }
+}
