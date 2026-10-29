@@ -62,7 +62,15 @@
       const r = bar.getBoundingClientRect(), q = Math.min(1, Math.max(0, (e.clientX - r.left) / r.width));
       bar.style.setProperty('--p', q); want = q * max();
     };
+    const phone = matchMedia('(max-width: 820px)');
+    // Teléfono: tocar el lado izquierdo o derecho de la foto la cambia (deslizar con el dedo sigue funcionando)
+    tr.addEventListener('click', e => {
+      if (!phone.matches) return;
+      const r = tr.getBoundingClientRect(), x = (e.clientX - r.left) / r.width;
+      if (x < .3) go(-1); else if (x > .7) go(1);
+    });
     bar.addEventListener('pointerdown', e => {
+      if (phone.matches) return;
       e.preventDefault(); cancelAnimationFrame(raf);
       drag = true; try { bar.setPointerCapture(e.pointerId); } catch (_) {} bar.classList.add('is-drag');
       tr.style.scrollSnapType = 'none'; seek(e);

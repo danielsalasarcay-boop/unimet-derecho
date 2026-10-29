@@ -1178,7 +1178,17 @@ a:hover > .arr i + i { transform: none; }
   .gal__btn:not(:disabled):hover i + i { transform: none; }
 }
 .gal__btn:not(:disabled):active { transform: scale(.94); }
-@media (max-width: 760px) { .gal__track { aspect-ratio: 4 / 3; } }
+/* Teléfono: recuadro vertical (casi todas las fotos lo son), flechas grandes a los lados
+   y la línea solo indica dónde vas: no se arrastra ni estorba al bajar la página */
+@media (max-width: 820px) {
+  .gal__track { aspect-ratio: 4 / 5; }
+  .gal__ui { gap: 14px; margin-top: 14px; }
+  .gal__btn { width: 52px; height: 52px; }
+  .gal__btn .ico { width: 20px; height: 20px; }
+  .gal__btn[data-d="-1"] { order: -1; }
+  .gal__bar { height: 20px; margin: 0; pointer-events: none; touch-action: auto; }
+  .gal__bar b { width: 12px; height: 12px; margin: -6px 0 0 -6px; box-shadow: none; transition: left .3s var(--ease); }
+}
 .page-gal .galeria { padding-top: clamp(104px, 11vw, 150px); }
 /* Brocardos dentro de la galería: sobre papel */
 .page-con .brocardos { background: none; color: var(--ink); padding-bottom: 0; overflow: visible; }
