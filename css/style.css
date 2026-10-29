@@ -477,7 +477,11 @@ a:hover > .arr i + i { transform: none; }
 .via + .via { padding-left: 28px; border-left: 1px solid var(--rule-light); }
 .via__k { color: var(--lacre); }
 .via h3 { font-weight: 300; font-size: clamp(22px, 1.9vw, 30px); line-height: 1.12; letter-spacing: -.015em; margin: 16px 0 14px; }
-.via p:last-child { color: rgba(255,255,255,.6); font-size: 16px; }
+.via > p:not(.via__k) { color: rgba(255,255,255,.6); font-size: 16px; }
+.via__note { margin-top: 22px; padding-top: 14px; border-top: 1px solid var(--rule-light); color: rgba(255,255,255,.45) !important; font-size: 11px !important; line-height: 1.7; }
+.via__list { list-style: none; margin: 0; padding: 0; }
+.via__list li { position: relative; padding: 0 0 12px 20px; color: rgba(255,255,255,.6); font-size: 15px; line-height: 1.45; }
+.via__list li::before { content: ""; position: absolute; left: 0; top: 10px; width: 10px; height: 2px; background: var(--lacre); }
 
 /* ---------- Título VII · FAQ ---------- */
 .faq__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5vw; align-items: start; }
