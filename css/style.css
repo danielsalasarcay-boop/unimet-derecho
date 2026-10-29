@@ -1320,3 +1320,7 @@ html.is-eq, html.is-eq body { overflow: hidden; }
 .guia--page .guia__intro { padding-top: clamp(120px, 13vw, 180px); }
 /* Reserva el ancho del enlace retirado para que el footer mida exactamente igual */
 .footer__ghost { visibility: hidden; pointer-events: none; }
+
+/* Sin selección de texto en todo el sitio (los campos de formulario siguen funcionando) */
+html { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+input, textarea, [contenteditable] { -webkit-user-select: text; user-select: text; }
