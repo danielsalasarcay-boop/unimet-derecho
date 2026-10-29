@@ -1158,14 +1158,13 @@ a:hover > .arr i + i { transform: none; }
 .gal__s--v::before { content: ""; position: absolute; inset: -40px; background: var(--bg) center / cover; filter: blur(28px) brightness(.62); }
 .gal__s--v img { object-fit: contain; }
 .gal__ui { display: flex; align-items: center; gap: 10px; margin-top: 18px; }
-.gal__bar { --p: 0; position: relative; flex: 1; height: 28px; margin: 0 18px 0 7px; cursor: grab; touch-action: none; outline: none; }
+.gal__bar { --p: 0; position: relative; flex: 1; height: 32px; margin: 0 22px 0 10px; cursor: default; touch-action: none; outline: none; -webkit-tap-highlight-color: transparent; user-select: none; }
 .gal__bar::before, .gal__bar i { content: ""; position: absolute; left: 0; top: 50%; height: 1px; margin-top: -.5px; }
 .gal__bar::before { right: 0; background: var(--rule); }
 .gal__bar i { width: 100%; background: var(--ink); transform-origin: 0 50%; transform: scaleX(var(--p)); }
-.gal__bar b { position: absolute; top: 50%; left: calc(var(--p) * 100%); width: 14px; height: 14px; margin: -7px 0 0 -7px; border-radius: 50%; background: var(--ink); transition: transform .35s var(--ease), background .35s; }
-.gal__bar.is-drag { cursor: grabbing; }
-.gal__bar.is-drag b, .gal__bar:focus-visible b { transform: scale(1.45); background: var(--lacre); }
-@media (hover: hover) { .gal__bar:hover b { transform: scale(1.3); } }
+.gal__bar b { position: absolute; top: 50%; left: calc(var(--p) * 100%); width: 20px; height: 20px; margin: -10px 0 0 -10px; border-radius: 50%; background: var(--lacre); box-shadow: 0 4px 14px -4px rgba(212, 1, 52, .55); transition: transform .35s var(--ease); }
+.gal__bar.is-drag b, .gal__bar:focus-visible b { transform: scale(1.25); }
+@media (hover: hover) { .gal__bar:hover b { transform: scale(1.12); } }
 .gal__btn { color: var(--ink); background: none; border: 0; padding: 0; cursor: pointer; }
 .gal__btn[data-d="-1"] i + i { transform: translate(100%, 100%); }
 .gal__btn:disabled { opacity: .3; cursor: default; }

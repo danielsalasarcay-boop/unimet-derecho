@@ -9,41 +9,62 @@
       const fit = () => { if (img.naturalWidth / img.naturalHeight < (tr.clientWidth / tr.clientHeight) * .8) { img.parentNode.classList.add('gal__s--v'); img.parentNode.style.setProperty('--bg', `url("${img.currentSrc || img.src}")`); } };
       img.complete && img.naturalWidth ? fit() : img.addEventListener('load', fit, { once: true });
     });
-    const n = () => tr.children.length, i = () => Math.round(tr.scrollLeft / (tr.clientWidth || 1));
+    const n = () => tr.children.length, w = () => tr.getBoundingClientRect().width || 1, i = () => Math.round(tr.scrollLeft / w());
     // La línea marca el avance continuo; el punto se arrastra para recorrer las fotos
     const max = () => Math.max(1, tr.scrollWidth - tr.clientWidth);
+    // Desplazamiento propio y suave (las flechas, el punto y el trackpad usan el mismo)
+    let raf = 0, slide = 0, drag = false, want = 0;
+    const stop = () => { cancelAnimationFrame(raf); raf = 0; tr.style.scrollSnapType = ''; };
+    const glide = (k, dur = 1000) => {
+      slide = Math.max(0, Math.min(n() - 1, k));
+      const x = slide * w(), x0 = tr.scrollLeft, t0 = performance.now();
+      cancelAnimationFrame(raf);
+      if (reduce || Math.abs(x - x0) < 1) { tr.scrollLeft = x; stop(); return; }
+      tr.style.scrollSnapType = 'none';
+      const step = now => {
+        const t = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - t, 4);
+        tr.scrollLeft = x0 + (x - x0) * e;
+        if (t < 1) raf = requestAnimationFrame(step); else { tr.scrollLeft = x; stop(); }
+      };
+      raf = requestAnimationFrame(step);
+    };
     const sync = () => {
       const k = i(), m = n();
-      bar.style.setProperty('--p', Math.min(1, Math.max(0, tr.scrollLeft / max())));
+      if (!drag) bar.style.setProperty('--p', Math.min(1, Math.max(0, tr.scrollLeft / max())));
       bar.setAttribute('aria-valuemax', m); bar.setAttribute('aria-valuenow', k + 1);
       bs[0].disabled = k <= 0; bs[1].disabled = k >= m - 1;
     };
-    const go = d => {
-      const k = Math.max(0, Math.min(n() - 1, i() + d));
-      tr.scrollTo({ left: k * tr.clientWidth, behavior: reduce ? 'auto' : 'smooth' });
-    };
+    const go = d => glide((raf ? slide : i()) + d);
     bs.forEach(b => b.addEventListener('click', () => go(+b.dataset.d)));
-    const to = k => tr.scrollTo({ left: k * tr.clientWidth, behavior: reduce ? 'auto' : 'smooth' });
-    let drag = false;
+    // El punto sigue al dedo o al cursor; las fotos lo alcanzan con suavidad
+    const follow = () => {
+      tr.scrollLeft += (want - tr.scrollLeft) * .16;
+      if (drag) raf = requestAnimationFrame(follow);
+    };
     const seek = e => {
-      const r = bar.getBoundingClientRect();
-      tr.scrollLeft = Math.min(1, Math.max(0, (e.clientX - r.left) / r.width)) * max();
+      const r = bar.getBoundingClientRect(), q = Math.min(1, Math.max(0, (e.clientX - r.left) / r.width));
+      bar.style.setProperty('--p', q); want = q * max();
     };
     bar.addEventListener('pointerdown', e => {
-      drag = true; bar.setPointerCapture(e.pointerId); bar.classList.add('is-drag');
-      tr.style.scrollSnapType = 'none'; seek(e); e.preventDefault();
+      e.preventDefault(); cancelAnimationFrame(raf);
+      drag = true; try { bar.setPointerCapture(e.pointerId); } catch (_) {} bar.classList.add('is-drag');
+      tr.style.scrollSnapType = 'none'; seek(e);
+      if (reduce) tr.scrollLeft = want; else raf = requestAnimationFrame(follow);
     });
-    bar.addEventListener('pointermove', e => { if (drag) seek(e); });
+    bar.addEventListener('pointermove', e => { if (drag) { seek(e); if (reduce) tr.scrollLeft = want; } });
     const end = () => {
       if (!drag) return;
-      drag = false; bar.classList.remove('is-drag');
-      const k = i(); tr.style.scrollSnapType = ''; to(k);
+      drag = false; bar.classList.remove('is-drag'); cancelAnimationFrame(raf); raf = 0;
+      glide(Math.round(want / w()), 750);
     };
     bar.addEventListener('pointerup', end); bar.addEventListener('pointercancel', end);
+    bar.addEventListener('lostpointercapture', end);
     bar.addEventListener('keydown', e => {
       const d = { ArrowRight: 1, ArrowLeft: -1 }[e.key];
-      if (e.key === 'Home') { e.preventDefault(); to(0); } else if (e.key === 'End') { e.preventDefault(); to(n() - 1); } else if (d) { e.preventDefault(); go(d); }
+      if (e.key === 'Home') { e.preventDefault(); glide(0); } else if (e.key === 'End') { e.preventDefault(); glide(n() - 1); } else if (d) { e.preventDefault(); go(d); }
     });
+    // Si el dedo toma las fotos a mitad de un desplazamiento, manda el dedo
+    tr.addEventListener('touchstart', () => { if (raf && !drag) stop(); }, { passive: true });
     // Trackpad o rueda horizontal: un gesto avanza una foto (el snap nativo de Chrome devuelve los pasos cortos)
     let acc = 0, lock = 0;
     tr.addEventListener('wheel', e => {
@@ -54,8 +75,8 @@
       acc += e.deltaX;
       if (Math.abs(acc) > 30) { go(Math.sign(acc)); acc = 0; lock = now + 650; }
     }, { passive: false });
-    tr.addEventListener('scroll', () => requestAnimationFrame(sync), { passive: true });
-    addEventListener('resize', sync);
+    tr.addEventListener('scroll', () => { if (!raf && !drag) slide = i(); requestAnimationFrame(sync); }, { passive: true });
+    addEventListener('resize', () => { if (!drag) { stop(); tr.scrollLeft = slide * w(); } sync(); });
     sync();
   });
 
