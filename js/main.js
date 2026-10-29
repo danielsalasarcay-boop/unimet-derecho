@@ -636,6 +636,24 @@
     });
   }));
 
+  // Equivalencias: ventana con los recuadros del flujograma oficial
+  const eqm = $('#equivalencias'), eqBtn = $('.eq-open');
+  if (eqm && eqBtn) {
+    const setEq = o => {
+      eqm.classList.toggle('is-open', o); eqm.setAttribute('aria-hidden', !o);
+      document.documentElement.classList.toggle('is-eq', o);
+      if (o) { lenis?.stop(); $('.eqm__panel', eqm).scrollTop = 0; setTimeout(() => $('.eqm__x', eqm).focus({ preventScroll: true }), 50); }
+      else { lenis?.start(); eqBtn.focus({ preventScroll: true }); }
+    };
+    eqBtn.addEventListener('click', () => setEq(true));
+    $$('[data-eq-close]', eqm).forEach(b => b.addEventListener('click', () => setEq(false)));
+    document.addEventListener('keydown', e => {
+      if (!eqm.classList.contains('is-open')) return;
+      if (e.key === 'Escape') setEq(false);
+      if (e.key === 'Tab') { e.preventDefault(); $('.eqm__x', eqm).focus(); }
+    });
+  }
+
   // Examen Comprehensivo: recuadro que se abre al tocarlo y se cierra al tocar fuera o con Escape
   $$('.req').forEach(r => {
     const b = $('.req__btn', r);
