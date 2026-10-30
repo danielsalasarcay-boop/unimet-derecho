@@ -246,7 +246,7 @@
       const bp = clamp((p - .04) / .12);
       if (bp > 0) {
         const ink2 = rgb([238, 232, 220], DUSK, fold * .45);
-        [[214, 330], [670, 786]].forEach(([x0, x1], bi) => {
+        (small() ? [[146, 250], [750, 854]] : [[120, 236], [764, 880]]).forEach(([x0, x1], bi) => {
           const e = ease(bp), y = GY - 28, th = 8, dp = 7, lh = y + th;
           c.globalAlpha = e;
           // relleno para tapar lo de atrás

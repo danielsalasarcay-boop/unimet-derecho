@@ -1416,4 +1416,7 @@ input, textarea, [contenteditable] { -webkit-user-select: text; user-select: tex
 .saman__note { text-shadow: 0 1px 10px #1D1E21, 0 0 3px #1D1E21, 0 0 1px #1D1E21; }
 @media (max-width: 820px) { .saman__stage { grid-template-rows: auto 1fr auto; } .saman__art { margin-top: 0; } }
 /* Conoce más: la pirámide entra antes de que termine la sentencia fija (sin espacio muerto) */
-@media (min-width: 821px) and (min-height: 561px) { .lectura + .piramide { margin-top: calc(var(--vh) * -.27); } }
+@media (min-width: 821px) and (min-height: 561px) { .lectura + .piramide { margin-top: calc(var(--vh) * -.24); } }
+/* Sentencia: el recuadro del paso 1 termina antes del sello, sin taparlo */
+.doc__seal { z-index: 2; box-shadow: 0 0 0 4px var(--paper); }
+.doc__blk[data-b="1"] { margin-right: 46px; }
