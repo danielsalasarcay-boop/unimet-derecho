@@ -280,8 +280,8 @@ const setup = (root, mini) => {
 
     // masa del follaje detrás de las ramas
     if (leafP > 0) {
-      c.fillStyle = rgb(light ? [70, 112, 62] : [18, 46, 26], [90, 40, 50], fold * .5);
-      c.globalAlpha = (light ? .34 : .78) * (1 - fold * .4);
+      c.fillStyle = rgb(light ? [70, 112, 62] : [18, 46, 26], [10, 30, 18], fold * .7);
+      c.globalAlpha = (light ? .34 : .78) * (1 + fold * .15);
       c.beginPath();
       blobs.forEach(b => {
         if (only !== undefined && b.n.group !== only) return;
@@ -400,12 +400,12 @@ const setup = (root, mini) => {
 
     // hojas: punteado verde por tonos
     if (leafP > 0) {
-      const shrink = lerp(1, .55, fold);
+      const shrink = lerp(1, .9, fold);
       c.lineCap = 'round';
       for (let tn = 0; tn < TONES; tn++) {
         const base = mixA(LEAF_DARK, LEAF_LIGHT, tn / (TONES - 1));
-        c.strokeStyle = rgb(base, DUSK, fold * (.16 + tn * .05));
-        c.lineWidth = lerp(1.9, .9, fold);
+        const t2 = tn / (TONES - 1); c.strokeStyle = fold ? rgb(rgb(base, [8, 30, 16], fold * (1 - t2) * .45).match(/\d+/g).map(Number), [255, 196, 110], fold * t2 * .32) : rgb(base, base, 0);
+        c.lineWidth = lerp(1.9, 1.6, fold);
         c.beginPath();
         for (let i = 0; i < dots.length; i++) {
           const d = dots[i];
@@ -505,8 +505,8 @@ const setup = (root, mini) => {
     gust *= Math.pow(.2, dt);
     if (!reduce && Pv > .995) {
       spawn -= dt;
-      if (spawn <= 0 && falling.length < (small() ? 7 : 14)) {
-        spawn = rr(.4, 1.1);
+      if (spawn <= 0 && falling.length < (small() ? 11 : 20)) {
+        spawn = rr(.22, .65);
         const d = dots[(rnd() * dots.length) | 0];
         falling.push({ x: d.n.x + d.dx, y: d.n.y + d.dy, vy: rr(16, 30), r: rnd() * 6, vr: rr(-2.4, 2.4), a: 1, ph: rnd() * 6 });
       }
