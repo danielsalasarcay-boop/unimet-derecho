@@ -9,6 +9,21 @@
 
   // Brocardos
   $$('.broc').forEach(b => b.addEventListener('click', () => b.classList.toggle('is-open')));
+  // Teléfono: puntos que indican en qué brocardo vas dentro del carrusel
+  const bg = $('.brocardos__grid'), dots = $('.brocardos__dots');
+  if (bg && dots) {
+    const cards = $$('.broc', bg);
+    dots.innerHTML = cards.map(() => '<i></i>').join('');
+    const ds = $$('i', dots);
+    const sync = () => {
+      const mid = bg.scrollLeft + bg.clientWidth / 2;
+      let k = 0, best = 1e9;
+      cards.forEach((c, i) => { const d = Math.abs(c.offsetLeft + c.offsetWidth / 2 - mid); if (d < best) { best = d; k = i; } });
+      ds.forEach((d, i) => d.classList.toggle('is-on', i === k));
+    };
+    bg.addEventListener('scroll', () => requestAnimationFrame(sync), { passive: true });
+    addEventListener('resize', sync); sync();
+  }
 
   if (typeof gsap === 'undefined') return;
   gsap.registerPlugin(ScrollTrigger);
