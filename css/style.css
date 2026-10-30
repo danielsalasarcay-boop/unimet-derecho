@@ -1328,8 +1328,10 @@ html.is-eq, html.is-eq body { overflow: hidden; }
 
 /* ---------- Conoce más (página aparte) ---------- */
 .guia--page .guia__intro { padding-top: clamp(120px, 13vw, 180px); }
-/* Reserva el ancho del enlace retirado para que el footer mida exactamente igual */
-.footer__ghost { visibility: hidden; pointer-events: none; }
+/* Los enlaces del footer quedan pegados; la fila conserva la altura original para que el footer mida exactamente igual */
+@media (max-width: 418px) { .footer__nav { min-height: 81.063px; align-content: flex-start; } }
+@media (min-width: 419px) and (max-width: 769px) { .footer__nav { min-height: 51.375px; align-content: flex-start; } }
+@media (min-width: 1081px) and (max-width: 1400px) { .footer__nav { min-height: 51.375px; align-content: flex-start; } }
 
 /* Sin selección de texto en todo el sitio (los campos de formulario siguen funcionando) */
 html { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
