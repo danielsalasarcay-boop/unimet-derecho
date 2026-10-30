@@ -14,7 +14,7 @@ const setup = (root, mini) => {
   const ctx = cv.getContext('2d');
   const art = mini ? root : root.querySelector('.saman__art');
   // tinta y papel según el fondo de la sección
-  const light = mini;
+  const light = false; // la miniatura es igualita a la grande: mismo papel oscuro y la misma tinta
   const INK = light ? [46, 42, 38] : [238, 232, 220], INK_S = INK.join(','), PAPER = light ? '#F5F3EF' : '#1D1E21', LINE = light ? '46,42,38' : '243,239,231';
   const notes = [...root.querySelectorAll('.saman__note')];
   const barFill = root.querySelector('.saman__bar i');
@@ -153,7 +153,7 @@ const setup = (root, mini) => {
   const TONES = 6;
   const buildFoliage = () => {
     seed = 77; dots = []; blobs = []; flowers = [];
-    const per = mini ? 44 : small() ? 34 : 60;
+    const per = mini ? 40 : small() ? 34 : 60;
     // racimos en las puntas y en los nodos cercanos a ellas (copa llena)
     const host = nodes.filter(n => n.group >= 0 && ((!n.skel && n.w < 4.2) || (n.skel && !n.kids.length)));
     host.forEach(n => {
@@ -462,7 +462,7 @@ const setup = (root, mini) => {
     ctx.setTransform(dpr * k, 0, 0, dpr * k, dpr * ox, dpr * oy);
     if (fold > .01) {
       const g = ctx.createRadialGradient(BX, 300, 30, BX, 300, 580);
-      g.addColorStop(0, `rgba(255,128,32,${.36 * fold})`); g.addColorStop(.55, `rgba(245,110,30,${.1 * fold})`); g.addColorStop(1, "rgba(245,110,30,0)");
+      g.addColorStop(0, `rgba(255,122,0,${.62 * fold})`); g.addColorStop(.5, `rgba(255,106,0,${.2 * fold})`); g.addColorStop(1, "rgba(255,106,0,0)");
       ctx.fillStyle = g; ctx.fillRect(-300, -100, W + 600, H + 100);
     }
     if (Pv < .995) scene(ctx, Pv);
@@ -505,8 +505,8 @@ const setup = (root, mini) => {
     gust *= Math.pow(.2, dt);
     if (!reduce && Pv > .995) {
       spawn -= dt;
-      if (spawn <= 0 && falling.length < (small() ? 11 : 20)) {
-        spawn = rr(.22, .65);
+      if (spawn <= 0 && falling.length < (small() ? 15 : 27)) {
+        spawn = rr(.14, .45);
         const d = dots[(rnd() * dots.length) | 0];
         falling.push({ x: d.n.x + d.dx, y: d.n.y + d.dy, vy: rr(16, 30), r: rnd() * 6, vr: rr(-2.4, 2.4), a: 1, ph: rnd() * 6 });
       }
