@@ -14,7 +14,7 @@ const setup = (root, mini) => {
   const ctx = cv.getContext('2d');
   const art = mini ? root : root.querySelector('.saman__art');
   // tinta y papel según el fondo de la sección
-  const light = false; // la miniatura es igualita a la grande: mismo papel oscuro y la misma tinta
+  const light = mini; // la miniatura va sobre el fondo claro de Preguntas frecuentes: tinta oscura
   const INK = light ? [46, 42, 38] : [238, 232, 220], INK_S = INK.join(','), PAPER = light ? '#F5F3EF' : '#1D1E21', LINE = light ? '46,42,38' : '243,239,231';
   const notes = [...root.querySelectorAll('.saman__note')];
   const barFill = root.querySelector('.saman__bar i');
