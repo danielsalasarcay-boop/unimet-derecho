@@ -75,7 +75,7 @@
       [['Sociología Jurídica', 'fund'], ['Obligaciones', 'civil'], ['Sistema de Justicia Constitucional', 'publico'], ['Derecho Internacional Público', 'intl'], ['Electiva', 'el']],
       [['Negocio Jurídico', 'civil'], ['Responsabilidad Civil', 'civil'], ['Derecho del Trabajo', 'empresa'], ['Tópicos de Derecho Internacional Público', 'intl'], ['Fundamentos del Derecho Procesal', 'proc']],
       [['Instituciones y Derecho de Familia', 'civil'], ['Derecho Mercantil', 'empresa'], ['Derecho Colectivo del Trabajo', 'empresa'], ['Derechos Humanos', 'publico'], ['Derecho Procesal Civil', 'proc']],
-      [['Contratación', 'civil'], ['Tópicos de Derecho Mercantil', 'empresa'], ['Derecho Comparado', 'fund'], ['Derecho Penal', 'proc'], ['Derecho Administrativo', 'publico']],
+      [['Contratación', 'civil'], ['Tópicos de Derecho Mercantil', 'empresa'], ['Derecho Comparado', 'intl'], ['Derecho Penal', 'proc'], ['Derecho Administrativo', 'publico']],
       [['Garantías', 'civil'], ['Sucesiones', 'civil'], ['Gestión Profesional', 'empresa'], ['Derecho Penal de los Negocios', 'proc'], ['Derecho Procesal Administrativo', 'proc']],
       [['Derecho Internacional Privado', 'intl'], ['Mundo Global: Tendencias y Transformaciones', 'intl'], ['Seminario Profesional', 'integral'], ['Derecho Procesal Penal', 'proc'], ['Derecho Tributario', 'publico']],
       [['Tópicos de Derecho Internacional Privado', 'intl'], ['Venezuela: Identidad y Contexto', 'integral'], ['Taller de Trabajo de Grado', 'integral'], ['Argumentos y Pruebas', 'proc'], ['Tópicos de Derecho Tributario', 'publico']],
