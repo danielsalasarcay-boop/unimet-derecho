@@ -115,7 +115,7 @@ body::after {
 .loader__logo .lb { transform-box: fill-box; transform-origin: 50% 100%; transform: scaleY(0); transition: transform .9s var(--ease); }
 .loader__logo .lb:nth-child(2) { transition-delay: .09s; }
 .loader__logo .lb:nth-child(3) { transition-delay: .18s; }
-.ld-t { transform: translateY(170px); transition: transform 1s var(--ease); }
+.ld-t { transform: translateY(300px); transition: transform 1s var(--ease); }
 .ld-t + .ld-t { transition-delay: .1s; }
 .loader.s1 .ld-disc, .loader.s2 .lb, .loader.s3 .ld-t { transform: none; }
 .loader__unimet { position: absolute; bottom: 36px; width: 150px; height: 55px; color: var(--ink); opacity: 0; }
