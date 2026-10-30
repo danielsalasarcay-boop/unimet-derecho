@@ -1470,3 +1470,11 @@ input, textarea, [contenteditable] { -webkit-user-select: text; user-select: tex
   .clj__list { grid-template-columns: 1fr; gap: 0; }
   .clj__list li { padding: 16px 0 18px; }
 }
+/* Clínica: texto a la izquierda, la otra mitad reservada para la animación */
+.clj .wrap { text-align: left; }
+.clj__top { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 80px); align-items: center; }
+.clj__title { font-size: clamp(52px, 7vw, 116px); }
+.clj__quote { margin-left: 0; max-width: 16em; }
+.clj__lede { margin-left: 0; max-width: 30em; }
+.clj__art { min-height: clamp(280px, 34vw, 480px); }
+@media (max-width: 820px) { .clj__top { grid-template-columns: 1fr; } .clj__art { min-height: 0; } }
