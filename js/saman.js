@@ -69,8 +69,8 @@
   const limbs = L.map(([a0, a1, len, w0, w1], g) => chain(trunkTop, a0, a1, len, w0, w1, g, .15));
   // ramas secundarias gruesas que suben desde los brazos (dan la forma de candelabro)
   const along = (g, f) => { const ns = nodes.filter(n => n.group === g && n.skel); return ns[Math.floor(ns.length * f)]; };
-  [[0, .38, -2.0, -2.45, 190, 24, 4], [0, .7, -2.25, -2.75, 130, 14, 3], [1, .55, -1.7, -2.05, 150, 18, 4],
-   [3, .55, -1.45, -1.08, 150, 18, 4], [4, .38, -1.14, -.68, 190, 24, 4], [4, .7, -.9, -.4, 130, 14, 3], [2, .65, -1.95, -2.35, 110, 12, 3], [2, .5, -1.25, -.9, 110, 12, 3]]
+  [[0, .38, -1.85, -2.15, 230, 24, 4], [0, .7, -2.0, -2.35, 170, 14, 3], [1, .55, -1.62, -1.9, 190, 18, 4],
+   [3, .55, -1.52, -1.24, 190, 18, 4], [4, .38, -1.29, -.99, 230, 24, 4], [4, .7, -1.14, -.8, 170, 14, 3], [2, .65, -1.8, -2.05, 140, 12, 3], [2, .5, -1.34, -1.1, 140, 12, 3]]
     .forEach(([g, f, a0, a1, len, w0, w1]) => chain(along(g, f), a0, a1, len, w0, w1, g, .2));
 
   /* ---------- Colonización del espacio: ramas finas hacia la copa ---------- */
@@ -150,9 +150,9 @@
   const TONES = 6;
   const buildFoliage = () => {
     seed = 77; dots = []; blobs = []; flowers = [];
-    const per = small() ? 30 : 52;
+    const per = small() ? 34 : 60;
     // racimos en las puntas y en los nodos cercanos a ellas (copa llena)
-    const host = nodes.filter(n => n.group >= 0 && !n.skel && n.w < 4.2);
+    const host = nodes.filter(n => n.group >= 0 && ((!n.skel && n.w < 4.2) || (n.skel && !n.kids.length)));
     host.forEach(n => {
       const tip = !n.kids.length;
       const t = clamp(n.t + .04, 0, 1);
@@ -238,6 +238,40 @@
         c.fillStyle = `rgba(${MOSS.join(',')},.35)`;
         let s2 = 5; const r2 = () => { s2 = s2 * 16807 % 2147483647; return s2 / 2147483647; };
         for (let i = 0; i < 220 * gp; i++) { const x = BX + (r2() * 940 - 470) * gp, h = 1 + r2() * 4; c.fillRect(x, GY - h, 1, h); }
+      }
+    }
+
+    // dos banquitos de cemento a cada lado, con el mismo trazo a lápiz
+    if (isBase) {
+      const bp = clamp((p - .04) / .12);
+      if (bp > 0) {
+        const ink2 = rgb([238, 232, 220], DUSK, fold * .45);
+        [[214, 330], [670, 786]].forEach(([x0, x1], bi) => {
+          const e = ease(bp), y = GY - 28, th = 8, dp = 7, lh = y + th;
+          c.globalAlpha = e;
+          // relleno para tapar lo de atrás
+          c.fillStyle = '#1D1E21'; c.beginPath();
+          c.moveTo(x0, y); c.lineTo(x0 + dp, y - dp); c.lineTo(x1 + dp, y - dp); c.lineTo(x1, y); c.lineTo(x1, lh); c.lineTo(x0, lh); c.closePath();
+          [[x0 + 12, x0 + 26], [x1 - 26, x1 - 12]].forEach(([a, b]) => { c.rect(a, lh, b - a, GY - lh); });
+          c.fill();
+          // contornos
+          c.strokeStyle = ink2; c.lineWidth = .95; c.beginPath();
+          c.moveTo(x0, y); c.lineTo(x0 + dp, y - dp); c.lineTo(x1 + dp, y - dp); c.lineTo(x1, y); c.lineTo(x0, y);
+          c.lineTo(x0, lh); c.lineTo(x1, lh); c.lineTo(x1, y); c.moveTo(x1, lh); c.lineTo(x1 + dp, lh - dp); c.lineTo(x1 + dp, y - dp);
+          [[x0 + 12, x0 + 26], [x1 - 26, x1 - 12]].forEach(([a, b]) => {
+            c.moveTo(a, lh); c.lineTo(a, GY); c.moveTo(b, lh); c.lineTo(b, GY);
+            c.moveTo(b, lh); c.lineTo(b + 4, lh - 4); c.lineTo(b + 4, GY - 4);
+          });
+          c.stroke();
+          // rayado del frente y de las patas (textura de cemento)
+          c.strokeStyle = 'rgba(238,232,220,.32)'; c.lineWidth = .65; c.beginPath();
+          for (let x = x0 + 3; x < x1 - 1; x += 4.2) { c.moveTo(x, y + 1.5); c.lineTo(x - 2, lh - 1); }
+          [[x0 + 12, x0 + 26], [x1 - 26, x1 - 12]].forEach(([a, b]) => { for (let yy = lh + 3; yy < GY - 1; yy += 3.6) { c.moveTo(a + 1, yy); c.lineTo(b - 1, yy - 1.5); } });
+          // puntitos del cemento en el asiento
+          for (let i = 0; i < 14; i++) { const px = x0 + 6 + ((i * 37 + bi * 11) % (x1 - x0 - 10)), py = y - 1.5 - (i % 3) * 1.8; c.moveTo(px, py); c.lineTo(px + .8, py); }
+          c.stroke();
+          c.globalAlpha = 1;
+        });
       }
     }
 
