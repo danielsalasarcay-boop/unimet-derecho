@@ -1359,3 +1359,59 @@ input, textarea, [contenteditable] { -webkit-user-select: text; user-select: tex
 @media (max-width: 420px) { .cobrand { gap: 14px; } .cobrand__derecho { width: 60px; height: 60px; } .cobrand__unimet { width: 112px; height: 41px; } .cobrand__ced { width: 76px; } }
 @media (max-width: 820px) { .cobrand__txt { max-width: 100%; } }
 @media (max-width: 820px) { .cobrand { grid-template-columns: auto auto auto; justify-content: start; } }
+
+/* ---------- Conoce más · El samán (dibujo que crece con el scroll) ---------- */
+.saman { position: relative; height: calc(var(--vh) * 3); }
+.saman__stage { position: sticky; top: 0; height: var(--vh); display: grid; grid-template-rows: auto 1fr auto; padding: clamp(84px, 11vh, 120px) 0 clamp(18px, 3vh, 30px); overflow: hidden; }
+.saman__head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; }
+.saman__txt .lectura__kicker { margin-bottom: 14px; }
+.saman__txt .display-sm { margin-bottom: 12px; }
+.saman__txt .body { max-width: 34em; }
+.saman__sci { margin-top: 8px; font-size: 14px; color: rgba(255, 255, 255, .45); }
+.saman__mode { flex: none; display: inline-flex; align-items: center; gap: 10px; padding: 11px 18px 11px 14px; border: 0; border-radius: 999px; background: rgba(255, 255, 255, .08); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .18); color: #fff; font-family: var(--sans); font-size: 13.5px; font-weight: 600; cursor: pointer; transition: background .4s var(--ease), box-shadow .4s var(--ease); }
+.saman__sun { position: relative; width: 16px; height: 16px; border-radius: 50%; background: #F3EFE7; box-shadow: 0 0 0 3px rgba(243, 239, 231, .18); transition: background .6s var(--ease), box-shadow .6s var(--ease), transform .8s var(--ease); }
+.saman.is-dusk .saman__sun { background: var(--lacre); box-shadow: 0 0 14px 3px rgba(212, 1, 52, .55); transform: translateY(3px); }
+.saman.is-dusk .saman__mode { background: rgba(212, 1, 52, .16); box-shadow: inset 0 0 0 1px rgba(212, 1, 52, .5); }
+@media (hover: hover) { .saman__mode:hover { background: rgba(255, 255, 255, .14); } }
+.saman__art { position: relative; min-height: 0; margin: clamp(8px, 2vh, 20px) auto 0; width: min(100% - var(--gutter) * 2, 1240px); }
+.saman__cv { position: absolute; inset: 0; display: block; touch-action: pan-y; }
+.saman__notes { position: absolute; inset: 0; pointer-events: none; }
+.saman__note { position: absolute; width: 15em; font-family: var(--sans); font-size: 13px; line-height: 1.4; color: rgba(255, 255, 255, .62); opacity: 0; transform: translateY(10px); transition: opacity .6s var(--ease), transform .7s var(--ease); }
+.saman__note::before { content: ""; position: absolute; top: 5px; width: 9px; height: 9px; border-radius: 50%; background: var(--lacre); box-shadow: 0 0 0 4px rgba(212, 1, 52, .22); }
+.saman__note[data-side="r"] { padding-left: 22px; }
+.saman__note[data-side="r"]::before { left: 0; }
+.saman__note[data-side="l"] { padding-right: 22px; text-align: right; transform: translate(-100%, 10px); }
+.saman__note[data-side="l"]::before { right: 0; }
+.saman__note b { display: block; margin-bottom: 3px; font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #fff; }
+.saman__note.is-on { opacity: 1; transform: none; }
+.saman__note[data-side="l"].is-on { transform: translate(-100%, 0); }
+.saman__bar { width: min(100% - var(--gutter) * 2, 1240px); height: 1px; margin: 10px auto 0; background: rgba(255, 255, 255, .14); }
+.saman__bar i { display: block; height: 100%; background: var(--lacre); transform-origin: 0 50%; transform: scaleX(0); }
+@media (max-width: 820px) {
+  .saman { height: calc(var(--vh) * 2.6); }
+  .saman__stage { padding-top: 84px; }
+  .saman__head { flex-direction: column; align-items: flex-start; gap: 14px; }
+  .saman__txt .display-sm { margin-bottom: 8px; }
+  .saman__txt .body { font-size: 16px; }
+  .saman__sci { display: none; }
+  .saman__mode { padding: 9px 14px 9px 12px; font-size: 12.5px; }
+  .saman__art { width: 100%; }
+  .saman__note { width: 11em; font-size: 11px; }
+  .saman__note span { display: none; }
+  .saman__note b { font-size: 9.5px; margin: 0; }
+  .saman__note::before { top: 2px; width: 7px; height: 7px; }
+  .saman__note[data-side="r"] { padding-left: 14px; }
+  .saman__note[data-side="l"] { padding-right: 14px; }
+}
+@media (prefers-reduced-motion: reduce) { .saman { height: auto; } .saman__stage { position: relative; height: auto; min-height: var(--vh); } .saman__art { height: 62vh; } }
+/* Samán: cabecera en una franja (computadora) para que el árbol sea más grande */
+@media (min-width: 821px) {
+  .saman__head { display: grid; grid-template-columns: auto minmax(0, 30em) auto; align-items: end; gap: clamp(28px, 4vw, 64px); }
+  .saman__txt .display-sm { margin-bottom: 0; }
+  .saman__lede .body { font-size: 16px; line-height: 1.55; }
+  .saman__mode { justify-self: end; }
+  .saman__stage { padding-bottom: 14px; }
+}
+@media (max-width: 820px) { .saman__lede .body { font-size: 15.5px; } .saman__head { gap: 10px; } }
+.saman__note { text-shadow: 0 1px 10px #1D1E21, 0 0 3px #1D1E21, 0 0 1px #1D1E21; }
+@media (max-width: 820px) { .saman__stage { grid-template-rows: auto 1fr auto; } .saman__art { margin-top: 0; } }

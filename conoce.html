@@ -28,7 +28,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..600&family=Archivo:wdth,wght@62..125,400..700&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=202610292117">
+  <link rel="stylesheet" href="css/style.css?v=202610292218">
 </head>
 <body class="page-prof page-con">
   <a class="skip label" href="#ce">Saltar al contenido</a>
@@ -152,6 +152,27 @@
           <li class="nivel" style="--i:5" data-k="Actos de la Administración" data-t="Actos administrativos de efectos generales y particulares: deben respetar todas las normas de rango superior y pueden ser controlados por la jurisdicción contencioso-administrativa."><button><span>Actos administrativos</span></button></li>
         </ol>
       </div>
+
+      <!-- El samán: dibujo que crece con el scroll (hacia adelante y hacia atrás) -->
+      <div class="saman" id="saman">
+        <div class="saman__stage">
+          <div class="wrap saman__head">
+            <div class="saman__txt">
+              <p class="label lectura__kicker">Capítulo III · El samán</p>
+              <h3 class="display-sm">El <em>Samán.</em></h3>
+            </div>
+            <div class="saman__lede">
+              <p class="body">El árbol más emblemático de la Universidad Metropolitana. Bajo su copa se reúnen las promociones el día del grado.</p>
+              <p class="saman__sci"><i>Samanea saman</i></p>
+            </div>
+            <button class="saman__mode" type="button" aria-pressed="false"><span class="saman__sun" aria-hidden="true"></span><span class="saman__mode-t">Ver al atardecer</span></button>
+          </div>
+          <div class="saman__art">
+            <canvas class="saman__cv" aria-label="Dibujo animado del samán de la UNIMET: crece al desplazarte" role="img"></canvas>
+          </div>
+          <div class="saman__bar" aria-hidden="true"><i></i></div>
+        </div>
+      </div>
     </section>
 
     <section class="conoce-broc" id="brocardos" data-head="dark">
@@ -240,6 +261,7 @@
   <script src="js/trace.js?v=202610291917"></script>
   <script src="js/profesores.js?v=202610291917"></script>
   <script src="js/conoce.js?v=202610291917"></script>
+  <script src="js/saman.js?v=202610292219"></script>
   <script src="js/sello.js?v=202610291917"></script>
 </body>
 </html>
