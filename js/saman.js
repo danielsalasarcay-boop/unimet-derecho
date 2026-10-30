@@ -8,11 +8,14 @@
    folíolos. Rendimiento: crecido, cada brazo se pinta una vez en su propia capa y solo se rota. */
 
 (() => {
-  const root = document.querySelector('.saman');
-  if (!root) return;
+// mini: la versión en miniatura de Preguntas frecuentes (mismo árbol, crece al entrar en pantalla)
+const setup = (root, mini) => {
   const cv = root.querySelector('.saman__cv');
   const ctx = cv.getContext('2d');
-  const art = root.querySelector('.saman__art');
+  const art = mini ? root : root.querySelector('.saman__art');
+  // tinta y papel según el fondo de la sección
+  const light = mini;
+  const INK = light ? [46, 42, 38] : [238, 232, 220], INK_S = INK.join(','), PAPER = light ? '#F5F3EF' : '#1D1E21', LINE = light ? '46,42,38' : '243,239,231';
   const notes = [...root.querySelectorAll('.saman__note')];
   const barFill = root.querySelector('.saman__bar i');
   const modeBtn = root.querySelector('.saman__mode');
@@ -150,7 +153,7 @@
   const TONES = 6;
   const buildFoliage = () => {
     seed = 77; dots = []; blobs = []; flowers = [];
-    const per = small() ? 34 : 60;
+    const per = mini ? 44 : small() ? 34 : 60;
     // racimos en las puntas y en los nodos cercanos a ellas (copa llena)
     const host = nodes.filter(n => n.group >= 0 && ((!n.skel && n.w < 4.2) || (n.skel && !n.kids.length)));
     host.forEach(n => {
@@ -184,9 +187,9 @@
     cv.width = Math.round(cw * dpr); cv.height = Math.round(ch * dpr);
     cv.style.width = cw + 'px'; cv.style.height = ch + 'px';
     // en el teléfono el árbol se agranda y las puntas de la copa pueden salirse un poco por los lados
-    k = Math.min(cw / W * (small() ? 1.32 : 1), ch / (H - 40));
+    k = Math.min(cw / W * (small() && !mini ? 1.32 : 1), ch / (H - 40));
     ox = (cw - W * k) / 2;
-    oy = ch - H * k + (small() ? 4 : 0);
+    oy = ch - H * k + (small() && !mini ? 4 : 0);
     notes.forEach(n => {
       let x = ox + +n.dataset.x * k; const y = oy + +n.dataset.y * k, w = n.offsetWidth || 120;
       if (n.dataset.side === 'l') x = Math.max(x, w + 4); else x = Math.min(x, cw - w - 4);
@@ -217,7 +220,7 @@
       // la Biblioteca al fondo: bandas de concreto apenas sugeridas
       const bp = clamp((p - .02) / .2);
       if (bp > 0) {
-        c.strokeStyle = `rgba(243,239,231,${.07 * bp})`; c.lineWidth = 1.2;
+        c.strokeStyle = `rgba(${LINE},${(light ? .1 : .07) * bp})`; c.lineWidth = 1.2;
         c.beginPath();
         const x0 = 70, x1 = 70 + 860 * ease(bp);
         [436, 468, 474, 520, 526].forEach(y => { c.moveTo(x0, y); c.lineTo(x1, y); });
@@ -227,13 +230,13 @@
       if (leafP > 0) {
         c.save(); c.translate(BX, GY + 4); c.scale(1, .1);
         const sh = c.createRadialGradient(0, 0, 10, 0, 0, 480);
-        sh.addColorStop(0, `rgba(0,0,0,${.5 * leafP})`); sh.addColorStop(1, 'rgba(0,0,0,0)');
+        sh.addColorStop(0, `rgba(0,0,0,${(light ? .18 : .5) * leafP})`); sh.addColorStop(1, 'rgba(0,0,0,0)');
         c.fillStyle = sh; c.beginPath(); c.arc(0, 0, 480, 0, TAU); c.fill(); c.restore();
       }
       const gp = clamp(p / .1);
       if (gp > 0) {
         const gl = c.createLinearGradient(BX - 490, 0, BX + 490, 0);
-        gl.addColorStop(0, 'rgba(243,239,231,0)'); gl.addColorStop(.5, 'rgba(243,239,231,.4)'); gl.addColorStop(1, 'rgba(243,239,231,0)');
+        gl.addColorStop(0, `rgba(${LINE},0)`); gl.addColorStop(.5, `rgba(${LINE},.4)`); gl.addColorStop(1, `rgba(${LINE},0)`);
         c.fillStyle = gl; c.fillRect(BX - 490 * gp, GY, 980 * gp, 1.2);
         c.fillStyle = `rgba(${MOSS.join(',')},.35)`;
         let s2 = 5; const r2 = () => { s2 = s2 * 16807 % 2147483647; return s2 / 2147483647; };
@@ -245,12 +248,12 @@
     if (isBase) {
       const bp = clamp((p - .04) / .12);
       if (bp > 0) {
-        const ink2 = rgb([238, 232, 220], DUSK, fold * .45);
-        (small() ? [[146, 250], [750, 854]] : [[120, 236], [764, 880]]).forEach(([x0, x1], bi) => {
+        const ink2 = rgb(INK, DUSK, fold * .45);
+        (small() && !mini ? [[146, 250], [750, 854]] : [[120, 236], [764, 880]]).forEach(([x0, x1], bi) => {
           const e = ease(bp), y = GY - 28, th = 8, dp = 7, lh = y + th;
           c.globalAlpha = e;
           // relleno para tapar lo de atrás
-          c.fillStyle = '#1D1E21'; c.beginPath();
+          c.fillStyle = PAPER; c.beginPath();
           c.moveTo(x0, y); c.lineTo(x0 + dp, y - dp); c.lineTo(x1 + dp, y - dp); c.lineTo(x1, y); c.lineTo(x1, lh); c.lineTo(x0, lh); c.closePath();
           [[x0 + 12, x0 + 26], [x1 - 26, x1 - 12]].forEach(([a, b]) => { c.rect(a, lh, b - a, GY - lh); });
           c.fill();
@@ -264,7 +267,7 @@
           });
           c.stroke();
           // rayado del frente y de las patas (textura de cemento)
-          c.strokeStyle = 'rgba(238,232,220,.32)'; c.lineWidth = .65; c.beginPath();
+          c.strokeStyle = `rgba(${INK_S},.32)`; c.lineWidth = .65; c.beginPath();
           for (let x = x0 + 3; x < x1 - 1; x += 4.2) { c.moveTo(x, y + 1.5); c.lineTo(x - 2, lh - 1); }
           [[x0 + 12, x0 + 26], [x1 - 26, x1 - 12]].forEach(([a, b]) => { for (let yy = lh + 3; yy < GY - 1; yy += 3.6) { c.moveTo(a + 1, yy); c.lineTo(b - 1, yy - 1.5); } });
           // puntitos del cemento en el asiento
@@ -277,8 +280,8 @@
 
     // masa del follaje detrás de las ramas
     if (leafP > 0) {
-      c.fillStyle = rgb([18, 46, 26], [90, 40, 50], fold * .5);
-      c.globalAlpha = .78 * (1 - fold * .4);
+      c.fillStyle = rgb(light ? [70, 112, 62] : [18, 46, 26], [90, 40, 50], fold * .5);
+      c.globalAlpha = (light ? .34 : .78) * (1 - fold * .4);
       c.beginPath();
       blobs.forEach(b => {
         if (only !== undefined && b.n.group !== only) return;
@@ -291,7 +294,7 @@
 
     // madera a lápiz: relleno del color del fondo (tapa la masa verde de atrás),
     // contornos finos, rayado en el lado de la sombra y vetas en la corteza
-    const ink = rgb([238, 232, 220], DUSK, fold * .45), inkSoft = `rgba(238,232,220,${.34 + fold * .1})`, paper = '#1D1E21';
+    const ink = rgb(INK, DUSK, fold * .45), inkSoft = `rgba(${INK_S},${.34 + fold * .1})`, paper = PAPER;
     const visibleEdges = [];
     nodes.forEach(n => {
       if (!n.parent || (only !== undefined && n.group !== only && !(only === -1 && n.group === -1))) return;
@@ -523,9 +526,16 @@
   const kick = () => { if (!raf && visible) { last = 0; raf = requestAnimationFrame(tick); } };
 
   /* ---------- Scroll: crece al bajar, se recoge al subir ---------- */
-  const fromRect = () => { const r = root.getBoundingClientRect(), run = r.height - innerHeight; return clamp(-r.top / ((run || 1) * .84)); };
+  // grande: fijo en pantalla, crece a lo largo de su recorrido; mini: crece mientras sube desde abajo hasta un cuarto de la pantalla
+  const fromRect = () => {
+    const r = root.getBoundingClientRect();
+    if (mini) return clamp((innerHeight - r.top) / (innerHeight * .78));
+    const run = r.height - innerHeight; return clamp(-r.top / ((run || 1) * .84));
+  };
   if (!reduce && typeof ScrollTrigger !== 'undefined') {
-    ScrollTrigger.create({ trigger: root, start: 'top top', end: 'bottom bottom', onUpdate: s => { P = clamp(s.progress / .84); kick(); }, onRefresh: () => { P = fromRect(); kick(); } });
+    ScrollTrigger.create(mini
+      ? { trigger: root, start: 'top bottom', end: 'top 22%', onUpdate: s => { P = s.progress; kick(); }, onRefresh: () => { P = fromRect(); kick(); } }
+      : { trigger: root, start: 'top top', end: 'bottom bottom', onUpdate: s => { P = clamp(s.progress / .84); kick(); }, onRefresh: () => { P = fromRect(); kick(); } });
   } else if (!reduce) addEventListener('scroll', () => { P = fromRect(); kick(); }, { passive: true });
 
   /* ---------- Cursor y dedo: ráfaga ---------- */
@@ -554,4 +564,7 @@
     fit(); frame();
   });
   fit(); P = reduce ? 1 : fromRect(); Pv = P; frame();
+};
+document.querySelectorAll('.saman').forEach(r => setup(r, false));
+document.querySelectorAll('.saman-mini').forEach(r => setup(r, true));
 })();

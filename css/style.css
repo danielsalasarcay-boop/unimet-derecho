@@ -1420,3 +1420,11 @@ input, textarea, [contenteditable] { -webkit-user-select: text; user-select: tex
 /* Sentencia: el recuadro del paso 1 termina antes del sello, sin taparlo */
 .doc__seal { z-index: 2; box-shadow: 0 0 0 4px var(--paper); }
 .doc__blk[data-b="1"] { margin-right: 46px; }
+
+/* Preguntas frecuentes: el samán en miniatura junto al título */
+.faq__head { position: relative; }
+.saman-mini { position: absolute; top: 4px; right: calc(-1 * min(4vw, 56px)); width: min(46%, 320px); aspect-ratio: 1000 / 600; pointer-events: auto; }
+.saman-mini .saman__cv { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: pan-y; }
+@media (max-width: 820px) {
+  .saman-mini { position: relative; top: auto; right: auto; width: 78%; max-width: 330px; margin: -4px auto 14px; }
+}
