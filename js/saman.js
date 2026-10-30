@@ -201,7 +201,7 @@ const setup = (root, mini) => {
   /* ---------- Paleta ---------- */
   const rgb = (a, b, t) => `rgb(${Math.round(lerp(a[0], b[0], t))},${Math.round(lerp(a[1], b[1], t))},${Math.round(lerp(a[2], b[2], t))})`;
   const mixA = (a, b, t) => [lerp(a[0], b[0], t), lerp(a[1], b[1], t), lerp(a[2], b[2], t)];
-  const BARK = [124, 104, 86], BARK_SH = [52, 42, 34], BARK_HI = [190, 172, 146], DUSK = [255, 170, 150];
+  const BARK = [124, 104, 86], BARK_SH = [52, 42, 34], BARK_HI = [190, 172, 146], DUSK = [255, 196, 140];
   const LEAF_DARK = [22, 58, 32], LEAF_LIGHT = [168, 214, 104], MOSS = [104, 138, 70];
 
   const grownTo = (n, p) => {
@@ -462,7 +462,7 @@ const setup = (root, mini) => {
     ctx.setTransform(dpr * k, 0, 0, dpr * k, dpr * ox, dpr * oy);
     if (fold > .01) {
       const g = ctx.createRadialGradient(BX, 300, 30, BX, 300, 580);
-      g.addColorStop(0, `rgba(212,1,52,${.3 * fold})`); g.addColorStop(.55, `rgba(212,1,52,${.08 * fold})`); g.addColorStop(1, 'rgba(212,1,52,0)');
+      g.addColorStop(0, `rgba(255,128,32,${.36 * fold})`); g.addColorStop(.55, `rgba(245,110,30,${.1 * fold})`); g.addColorStop(1, "rgba(245,110,30,0)");
       ctx.fillStyle = g; ctx.fillRect(-300, -100, W + 600, H + 100);
     }
     if (Pv < .995) scene(ctx, Pv);

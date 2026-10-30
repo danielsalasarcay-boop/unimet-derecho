@@ -1370,8 +1370,8 @@ input, textarea, [contenteditable] { -webkit-user-select: text; user-select: tex
 .saman__sci { margin-top: 8px; font-size: 14px; color: rgba(255, 255, 255, .45); }
 .saman__mode { flex: none; display: inline-flex; align-items: center; gap: 10px; padding: 11px 18px 11px 14px; border: 0; border-radius: 999px; background: rgba(255, 255, 255, .08); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .18); color: #fff; font-family: var(--sans); font-size: 13.5px; font-weight: 600; cursor: pointer; transition: background .4s var(--ease), box-shadow .4s var(--ease); }
 .saman__sun { position: relative; width: 16px; height: 16px; border-radius: 50%; background: #F3EFE7; box-shadow: 0 0 0 3px rgba(243, 239, 231, .18); transition: background .6s var(--ease), box-shadow .6s var(--ease), transform .8s var(--ease); }
-.saman.is-dusk .saman__sun { background: var(--lacre); box-shadow: 0 0 14px 3px rgba(212, 1, 52, .55); transform: translateY(3px); }
-.saman.is-dusk .saman__mode { background: rgba(212, 1, 52, .16); box-shadow: inset 0 0 0 1px rgba(212, 1, 52, .5); }
+.saman.is-dusk .saman__sun { background: #F57A1F; box-shadow: 0 0 14px 3px rgba(245, 122, 31, .6); transform: translateY(3px); }
+.saman.is-dusk .saman__mode { background: rgba(245, 122, 31, .16); box-shadow: inset 0 0 0 1px rgba(245, 122, 31, .55); }
 @media (hover: hover) { .saman__mode:hover { background: rgba(255, 255, 255, .14); } }
 .saman__art { position: relative; min-height: 0; margin: clamp(8px, 2vh, 20px) auto 0; width: min(100% - var(--gutter) * 2, 1240px); }
 .saman__cv { position: absolute; inset: 0; display: block; touch-action: pan-y; }
