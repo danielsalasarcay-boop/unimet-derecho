@@ -1358,3 +1358,4 @@ input, textarea, [contenteditable] { -webkit-user-select: text; user-select: tex
 @media (max-width: 820px) { .cobrand__ced { width: 100px; } }
 @media (max-width: 420px) { .cobrand { gap: 14px; } .cobrand__derecho { width: 60px; height: 60px; } .cobrand__unimet { width: 112px; height: 41px; } .cobrand__ced { width: 76px; } }
 @media (max-width: 820px) { .cobrand__txt { max-width: 100%; } }
+@media (max-width: 820px) { .cobrand { grid-template-columns: auto auto auto; justify-content: start; } }
