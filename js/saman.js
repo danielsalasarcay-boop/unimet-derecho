@@ -20,7 +20,7 @@ const setup = (root, mini) => {
   const barFill = root.querySelector('.saman__bar i');
   const modeBtn = root.querySelector('.saman__mode');
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const small = () => innerWidth <= 820;
+  const small = () => innerWidth <= 820 && innerHeight > 560;
 
   /* ---------- Utilidades ---------- */
   let seed = 1;

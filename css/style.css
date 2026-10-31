@@ -1521,3 +1521,17 @@ input, textarea, [contenteditable] { -webkit-user-select: text; user-select: tex
   .clj__stick .clj__list { margin-top: 24px; }
 }
 @media (min-width: 821px) and (max-height: 560px) { .clj__txt { text-align: center; } }
+/* Samán con el teléfono de lado o pantallas muy bajas: cabecera compacta en una línea y el árbol ocupa el resto */
+@media (max-height: 560px) {
+  .saman__stage { padding: 62px 0 6px; }
+  .saman__head { display: flex; flex-direction: row; align-items: center; justify-content: space-between; gap: 16px; }
+  .saman__txt { display: flex; align-items: baseline; gap: 14px; }
+  .saman__txt .lectura__kicker { margin: 0; }
+  .saman__txt .display-sm { font-size: 30px; margin: 0; }
+  .saman__lede { display: none; }
+  .saman__mode { padding: 8px 14px 8px 12px; font-size: 12px; }
+  .saman__art { margin-top: 4px; width: min(100% - var(--gutter) * 2, 1240px); }
+  .saman__bar { margin-top: 4px; }
+}
+@media (max-height: 560px) and (min-width: 561px) { .gal { max-width: min(1080px, calc((100vh - 150px) * 16 / 9)); } .page-gal .galeria { padding-top: 76px; } .gal__title { font-size: 44px; margin-bottom: 14px; } }
+@media (max-height: 560px) and (min-width: 561px) { .gal__track { aspect-ratio: 16 / 9; } }
