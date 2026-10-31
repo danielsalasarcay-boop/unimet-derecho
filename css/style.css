@@ -1512,3 +1512,12 @@ input, textarea, [contenteditable] { -webkit-user-select: text; user-select: tex
   .clj__stick .clj__list { margin-top: clamp(8px, 1.6vh, 20px); }
   .clj__stick .clj__list li { padding-top: 12px; }
 }
+/* Teléfono de lado o pantallas muy bajas: la Clínica va en columna, sin parte fija */
+@media (min-width: 821px) and (max-height: 560px) {
+  .clj__pin { height: auto; }
+  .clj__stick { position: relative; min-height: 0; display: block; padding: 96px 0 0; }
+  .clj__top { grid-template-columns: 1fr; }
+  .clj__art { height: min(78vh, 380px); margin-top: 18px; }
+  .clj__stick .clj__list { margin-top: 24px; }
+}
+@media (min-width: 821px) and (max-height: 560px) { .clj__txt { text-align: center; } }

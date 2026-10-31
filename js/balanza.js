@@ -9,7 +9,7 @@
   if (!art) return;
   const pin = document.querySelector('.clj__pin');
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const phone = () => innerWidth <= 820;
+  const phone = () => innerWidth <= 820 || innerHeight <= 560;
   const NS = 'http://www.w3.org/2000/svg';
   const clamp = (v, a = 0, b = 1) => v < a ? a : v > b ? b : v;
   const lerp = (a, b, t) => a + (b - a) * t;
