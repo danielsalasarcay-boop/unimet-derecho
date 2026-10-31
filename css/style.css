@@ -1498,3 +1498,17 @@ input, textarea, [contenteditable] { -webkit-user-select: text; user-select: tex
   .clj__art { height: min(92vw, 420px); margin-top: 18px; }
 }
 @media (prefers-reduced-motion: reduce) { .clj__pin { height: auto; } .clj__stick { position: relative; } }
+/* Clínica: sin espacio muerto bajo la balanza; los cuatro puntos suben */
+@media (min-width: 821px) {
+  .clj__pin { height: calc(var(--vh) * 1.75); }
+  .clj__stick { min-height: 0; padding-bottom: 0; }
+  .clj__list { margin-top: 12px; }
+}
+@media (max-width: 820px) { .clj__list { margin-top: 24px; } }
+/* Los cuatro puntos van dentro de la parte fija, siempre justo debajo de los libros */
+@media (min-width: 821px) {
+  .clj__stick { flex-direction: column; align-items: stretch; justify-content: center; min-height: var(--vh); padding-top: clamp(84px, 10vh, 110px); padding-bottom: clamp(14px, 3vh, 32px); }
+  .clj__art { height: min(56vh, 520px); }
+  .clj__stick .clj__list { margin-top: clamp(8px, 1.6vh, 20px); }
+  .clj__stick .clj__list li { padding-top: 12px; }
+}

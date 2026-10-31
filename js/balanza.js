@@ -65,27 +65,29 @@
 
   /* ---------- Libros ---------- */
   const books = g();
+  const bookGs = [];
   const book = (x1, x2, y1, y2, dx, dy, spine, t0, t1, bands) => {
+    const outer = books; const bg = g(outer); bookGs.push({ g: bg, t0, t1 });
     // frente (lomo), cara superior y canto de páginas
     const front = `M${x1} ${y1}H${x2}V${y2}H${x1}Z`;
     const top = `M${x1} ${y1}L${x1 + dx} ${y1 - dy}H${x2 + dx}L${x2} ${y1}`;
     const side = `M${x2} ${y1}L${x2 + dx} ${y1 - dy}V${y2 - dy}L${x2} ${y2}`;
-    fill(books, front, spine, t1 - .02, t1 + .14, spine === PAPER ? 1 : .92);
-    fill(books, `M${x1} ${y1}L${x1 + dx} ${y1 - dy}H${x2 + dx}L${x2} ${y1}Z`, PAPER, t1 - .02, t1 + .12);
-    fill(books, `M${x2} ${y1}L${x2 + dx} ${y1 - dy}V${y2 - dy}L${x2} ${y2}Z`, '#ECE6DC', t1 - .02, t1 + .12);
-    line(books, front, t0, t1, 1.7);
-    line(books, top, t0 + .03, t1, 1.4);
-    line(books, side, t0 + .05, t1, 1.4);
+    fill(bg, front, spine, t1 - .02, t1 + .14, spine === PAPER ? 1 : .92);
+    fill(bg, `M${x1} ${y1}L${x1 + dx} ${y1 - dy}H${x2 + dx}L${x2} ${y1}Z`, PAPER, t1 - .02, t1 + .12);
+    fill(bg, `M${x2} ${y1}L${x2 + dx} ${y1 - dy}V${y2 - dy}L${x2} ${y2}Z`, '#ECE6DC', t1 - .02, t1 + .12);
+    line(bg, front, t0, t1, 1.7);
+    line(bg, top, t0 + .03, t1, 1.4);
+    line(bg, side, t0 + .05, t1, 1.4);
     // hojas en el canto
     const pages = [];
     for (let y = y1 + 5; y < y2 - 2; y += 4.2) pages.push([x2 + 2, y - 1, x2 + dx - 2, y - dy + 1]);
-    hatch(books, pages, t1 - .04, t1 + .06);
+    hatch(bg, pages, t1 - .04, t1 + .06);
     // nervios del lomo y etiqueta
     const lc = spine === PAPER ? INK : PAPER;
-    bands.forEach(bx => line(books, `M${bx} ${y1 + 3}V${y2 - 3}M${bx + 6} ${y1 + 3}V${y2 - 3}`, t1 - .06, t1 + .04, 1.1, lc, false));
+    bands.forEach(bx => line(bg, `M${bx} ${y1 + 3}V${y2 - 3}M${bx + 6} ${y1 + 3}V${y2 - 3}`, t1 - .06, t1 + .04, 1.1, lc, false));
     const cx = (x1 + x2) / 2;
-    line(books, `M${cx - 46} ${y1 + 12}H${cx + 46}V${y2 - 12}H${cx - 46}Z`, t1 - .04, t1 + .06, 1.1, lc, false);
-    line(books, `M${cx - 30} ${(y1 + y2) / 2 - 3}H${cx + 30}M${cx - 20} ${(y1 + y2) / 2 + 4}H${cx + 20}`, t1, t1 + .08, 1, lc, false);
+    line(bg, `M${cx - 46} ${y1 + 12}H${cx + 46}V${y2 - 12}H${cx - 46}Z`, t1 - .04, t1 + .06, 1.1, lc, false);
+    line(bg, `M${cx - 30} ${(y1 + y2) / 2 - 3}H${cx + 30}M${cx - 20} ${(y1 + y2) / 2 + 4}H${cx + 20}`, t1, t1 + .08, 1, lc, false);
   };
   book(108, 492, 548, 600, 30, 17, LACRE, 0, .12, [138, 452]);
   book(140, 462, 498, 548, 24, 14, INK, .06, .19, [168, 424]);
@@ -147,17 +149,19 @@
   });
 
   // orden de capas: libros, pie, platillos, brazo, remate
-  svg.append(shadow, books, stand, ...pans.map(p => p.g), beam, finial);
+  const glow = el('circle', { cx: PX, cy: PY, r: 6, fill: 'none', stroke: LACRE, 'stroke-width': 2, opacity: 0 });
+  svg.append(shadow, books, stand, ...pans.map(p => p.g), beam, finial, glow);
 
   /* ---------- Estado ---------- */
   let P = 0, Pv = 0, intro = 0, T = 0, raf = 0, last = 0, visible = true;
-  let lean = 0, leanT = 0, kick = 0, kickV = 0;
+  let lean = 0, leanT = 0, kick = 0, kickV = 0, swing = 0;
 
   const tiltAt = p => {
     // llega inclinada a la izquierda y, al final, oscila hasta el equilibrio
-    if (p < .62) return -16;
-    const u = clamp((p - .62) / .3);
-    return -16 * Math.exp(-3.4 * u) * Math.cos(Math.PI * 2.6 * u) * (1 - u * u);
+    if (p < .62) return -11;
+    const u = clamp((p - .62) / .34);
+    // un vaivén lento y suave hasta el equilibrio
+    return -11 * Math.exp(-2.2 * u) * Math.cos(Math.PI * 1.7 * u) * (1 - u * u);
   };
 
   const render = () => {
@@ -169,14 +173,35 @@
     });
     fills.forEach(([f, a, b, op]) => f.setAttribute('opacity', (clamp((p - a) / (b - a)) * op).toFixed(3)));
     shadow.setAttribute('rx', (230 * ease(clamp(p / .2))).toFixed(1));
+    const bounce = t => { const n = 7.5625, d = 2.75; if (t < 1 / d) return n * t * t; if (t < 2 / d) return n * (t -= 1.5 / d) * t + .75; if (t < 2.5 / d) return n * (t -= 2.25 / d) * t + .9375; return n * (t -= 2.625 / d) * t + .984375; };
+    bookGs.forEach((bk, i) => {
+      const u = clamp((p - bk.t0) / (bk.t1 - bk.t0 + .04));
+      const y = reduce ? 0 : (1 - bounce(u)) * -110;
+      bk.g.setAttribute('transform', `translate(0 ${y.toFixed(1)}) rotate(${(reduce ? 0 : (1 - u) * (i % 2 ? 4 : -4)).toFixed(2)} 300 520)`);
+      bk.g.setAttribute('opacity', clamp(u * 4).toFixed(2));
+    });
+    // la columna y el brazo suben desde los libros
+    // la columna crece hacia arriba desde su pie, que nunca se mueve: siempre queda sobre el libro
+    const rise = reduce ? 1 : lerp(.25, 1, ease(clamp((p - .24) / .22)));
+    stand.setAttribute('transform', `translate(0 448) scale(1 ${rise.toFixed(3)}) translate(0 -448)`);
+    // el brazo baja desde arriba hasta posarse en la columna
+    const lift = reduce ? 0 : -(1 - ease(clamp((p - .4) / .2))) * 18;
     const done = clamp((p - .94) / .06);
-    const idle = reduce ? 0 : (Math.sin(T * .9) * .7 + Math.sin(T * 2.1) * .2) * done;
+    const gl = clamp((p - .9) / .1);
+    glow.setAttribute('r', (6 + gl * 34).toFixed(1)); glow.setAttribute('opacity', (gl > 0 && gl < 1 ? (1 - gl) * .8 : 0).toFixed(2));
+    glow.setAttribute('transform', `translate(0 ${lift.toFixed(1)})`);
+    const idle = reduce ? 0 : (Math.sin(T * .7) * .5 + Math.sin(T * 1.6) * .12) * done;
     const th = tiltAt(p) + (lean + idle + kick) * done;
-    beam.setAttribute('transform', `rotate(${th.toFixed(3)} ${PX} ${PY})`);
+    beam.setAttribute('transform', `translate(0 ${lift.toFixed(1)}) rotate(${th.toFixed(3)} ${PX} ${PY})`);
+    finial.setAttribute('transform', `translate(0 ${lift.toFixed(1)})`);
     const r = th * Math.PI / 180;
+    const dTh = th - (render.prev ?? th); render.prev = th;
+    swing += (dTh * 1.4 - swing) * .08;
     pans.forEach(o => {
       const ex = PX + Math.cos(r) * ARM * o.s, ey = PY + Math.sin(r) * ARM * o.s;
-      o.g.setAttribute('transform', `translate(${(ex - o.x0).toFixed(2)} ${(ey - o.y0).toFixed(2)})`);
+      // péndulo: el platillo se atrasa respecto al brazo y se balancea
+      const sw = reduce ? 0 : -swing * 1.2 + Math.sin(T * 1.2 + o.s) * .3 * done;
+      o.g.setAttribute('transform', `translate(${(ex - o.x0).toFixed(2)} ${(ey - o.y0 + lift).toFixed(2)}) rotate(${sw.toFixed(2)} ${o.x0} ${o.y0 + 4})`);
     });
   };
 
@@ -185,11 +210,11 @@
     const dt = Math.min(.05, (now - (last || now)) / 1000); last = now;
     T += dt;
     const target = Math.max(P, intro);
-    Pv += (target - Pv) * (reduce ? 1 : 1 - Math.pow(.004, dt));
+    Pv += (target - Pv) * (reduce ? 1 : 1 - Math.pow(.05, dt)); // sigue al scroll con más calma
     if (Math.abs(target - Pv) < .0005) Pv = target;
-    lean += (leanT - lean) * (1 - Math.pow(.02, dt));
+    lean += (leanT - lean) * (1 - Math.pow(.15, dt));
     // toque: oscilación amortiguada
-    kickV += (-kick * 40 - kickV * 5) * dt; kick += kickV * dt;
+    kickV += (-kick * 18 - kickV * 3.2) * dt; kick += kickV * dt;
     render();
     const settled = Pv === target && Math.abs(lean - leanT) < .01 && Math.abs(kick) < .01 && Math.abs(kickV) < .01;
     if (visible && (!settled || (!reduce && Pv > .94))) raf = requestAnimationFrame(tick);
@@ -215,10 +240,10 @@
   art.addEventListener('pointermove', e => {
     if (e.pointerType !== 'mouse') return;
     const r = art.getBoundingClientRect();
-    leanT = clamp((e.clientX - r.left) / r.width * 2 - 1, -1, 1) * 6; go();
+    leanT = clamp((e.clientX - r.left) / r.width * 2 - 1, -1, 1) * 4; go();
   });
   art.addEventListener('pointerleave', () => { leanT = 0; go(); });
-  art.addEventListener('pointerdown', e => { if (e.pointerType !== 'mouse') { kickV += (Math.random() < .5 ? -1 : 1) * 38; go(); } });
+  art.addEventListener('pointerdown', e => { if (e.pointerType !== 'mouse') { kickV += (Math.random() < .5 ? -1 : 1) * 18; go(); } });
 
   new IntersectionObserver(es => es.forEach(e => { visible = e.isIntersecting; if (visible) go(); }), { rootMargin: '80px' }).observe(art);
   P = reduce ? 1 : fromRect(); Pv = P; render(); go();
